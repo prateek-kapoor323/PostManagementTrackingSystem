@@ -51,9 +51,9 @@ DROP TABLE IF EXISTS `document_details`;
 CREATE TABLE `document_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `application_id` varchar(250) NOT NULL,
-  `sender_name` varchar(150) NOT NULL,
-  `sender_poc` varchar(150) NOT NULL,
-  `sender_contact` bigint(12) NOT NULL,
+  `sender_name` varchar(150) DEFAULT NULL,
+  `sender_poc` varchar(150) DEFAULT NULL,
+  `sender_contact` bigint(12) DEFAULT NULL,
   `date_received` date DEFAULT NULL,
   `date_of_entry` date DEFAULT NULL,
   `priority` varchar(50) DEFAULT NULL,
