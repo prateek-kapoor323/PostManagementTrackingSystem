@@ -1,0 +1,12 @@
+registerApplication:
+
+ departmentHeadNamesSql: >
+  select name from users where role_type='DH';
+ totalNumberOfApplications: >
+  Select count(id) from scgj_pmts.document_details where document_type=:document_type;
+ submitPostDetails: >
+  INSERT INTO document_details(application_id,sender_name,sender_poc,sender_contact,date_received,date_of_entry,priority,subject,document_type,document_path) VALUES (:applicationId,:senderName,:senderPoc,:senderContact,:dateReceived,curdate(),:priority,:subject,:documentType,:documentPath);
+ documentOwnerId: >
+  select id from users where name= :ownerName and role_type='DH';
+ submitDocumentStatus: >
+  INSERT INTO scgj_pmts.doc_status (owner_id, status, doc_id) VALUES (:ownerId,:status,:documentId);

@@ -1,0 +1,11 @@
+loginSql:
+ checkUser: >
+  SELECT EXISTS(SELECT 1 FROM users WHERE email= :email;
+ 
+ fetchValidUserDetails: >
+  select email,password,role_type from users WHERE email= :email;
+ 
+ fetchNameOfLoggedInUser: >
+  select name from users where email= :email;
+ 
+  
