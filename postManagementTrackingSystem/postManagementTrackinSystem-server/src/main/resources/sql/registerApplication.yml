@@ -9,4 +9,4 @@ registerApplication:
  documentOwnerId: >
   select id from users where name= :ownerName and role_type='DH';
  submitDocumentStatus: >
-  INSERT INTO scgj_pmts.doc_status (owner_id, status, doc_id) VALUES (:ownerId,:status,:documentId);
+  INSERT INTO scgj_pmts.doc_status (owner_id, status, doc_id,additional_comment) VALUES (:ownerId,:status,:documentId,:additionalComment);
