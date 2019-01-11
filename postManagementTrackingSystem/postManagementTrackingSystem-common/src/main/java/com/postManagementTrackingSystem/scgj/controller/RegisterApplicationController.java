@@ -41,7 +41,15 @@ public class RegisterApplicationController {
 		return registerApplicationService.getDepartmentHeadName();
 	}
 	
-	@Privilege(value= {"DEO"})
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method is invoked when the data entry operator fills the post details form and clicks on the submit button
+	 * This method receives the form data and checks for the necessary fields and forwards the DTO to the service
+	 * @param submitPostDetailsDto
+	 * @return The generated application id of the post
+	 * @throws IOException
+	 */
+	@Privilege(value = {"DEO"})
 	@RequestMapping(value="/submitPostDetails",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
 	public String submitPostDetails(@ModelAttribute SubmitPostDetailsDto submitPostDetailsDto) throws IOException
 	{	
@@ -76,6 +84,11 @@ public class RegisterApplicationController {
 				LOGGER.error("The multipart file is empty");
 				return readApplicationConstants.getDocUploadErrorMessage();
 			}
+			
+			//Send Dto to service once the mandatory checks are done
+			LOGGER.debug("Received post details dto and multipart file to be submitted");
+			LOGGER.debug("Sending request to register application service to submit the details and upload the file");
+			return registerApplicationService.submitPost(submitPostDetailsDto);
 		}
 		catch(Exception e)
 		{
@@ -83,10 +96,7 @@ public class RegisterApplicationController {
 			LOGGER.error("Returning NULL");
 			return null;
 		}
-		//Send Dto to service once the mandatory checks are done
-		LOGGER.debug("Received post details dto and multipart file to be submitted");
-		LOGGER.debug("Sending request to register application service to submit the details and upload the file");
-		return registerApplicationService.submitPost(submitPostDetailsDto);
+		
 	}
 	
 

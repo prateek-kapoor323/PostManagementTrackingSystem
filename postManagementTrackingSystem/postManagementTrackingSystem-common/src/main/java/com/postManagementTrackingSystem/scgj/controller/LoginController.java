@@ -12,7 +12,11 @@ public class LoginController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	
-	
+	/**
+	 *@author Prateek Kapoor
+	 *@param user
+	 *@return the username, role and session id of the user
+	 */
 	@RequestMapping("/user")
 	public Principal loginAuthentication(Principal user)
 	{
