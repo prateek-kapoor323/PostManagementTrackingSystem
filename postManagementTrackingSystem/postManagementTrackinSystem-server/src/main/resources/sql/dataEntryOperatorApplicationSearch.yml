@@ -1,0 +1,19 @@
+searchApplication:
+
+ searchApplicationByApplicationId: >
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  JOIN doc_status ON document_details.id = doc_status.doc_id
+  JOIN users ON doc_status.owner_id=users.id
+  where document_details.application_id= :applicationId;
+   
+ searchApplicationByDepartmentName: >
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  JOIN doc_status ON document_details.id = doc_status.doc_id
+  JOIN users ON doc_status.owner_id=users.id
+  where users.department= :department;
+
+ searchApplicationByDateRange: >
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  JOIN doc_status ON document_details.id = doc_status.doc_id
+  JOIN users ON doc_status.owner_id=users.id
+  where document_details.date_received between :startingDate and :endingDate;  
