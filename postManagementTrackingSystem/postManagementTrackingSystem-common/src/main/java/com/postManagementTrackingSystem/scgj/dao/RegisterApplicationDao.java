@@ -174,6 +174,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		docStatusParams.put("ownerId", documentOwnerId);
 		docStatusParams.put("status",readApplicationConstants.getDocumentNotStartedStatus());
 		docStatusParams.put("documentId", docId);
+		docStatusParams.put("additionalComment", additionalComments);
 		try
 		{
 			LOGGER.debug("In try block of fillDocumentStatusTable to submit details in the doc status table");
@@ -183,8 +184,8 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		}
 		catch(Exception e)
 		{
-			LOGGER.error("An error occured while submitting the details in doc status table");
-			LOGGER.error("returning NULL");
+			LOGGER.error("An error occured while submitting the details in doc status table: "+e);
+			LOGGER.error("returning -1");
 			return -1;
 			
 		}
