@@ -27,6 +27,12 @@ public class DataEntryOperatorSearchApplicationDao extends AbstractTransactional
 	
 	private static ApplicationDetailsRowMapper ROW_MAPPER = new ApplicationDetailsRowMapper();
 	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method takes application id as a parameter and returns the records of the application submitted
+	 * @param applicationId
+	 * @return Collection of DATAENTRYOPERATORAPPLICATIONSEARCHRESULTSDTO
+	 */
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByApplicationId(String applicationId)
 	{
 		LOGGER.debug("Request received from DataEntryOperatorSearchApplicationService class to search application details using application id: "+applicationId);
@@ -52,7 +58,13 @@ public class DataEntryOperatorSearchApplicationDao extends AbstractTransactional
 		
 	}
 	
-	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method is invoked when the user selects the department as a parameter for searching the record of the submitted applications and clicks on the search button
+	 * 
+	 * @param department
+	 * @return Collection of DATAENTRYOPERATORAPPLICATIONSEARCHRESULTSDTO
+	 */
 	
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByDepartment(String department)
 	{
@@ -77,6 +89,17 @@ public class DataEntryOperatorSearchApplicationDao extends AbstractTransactional
 		}
 	}
 	
+	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method takes in 2 parameters - 
+	 * 1. Starting Date
+	 * 2. Ending Date
+	 * The date object is converted into String in the service method and sent to the Dao to get the application information who have the date received between the starting and the ending date
+	 * @param startingDate
+	 * @param endingDate
+	 * @return Collection of DATAENTRYOPERATORAPPLICATIONSEARCHRESULTSDTO
+	 */
 	
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByDateRange(String startingDate, String endingDate)
 	{

@@ -76,6 +76,14 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		
 	}
 
+	/****************************************************************************************************************************
+	 * @author Prateek Kapoor																									*	
+	 * Description - This method returns the existing number of application id's that are currently present in the system for a *
+	 * particular document type. Example - invoice, certificates 																*
+	 * @param documentType																										*	
+	 * @return number of existing application id for a particular document type													*
+	 * **************************************************************************************************************************
+	 */
 	public Integer getExistingApplicationIdNumber(String documentType) 
 	{
 		
@@ -106,6 +114,17 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		
 	}
 
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method submits the post details into two tables -
+	 * 1. document_details - after the information is submitted, it returns the auto incremented key of the inserted application id and sends the control to fill the document status table
+	 * 2. doc_status 
+	 * Once,The doc_status table is filled. The unique application id is returned to the service
+	 * @param submitPostDetailsDto
+	 * @param uniqueApplicationId
+	 * @param uploadPath
+	 * @return unique application id
+	 */
 	public String submitPostDetails(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId,String uploadPath) 
 	{
 		
@@ -164,6 +183,15 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		
 	}
 
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method receives the docId(Auto generated key) from doc_details table, documentOwnerId(PK) user table
+	 * and additional comment from the DTO  
+	 * @param docId
+	 * @param documentOwnerId
+	 * @param additionalComments
+	 * @return submission Status - if 1 - the doc_status table was filled . Else - The document status table was not filled
+	 */
 	private Integer fillDocumentStatusTable(Integer docId, Integer documentOwnerId, String additionalComments) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("In fillDocumentStatusTable to submit the details in the documentStatus table");
@@ -191,6 +219,12 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		}
 	}
 
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method returns the id of the owner to whom the document was assigned - Initially all the documents will be assigned to the department heads
+	 * @param ownerName
+	 * @return id of the document owner
+	 */
 	private Integer getDocumentOwnerId(String ownerName) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received in getDocumentOwnerId method from submitPostDetails method in RegistrationApplicationDao to get the id of the document owner");
