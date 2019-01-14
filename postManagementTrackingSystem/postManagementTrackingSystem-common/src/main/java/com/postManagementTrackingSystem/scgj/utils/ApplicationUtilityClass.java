@@ -32,7 +32,13 @@ private RegisterApplicationDao registerApplicationDao;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationUtilityClass.class);
 
 	
-	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method is invoked by service class to generate the unique application id each time a new application comes in the system
+	 * applicationId Format - scgj-typeOfDocument-counterCorresponding to that documentType
+	 * @param submitPostDetailsDto
+	 * @return uniqueApplicationId
+	 */
 	public String getUniqueApplicationId(SubmitPostDetailsDto submitPostDetailsDto)
 	{
 		LOGGER.debug("Received request from submitPost method to generate a unique application Id");
@@ -60,7 +66,12 @@ private RegisterApplicationDao registerApplicationDao;
 	}
 	
 	
-	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method is invoked by getUniqueApplicationId to get the number of existing application id for a particular document type
+	 * @param documentType
+	 * @return the number of existing application id corresponding to a documentType
+	 */
 	public Integer getExistingApplicationIdNumber(String documentType)
 	{
 		LOGGER.debug("Request received from getUniqueApplicationId number to get the existing number of applicaiton Id");
@@ -69,7 +80,13 @@ private RegisterApplicationDao registerApplicationDao;
 	}
 	
 	
-	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method determines the type of document and constructs the application id till the document type
+	 * example - scgj-I(invoice)
+	 * @param submitPostDetailsDto
+	 * @return applicationId till documentType
+	 */
 	public String documentType(SubmitPostDetailsDto submitPostDetailsDto)
 	{
 		
@@ -123,7 +140,13 @@ private RegisterApplicationDao registerApplicationDao;
 		
 	
 	
-	
+	/**
+	 * This method determines the type of document and then calls the save file method which saves the file at the location defined by application constants and returns the path of th file
+	 * @param submitPostDetailsDto
+	 * @param uniqueApplicationId
+	 * @return the path at which the file is written
+	 * @throws IOException
+	 */
 	public String uploadFile(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId) throws IOException {
 		// TODO Auto-generated method stub		
 		LOGGER.debug("Request received from Register Application Service - submitPost method to determine the type of document and upload the file");
@@ -195,7 +218,14 @@ private RegisterApplicationDao registerApplicationDao;
 		
 	}
 
-
+	/**
+	 * This method is invoked by uploadFile method to write the file at the path provided by uploadFile method and return the path at which the file is uploaded
+	 * @param filePath
+	 * @param uniqueApplicationId
+	 * @param file
+	 * @return path at which the file is written
+	 * @throws IOException
+	 */
 	public String saveFile(String filePath, String uniqueApplicationId, MultipartFile file) throws IOException
 	{
 		LOGGER.debug("Request received in saveFile method to save the file");
