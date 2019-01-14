@@ -21,6 +21,11 @@ public class DataEntryOperatorSearchApplicationService {
 	@Autowired
 	private DataEntryOperatorSearchApplicationDao dataEntryOperatorSearchApplicationDao;
 	
+	/**
+	 * This method receives the applicationId for which the records have to be fetched, The method sends request to getApplicationByApplicationId method in DAO to get the application details on the basis of application Id
+	 * @param applicationId
+	 * @return Collection object of DataEntryOperatorApplicationSearchResultsDto
+	 */
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByApplicationId(String applicationId)
 	{
 		LOGGER.debug("Request received from controller to get application record by application id: "+applicationId);
@@ -29,12 +34,26 @@ public class DataEntryOperatorSearchApplicationService {
 		
 	}
 	
+	/**
+	 * This method receives the department name for which the records have to be fetched, The method sends request to getApplicationByDepartment method in DAO to get the application details on the basis of department name
+	 * @param department
+	 * @return Collection object of DataEntryOperatorApplicationSearchResultsDto
+	 */
+	
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByDepartment(String department)
 	{
 		LOGGER.debug("Request received from controller to get application record by department: "+department);
 		LOGGER.debug("Sending request to getApplicationByDepartment method in Dao");
 		return dataEntryOperatorSearchApplicationDao.getApplicationByDepartment(department);
 	}
+	
+	/**
+	 * @author Prateek Kapoor
+	 * Description - This method takes date as the parameter, converts the date from date type to string and sends the parameters to the dao to get application details on the basis of range of date received
+	 * @param fromDate
+	 * @param tillDate
+	 * @return Collection object of DataEntryOperatorApplicationSearchResultsDto
+	 */
 	
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByDateRange(Date fromDate, Date tillDate)
 	{

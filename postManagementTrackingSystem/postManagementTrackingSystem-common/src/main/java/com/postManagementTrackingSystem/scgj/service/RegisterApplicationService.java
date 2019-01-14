@@ -47,7 +47,7 @@ public class RegisterApplicationService {
 	/**
 	 * @author Prateek Kapoor
 	 * @param submitPostDetailsDto
-	 * @return
+	 * @return the unique application id once the post details are submitted in database
 	 * @throws IOException 
 	 */
 	public String submitPost( SubmitPostDetailsDto submitPostDetailsDto) throws IOException {
