@@ -40,7 +40,7 @@ public class DataEntryOperatorSearchApplicationController {
 	@RequestMapping("/searchApplicationById")
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByApplicationId(@RequestParam("applicationId")String applicationId)
 	{
-		LOGGER.debug("Request received from front end to get application details using application id");
+		LOGGER.debug("Request received from front end to get application details using application id: "+applicationId);
 		LOGGER.debug("Checking if the application id is null or empty");
 		if(applicationId==null||applicationId.isEmpty())
 		{
@@ -51,7 +51,7 @@ public class DataEntryOperatorSearchApplicationController {
 		else
 		{
 			LOGGER.debug("The application id received from front end is: "+applicationId);
-			LOGGER.debug("Sending request to service to get application details");
+			LOGGER.debug("Sending request to service to get application details on the basis of application Id");
 			return dataEntryOperatorSearchApplicationService.getApplicationByApplicationId(applicationId);
 		}
 		
@@ -79,7 +79,7 @@ public class DataEntryOperatorSearchApplicationController {
 		else
 		{
 			LOGGER.debug("The department received from front end is: "+department);
-			LOGGER.debug("Sending request to service to get applicaiton details using department name");
+			LOGGER.debug("Sending request to service to get applicaiton on the basis of department name");
 			return dataEntryOperatorSearchApplicationService.getApplicationByDepartment(department);
 		}
 	}
@@ -97,7 +97,7 @@ public class DataEntryOperatorSearchApplicationController {
 	public Collection<DataEntryOperatorApplicationSearchResultsDto> getApplicationByDateRange(@RequestParam("from")Date fromDate,@RequestParam("to") Date tillDate)
 	{
 		LOGGER.debug("Request received from front end to get application record using date params: "+fromDate+" to date: "+tillDate);
-		LOGGER.debug("Sending request to service to get record of applications using dates");
+		LOGGER.debug("Sending request to service to get record of applications on the basis of date range");
 		return dataEntryOperatorSearchApplicationService.getApplicationByDateRange(fromDate, tillDate);
 	}
 	
