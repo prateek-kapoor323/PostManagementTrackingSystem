@@ -25,12 +25,14 @@ public class LoginController {
 		try
 		{
 			LOGGER.debug("In try block to authenticate the user");
+			LOGGER.debug("Returning the user object to the front end");
 			return user;
 			
 		}
 		catch(Exception e)
 		{
 			LOGGER.error("An exception occured while trying to authenticate the user: " +e);
+			LOGGER.error("Returning NULL to front end");
 			return null;
 		}
 	}

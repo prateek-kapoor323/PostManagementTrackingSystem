@@ -37,12 +37,25 @@ public class LoginService implements UserDetailsService{
 			LOGGER.debug("No user with email: "+userEmail+ " could be found in the database");
 			authorities.add(new SimpleGrantedAuthority(null));
 			LOGGER.debug("Setting the session management Dto to null");
+			LOGGER.debug("DTO set to null, returning null dto to the controller");
 			return new SessionManagementDto(null,null,null);
 		}
-		
+		if(status == -1)
+		{
+			LOGGER.error("An exception occured in DAO while checking for the existence of the user with email: "+userEmail);
+			LOGGER.error("Returning NULL to the controller");
+			authorities.add(new SimpleGrantedAuthority(null));
+			LOGGER.error("Setting session management dto to null");
+			LOGGER.error("DTO set to null, returning null dto to the controller");
+			return new SessionManagementDto(null,null,null);
+		}
+		else
+		{
 			LOGGER.debug("User with email: "+userEmail+" found in the database");
 			LOGGER.debug("Sending request to DAO to get user details");
 			return loginDao.getValidUserDetails(userEmail);
+			
+		}
 			
 		}
 	}

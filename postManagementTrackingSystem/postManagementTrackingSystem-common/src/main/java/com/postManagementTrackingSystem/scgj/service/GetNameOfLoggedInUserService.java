@@ -23,6 +23,7 @@ public class GetNameOfLoggedInUserService {
 	 */
 	public String getNameOfLoggedInUser(String email)
 	{
+		LOGGER.debug("Received request from controller to get the name of the logged in user for email: "+email);
 		LOGGER.debug("Sending request to LoginDao to get the name of logged in user with email: "+email);
 		return loginDao.getNameOfLoggedInUser(email);
 	}

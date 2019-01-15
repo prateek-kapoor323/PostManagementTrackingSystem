@@ -30,7 +30,7 @@ public class LoginDao extends AbstractTransactionalDao {
 	 * @param email
 	 * Description - This method receives the email of the user who is trying to login 
 	 * and then checks if the email of the user exists in the system or not
-	 * @return 0 if the user does not exist and 1 if the user exists in the database
+	 * @return 0 if the user does not exist and 1 if the user exists in the database and -1 in case of any exception
 	 */
 	public int checkUserExistence(String email) {
 		
@@ -38,19 +38,21 @@ public class LoginDao extends AbstractTransactionalDao {
 		try
 		{
 			
-			LOGGER.debug("In try block of checkUserExistence method to check the existence of the user");
+			LOGGER.debug("In try block of checkUserExistence method to check the existence of the user with email: "+email);
 			LOGGER.debug("Creating hashmap of object");
 			Map<String,Object>params = new HashMap<>();
 			params.put("email", email);
-			LOGGER.debug("Calling JDBC Template to run the SQL Query");
+			LOGGER.debug("Inserted email parameter into the hashmap");
+			LOGGER.debug("Executing sql query to check user existence with email: "+email);
 			Integer result = getJdbcTemplate().queryForObject(loginConfig.getCheckUser(),params,Integer.class);
 			LOGGER.debug("The result of user existence for email : "+email+" is: " +result);
 			return result;
 		} 
-		catch ( Exception e)
+		catch (Exception e)
 		{
-			LOGGER.debug("An exception has occured while checking the existence of user with email: "+email);
-			LOGGER.debug("The exception is: "+e);
+			LOGGER.error("An exception has occured in checkUserExistence method - LoginDao method while checking the existence of user with email: "+email);
+			LOGGER.error("The exception is: "+e);
+			LOGGER.error("Returning -1 to the service");
 			return -1;	
 		}
 		
@@ -76,6 +78,7 @@ public class LoginDao extends AbstractTransactionalDao {
 			LOGGER.debug("Creating hashmap of objects");
 			Map<String,Object>parameters = new HashMap<>();
 			parameters.put("email", email);
+			LOGGER.debug("Email inserted into hashmap");
 			LOGGER.debug("Calling JDBC template to run query for getting the details of a valid user");
 			return getJdbcTemplate().queryForObject(loginConfig.getFetchValidUserDetails(),parameters,login_RowMapper);
 		} 
@@ -116,7 +119,7 @@ public class LoginDao extends AbstractTransactionalDao {
 		LOGGER.debug("Creating hashmap of object");
 		Map<String,Object>emailParams = new HashMap<>();
 		emailParams.put("email", email);
-		LOGGER.debug("Hashmap Created");
+		LOGGER.debug("Inserted email into hashmap");
 		try {
 			LOGGER.debug("In try block of get NameOfLoggedInUser to get the name of user with email: " +email);
 			LOGGER.debug("Executing query to get the name of the logged in user");

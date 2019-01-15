@@ -33,9 +33,11 @@ public class GetNameOfLoggedInUserController {
 	@RequestMapping("/getUserName")
 	public GetNameOfLoggedInUserDto getNameOfLoggedInUser()
 	{
+		LOGGER.debug("Request received from front end to get the name of the logged in user");
+		LOGGER.debug("Fetching the email of the logged in user from session");
 		String email = sessionUserUtility.getSessionMangementfromSession().getUsername();
 		LOGGER.debug("Username received from session is: "+email);
-		LOGGER.debug("Sending request to service to get the name of the logged in user");
+		LOGGER.debug("Sending request to GetNameOfLoggedInUserService to get the name of the logged in user");
 		String name = getNameOfLoggedInUserService.getNameOfLoggedInUser(email);
 		return new GetNameOfLoggedInUserDto(name);
 	}
