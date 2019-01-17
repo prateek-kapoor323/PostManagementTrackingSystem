@@ -12,58 +12,45 @@ public class RegisterApplicationConfig {
 	private String submitPostDetails;
 	private String documentOwnerId;
 	private String submitDocumentStatus;
+	private String applicationIdById;
 	
-	
-	
-	
-	public String getSubmitDocumentStatus() {
-		return submitDocumentStatus;
-	}
-
-	public void setSubmitDocumentStatus(String submitDocumentStatus) {
-		this.submitDocumentStatus = submitDocumentStatus;
-	}
-
-	public String getDocumentOwnerId() {
-		return documentOwnerId;
-	}
-
-	public void setDocumentOwnerId(String documentOwnerId) {
-		this.documentOwnerId = documentOwnerId;
-	}
-
-	public String getSubmitPostDetails() {
-		return submitPostDetails;
-	}
-
-	public void setSubmitPostDetails(String submitPostDetails) {
-		this.submitPostDetails = submitPostDetails;
-	}
-
-	/**
-	 * 
-	 * @return departmentHeadNameSql
-	 */
 	public String getDepartmentHeadNamesSql() {
 		return departmentHeadNamesSql;
 	}
-
-	/**
-	 * 
-	 * @param departmentHeadNamesSql
-	 */
 	public void setDepartmentHeadNamesSql(String departmentHeadNamesSql) {
 		this.departmentHeadNamesSql = departmentHeadNamesSql;
 	}
-
 	public String getTotalNumberOfApplications() {
 		return totalNumberOfApplications;
 	}
-
 	public void setTotalNumberOfApplications(String totalNumberOfApplications) {
 		this.totalNumberOfApplications = totalNumberOfApplications;
 	}
-	
+	public String getSubmitPostDetails() {
+		return submitPostDetails;
+	}
+	public void setSubmitPostDetails(String submitPostDetails) {
+		this.submitPostDetails = submitPostDetails;
+	}
+	public String getDocumentOwnerId() {
+		return documentOwnerId;
+	}
+	public void setDocumentOwnerId(String documentOwnerId) {
+		this.documentOwnerId = documentOwnerId;
+	}
+	public String getSubmitDocumentStatus() {
+		return submitDocumentStatus;
+	}
+	public void setSubmitDocumentStatus(String submitDocumentStatus) {
+		this.submitDocumentStatus = submitDocumentStatus;
+	}
+	public String getApplicationIdById() {
+		return applicationIdById;
+	}
+	public void setApplicationIdById(String applicationIdById) {
+		this.applicationIdById = applicationIdById;
+	}
+
 	
 	
 	
