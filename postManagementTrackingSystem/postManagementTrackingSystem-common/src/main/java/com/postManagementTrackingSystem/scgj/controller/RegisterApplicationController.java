@@ -1,4 +1,3 @@
-package com.postManagementTrackingSystem.scgj.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -84,11 +83,13 @@ public class RegisterApplicationController {
 				LOGGER.error("The multipart file is empty");
 				return readApplicationConstants.getDocUploadErrorMessage();
 			}
+			else
+			{
+				LOGGER.debug("Received post details dto and multipart file to be submitted");
+				LOGGER.debug("Sending request to register application service to submit the details and upload the file");
+				return registerApplicationService.submitPost(submitPostDetailsDto);
+			}
 			
-			//Send Dto to service once the mandatory checks are done
-			LOGGER.debug("Received post details dto and multipart file to be submitted");
-			LOGGER.debug("Sending request to register application service to submit the details and upload the file");
-			return registerApplicationService.submitPost(submitPostDetailsDto);
 		}
 		catch(Exception e)
 		{
