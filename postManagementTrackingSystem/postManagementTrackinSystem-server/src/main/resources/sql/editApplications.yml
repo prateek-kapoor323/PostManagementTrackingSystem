@@ -1,0 +1,24 @@
+editApplication:
+
+ editApplicationByIdSearch: >
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,
+  document_details.sender_poc as senderPointOfContact,document_details.sender_contact as senderContact,
+  document_details.date_received as dateReceived,
+  document_details.priority as priority,document_details.subject as subject,document_details.document_type as documentType ,
+  document_details.document_remarks as additionalComment from document_details
+  where document_details.application_id= :applicationId;
+  
+ updateDocumentDetailsTable: >
+  UPDATE scgj_pmts.document_details 
+  SET sender_name= :senderName,sender_poc =:senderPoc,
+  sender_contact=:senderContact,date_received=:dateReceived,priority= :priority,subject=:subject,document_path= :documentPath,document_remarks= :documentRemarks
+  WHERE document_details.application_id= :applicationId;
+  
+ updateDocumentOwner: >
+  UPDATE scgj_pmts.doc_status SET owner_id= :ownerId Where doc_id= :documentId and doc_status.status = "Not Started";
+ 
+ idByApplicationId: >
+  SELECT id FROM scgj_pmts.document_details where application_id= :applicationId;
+ 
+ applicationIdWithStatusNotStarted: >
+  select document_details.application_id from document_details INNER JOIN doc_status ON  document_details.id = doc_status.doc_id WHERE doc_status.status = "Not Started";
