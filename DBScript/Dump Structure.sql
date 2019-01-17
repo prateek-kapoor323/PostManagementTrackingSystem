@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `scgj_pmts`;
 CREATE DATABASE  IF NOT EXISTS `scgj_pmts` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `scgj_pmts`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
@@ -33,12 +34,13 @@ CREATE TABLE `doc_status` (
   `date_assigned` date DEFAULT NULL,
   `date_started` date DEFAULT NULL,
   `date_closed` date DEFAULT NULL,
+  `additional_comment` text,
   PRIMARY KEY (`id`),
   KEY `id_idx` (`owner_id`),
   KEY `doc_id_idx` (`doc_id`),
   CONSTRAINT `doc_id` FOREIGN KEY (`doc_id`) REFERENCES `document_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `owner_id` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,23 +53,19 @@ DROP TABLE IF EXISTS `document_details`;
 CREATE TABLE `document_details` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `application_id` varchar(250) NOT NULL,
-  `sender_name` varchar(150) NOT NULL,
-  `sender_poc` varchar(150) NOT NULL,
-  `sender_contact` bigint(12) NOT NULL,
+  `sender_name` varchar(150) DEFAULT NULL,
+  `sender_poc` varchar(150) DEFAULT NULL,
+  `sender_contact` bigint(12) DEFAULT NULL,
   `date_received` date DEFAULT NULL,
   `date_of_entry` date DEFAULT NULL,
   `priority` varchar(50) DEFAULT NULL,
   `subject` varchar(250) DEFAULT NULL,
   `document_type` varchar(250) DEFAULT NULL,
-  `scgj_poc_name` varchar(250) DEFAULT NULL,
-  `scgj_poc_contact` bigint(12) DEFAULT NULL,
-  `scgj_poc_email` varchar(250) DEFAULT NULL,
-  `scgj_department` varchar(250) DEFAULT NULL,
-  `additional_comment` text,
   `document_path` varchar(250) DEFAULT NULL,
+  `document_remarks` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `application_id_UNIQUE` (`application_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -82,11 +80,11 @@ CREATE TABLE `users` (
   `name` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
-  `department` enum('Assessment and Assurance','Finance','Marketing','Standard and Research') DEFAULT NULL,
+  `department` enum('Assessment and Assurance','Finance','Marketing','Standard and Research','Data Entry Operator') DEFAULT NULL,
   `role_type` enum('DEO','DH','DE','CEO') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -98,4 +96,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-04 16:46:29
+-- Dump completed on 2019-01-17 15:42:45
