@@ -147,14 +147,14 @@ private RegisterApplicationDao registerApplicationDao;
 	 * @return the path at which the file is written
 	 * @throws IOException
 	 */
-	public String uploadFile(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId) throws IOException {
+	public String uploadFile(String documentType,MultipartFile file, String uniqueApplicationId) throws IOException {
 		// TODO Auto-generated method stub		
 		LOGGER.debug("Request received from Register Application Service - submitPost method to determine the type of document and upload the file");
 		LOGGER.debug("Determining the type of document being uploaded for application id: "+uniqueApplicationId);
 		String uploadedFilePath="";
 		String filePath = "";//To get the path at which file has to be saved
 		
-		if(submitPostDetailsDto.getDocumentType()==null||submitPostDetailsDto.getDocumentType().isEmpty())
+		if(documentType==null||documentType.isEmpty())
 		{
 			LOGGER.error("The document type is null or empty in method uploadFile");
 			LOGGER.error("Returning null");		
@@ -163,14 +163,14 @@ private RegisterApplicationDao registerApplicationDao;
 		else
 		{
 			LOGGER.debug("DocumentType is present. Checking the document type of the file");
-			String documentType = submitPostDetailsDto.getDocumentType();
+//			String documentType = submitPostDetailsDto.getDocumentType();
 			LOGGER.debug("Checking the document type");
 
 				if(documentType.equalsIgnoreCase("invoice"))
 				{
 						LOGGER.debug("The type of document is invoice");
 						LOGGER.debug("Checking if the file is empty");
-						if(submitPostDetailsDto.getFile().isEmpty())
+						if(file.isEmpty())
 						{
 							LOGGER.error("File is empty");
 							LOGGER.error("Returning NULL");
@@ -181,7 +181,7 @@ private RegisterApplicationDao registerApplicationDao;
 							filePath = readApplicationConstants.getSaveInvoiceAtLocation();
 							LOGGER.debug("The path to save invoice in uploadFile method is: "+filePath);
 							LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
-							uploadedFilePath = saveFile(filePath,uniqueApplicationId,submitPostDetailsDto.getFile());
+							uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 						}
 				
 				}
@@ -190,14 +190,14 @@ private RegisterApplicationDao registerApplicationDao;
 					LOGGER.debug("The document is certificate");
 					filePath = readApplicationConstants.getSaveApplicationFormAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
-					uploadedFilePath = saveFile(filePath,uniqueApplicationId,submitPostDetailsDto.getFile());
+					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 				}
 				else if(documentType.equalsIgnoreCase("certificate"))
 				{
 					LOGGER.debug("The type of document is certificate");
 					filePath = readApplicationConstants.getSaveCertificatesAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
-					uploadedFilePath = saveFile(filePath,uniqueApplicationId,submitPostDetailsDto.getFile());
+					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 
 				}
 				else 
@@ -205,7 +205,7 @@ private RegisterApplicationDao registerApplicationDao;
 					LOGGER.debug("The type of document is Miscellaneous");
 					filePath = readApplicationConstants.getSaveMiscellaneousFormAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
-					uploadedFilePath = saveFile(filePath,uniqueApplicationId,submitPostDetailsDto.getFile());
+					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 
 					
 				}
