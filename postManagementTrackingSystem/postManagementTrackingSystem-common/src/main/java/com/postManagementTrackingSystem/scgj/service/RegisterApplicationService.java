@@ -57,7 +57,7 @@ public class RegisterApplicationService {
 		String uniqueApplicationId = applicationUtilityClass.getUniqueApplicationId(submitPostDetailsDto);
 		LOGGER.debug("Unique application id generated is: "+uniqueApplicationId);
 		LOGGER.debug("Sending Request to determine the document type and return the uploadPath");
-		String uploadPath = applicationUtilityClass.uploadFile(submitPostDetailsDto,uniqueApplicationId );
+		String uploadPath = applicationUtilityClass.uploadFile(submitPostDetailsDto.getDocumentType(),submitPostDetailsDto.getFile(),uniqueApplicationId );
 		if(uploadPath==null)
 		{
 			LOGGER.error("An error occured in uploadFile method in ApplicationUtilityClass");
@@ -70,7 +70,7 @@ public class RegisterApplicationService {
 			LOGGER.debug("Path of uploaded file returned is: "+uploadPath);
 			LOGGER.debug("Sending request to Dao to submit postDetailsDto along with applicationId and uploadPath into the database");
 			
-			return registerApplicationDao.submitPostDetails(submitPostDetailsDto,uniqueApplicationId,uploadPath);//Code will come to send the path and other details to the database
+			return registerApplicationDao.submitPostDetails(submitPostDetailsDto,uniqueApplicationId,uploadPath);
 		}
 	}
 	
