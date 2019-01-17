@@ -65,6 +65,9 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		
 	}
 	
+	
+	
+	
 	public static class DepartmentHeadNameRowMapper implements RowMapper<DepartmentHeadNameDto>
 	{
 		@Override
@@ -76,6 +79,8 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		
 	}
 
+	
+	
 	/****************************************************************************************************************************
 	 * @author Prateek Kapoor																									*	
 	 * Description - This method returns the existing number of application id's that are currently present in the system for a *
@@ -144,6 +149,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		((MapSqlParameterSource) postDetailsParams).addValue("subject", submitPostDetailsDto.getSubject());
 		((MapSqlParameterSource) postDetailsParams).addValue("documentType", submitPostDetailsDto.getDocumentType());
 		((MapSqlParameterSource) postDetailsParams).addValue("documentPath", uploadPath);
+		((MapSqlParameterSource) postDetailsParams).addValue("documentRemarks", submitPostDetailsDto.getAdditionalComments());
 		LOGGER.debug("Values succcessfully inserted into hashmap");
 		LOGGER.debug("Creating object of KeyHolder to return the auto generated key after insertion of the post details");
 		KeyHolder holder = new GeneratedKeyHolder();
@@ -158,20 +164,20 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 			LOGGER.debug("The document owner id corresponding to ownerName: "+submitPostDetailsDto.getOwnerName()+" and applicationId: "+uniqueApplicationId+" is: "+documentOwnerId);
 			LOGGER.debug("Calling method to fill the document status table");
 			LOGGER.debug("Sending control to fillDocumentStatusTable");
-			Integer submitStatus = fillDocumentStatusTable(docId,documentOwnerId,submitPostDetailsDto.getAdditionalComments());
+			Integer submitStatus = fillDocumentStatusTable(docId,documentOwnerId);
 			
 			if(submitStatus == -1)
 			{
 				LOGGER.error("Details cannot be inserted in document status table");
 				LOGGER.error("Returning NULL");
 				return null;
-				//Call method to delete the details for the id of doc_details table and then return null
 				
 			}
 			LOGGER.debug("The document has been submitted successfully ");
-			LOGGER.debug("Returning the application Id: "+uniqueApplicationId);
-			return uniqueApplicationId;
-			
+			LOGGER.debug("Calling method to return application id on the basis of id(PK) :" +docId);
+			String uniqueId = getApplicationIdById(docId);
+			LOGGER.debug("The unique id corresponding to the generated primary key is: "+docId);
+			return uniqueId;
 		}
 		catch(Exception e)
 		{
@@ -184,6 +190,41 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	}
 
 	/**
+	 * This method receives docId(PK) from submit post details method and returns the applicationId corresponding to that docID
+	 * @param docId
+	 * @return applicationId
+	 */
+	private String getApplicationIdById(Integer docId) {
+		// TODO Auto-generated method stub
+		String applicationId;
+		LOGGER.debug("Request receieved in getApplicationIdById method to get the application id corressponding to the docId: "+docId);
+
+			LOGGER.debug("Creating hashmap of objects");
+			Map<String,Object> idParam = new HashMap<>();
+			LOGGER.debug("Hashmap successfully created");
+			LOGGER.debug("Inserting docId into hashmap");
+			idParam.put("docId", docId);
+			LOGGER.debug("DocId successfully inserted into hashmap");
+			try
+			{
+			  LOGGER.debug("In try block to get the applicationId corresponding to id: "+docId);
+			  LOGGER.debug("Executing query to get the application id corresponding to docId: "+docId);
+			  applicationId = getJdbcTemplate().queryForObject(registerApplicationConfig.getApplicationIdById(), idParam, String.class);
+			  LOGGER.debug("The application id corresponding to docId: "+docId+" is : "+applicationId);
+			  LOGGER.debug("Returning application id: "+applicationId);
+			  return applicationId;
+			}
+		 catch (Exception e) {
+			// TODO: handle exception
+			 LOGGER.debug("An exception occured while fetching application id corresponding to docId: "+docId);
+			 LOGGER.debug("The exception is: "+e);
+			 LOGGER.debug("Returning NULL");
+			 return null;	 
+			 
+		}
+	}
+
+	/**
 	 * @author Prateek Kapoor
 	 * Description - This method receives the docId(Auto generated key) from doc_details table, documentOwnerId(PK) user table
 	 * and additional comment from the DTO  
@@ -192,7 +233,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * @param additionalComments
 	 * @return submission Status - if 1 - the doc_status table was filled . Else - The document status table was not filled
 	 */
-	private Integer fillDocumentStatusTable(Integer docId, Integer documentOwnerId, String additionalComments) {
+	private Integer fillDocumentStatusTable(Integer docId, Integer documentOwnerId) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("In fillDocumentStatusTable to submit the details in the documentStatus table");
 		LOGGER.debug("Creating hashmap of objects");
@@ -202,7 +243,6 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		docStatusParams.put("ownerId", documentOwnerId);
 		docStatusParams.put("status",readApplicationConstants.getDocumentNotStartedStatus());
 		docStatusParams.put("documentId", docId);
-		docStatusParams.put("additionalComment", additionalComments);
 		try
 		{
 			LOGGER.debug("In try block of fillDocumentStatusTable to submit details in the doc status table");
@@ -225,7 +265,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * @param ownerName
 	 * @return id of the document owner
 	 */
-	private Integer getDocumentOwnerId(String ownerName) {
+	public Integer getDocumentOwnerId(String ownerName) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received in getDocumentOwnerId method from submitPostDetails method in RegistrationApplicationDao to get the id of the document owner");
 		LOGGER.debug("The name of the document owner is: "+ownerName);
@@ -246,9 +286,6 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 			return null;
 		}
 	}
-	
-	
-	
-	
+		
 	
 }

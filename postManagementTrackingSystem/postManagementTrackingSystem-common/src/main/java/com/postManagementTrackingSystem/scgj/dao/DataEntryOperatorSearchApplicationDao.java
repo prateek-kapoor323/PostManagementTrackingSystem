@@ -131,7 +131,11 @@ public class DataEntryOperatorSearchApplicationDao extends AbstractTransactional
 	
 	
 	
-	
+	/**
+	 * ROW MAPPER for APPLICATION DETAILS
+	 * @author Prateek Kapoor
+	 *
+	 */
 	public static class ApplicationDetailsRowMapper implements RowMapper<DataEntryOperatorApplicationSearchResultsDto>
 	{
 		@Override
