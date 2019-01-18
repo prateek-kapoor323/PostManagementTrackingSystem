@@ -11,7 +11,8 @@
   <packaging>pom</packaging>
   <modules>
   	<module>postManagementTrackingSystem-common</module>
-  	<module>postManagementTrackingSystem-server</module>
+  	
+  	<module>postManagementTrackinSystem-server</module>
   </modules>
   <properties>
   	<jdk.src.version>1.8</jdk.src.version>
