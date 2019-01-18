@@ -9,56 +9,86 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties
 public class ReadApplicationConstants {
 
+	private String trainingPartnerAffiliationFormInitials;
+	private String assessmentAgencyAffiliationFormInitials;
+	private String invoiceIntitials;
+	private String NSKFDCLetterInitials;
+	private String GeneralDarkAndLetterInitials;
 	private String saveInvoiceAtLocation;
-	private String saveApplicationFormAtLocation;
-	private String saveCertificatesAtLocation;
-	private String saveMiscellaneousFormAtLocation;
+	private String saveTrainingPartnerAffiliationFormAtLocation;
+	private String saveAssessmentAgencyAffiliationFormAtLocation;
+	private String saveNSKFDCLettersAtLocation;
+	private String saveGeneralDarkAndLetterAtLocation;
 	private String orgNameForApplicationId;
 	private String applicationIdSeperator;
-	private String invoiceIntitials;
-	private String applicationFormInitials;
-	private String certificateInitials;
-	private String MiscellaneousFormInitials;
 	private String documentNotStartedStatus;
 	private String docUploadErrorMessage;
-	
-	
-	
-	public String getDocUploadErrorMessage() {
-		return docUploadErrorMessage;
+	private String applicationIdGenerationErrorMessage;
+	private String postDetailsSubmissionFailure;
+	private String trainingPartnerAffiliation;
+	private String assessmentAgencyAffiliation;
+	private String invoice;
+	private String GeneralDarkAndLetterName;
+	private String NSKFDCName;
+	public String getTrainingPartnerAffiliationFormInitials() {
+		return trainingPartnerAffiliationFormInitials;
 	}
-	public void setDocUploadErrorMessage(String docUploadErrorMessage) {
-		this.docUploadErrorMessage = docUploadErrorMessage;
+	public void setTrainingPartnerAffiliationFormInitials(String trainingPartnerAffiliationFormInitials) {
+		this.trainingPartnerAffiliationFormInitials = trainingPartnerAffiliationFormInitials;
+	}
+	public String getAssessmentAgencyAffiliationFormInitials() {
+		return assessmentAgencyAffiliationFormInitials;
+	}
+	public void setAssessmentAgencyAffiliationFormInitials(String assessmentAgencyAffiliationFormInitials) {
+		this.assessmentAgencyAffiliationFormInitials = assessmentAgencyAffiliationFormInitials;
+	}
+	public String getInvoiceIntitials() {
+		return invoiceIntitials;
+	}
+	public void setInvoiceIntitials(String invoiceIntitials) {
+		this.invoiceIntitials = invoiceIntitials;
+	}
+	public String getNSKFDCLetterInitials() {
+		return NSKFDCLetterInitials;
+	}
+	public void setNSKFDCLetterInitials(String nSKFDCLetterInitials) {
+		NSKFDCLetterInitials = nSKFDCLetterInitials;
+	}
+	public String getGeneralDarkAndLetterInitials() {
+		return GeneralDarkAndLetterInitials;
+	}
+	public void setGeneralDarkAndLetterInitials(String generalDarkAndLetterInitials) {
+		GeneralDarkAndLetterInitials = generalDarkAndLetterInitials;
 	}
 	public String getSaveInvoiceAtLocation() {
 		return saveInvoiceAtLocation;
 	}
-	public String getDocumentNotStartedStatus() {
-		return documentNotStartedStatus;
-	}
-	public void setDocumentNotStartedStatus(String documentNotStartedStatus) {
-		this.documentNotStartedStatus = documentNotStartedStatus;
-	}
 	public void setSaveInvoiceAtLocation(String saveInvoiceAtLocation) {
 		this.saveInvoiceAtLocation = saveInvoiceAtLocation;
 	}
-	public String getSaveApplicationFormAtLocation() {
-		return saveApplicationFormAtLocation;
+	public String getSaveTrainingPartnerAffiliationFormAtLocation() {
+		return saveTrainingPartnerAffiliationFormAtLocation;
 	}
-	public void setSaveApplicationFormAtLocation(String saveApplicationFormAtLocation) {
-		this.saveApplicationFormAtLocation = saveApplicationFormAtLocation;
+	public void setSaveTrainingPartnerAffiliationFormAtLocation(String saveTrainingPartnerAffiliationFormAtLocation) {
+		this.saveTrainingPartnerAffiliationFormAtLocation = saveTrainingPartnerAffiliationFormAtLocation;
 	}
-	public String getSaveCertificatesAtLocation() {
-		return saveCertificatesAtLocation;
+	public String getSaveAssessmentAgencyAffiliationFormAtLocation() {
+		return saveAssessmentAgencyAffiliationFormAtLocation;
 	}
-	public void setSaveCertificatesAtLocation(String saveCertificatesAtLocation) {
-		this.saveCertificatesAtLocation = saveCertificatesAtLocation;
+	public void setSaveAssessmentAgencyAffiliationFormAtLocation(String saveAssessmentAgencyAffiliationFormAtLocation) {
+		this.saveAssessmentAgencyAffiliationFormAtLocation = saveAssessmentAgencyAffiliationFormAtLocation;
 	}
-	public String getSaveMiscellaneousFormAtLocation() {
-		return saveMiscellaneousFormAtLocation;
+	public String getSaveNSKFDCLettersAtLocation() {
+		return saveNSKFDCLettersAtLocation;
 	}
-	public void setSaveMiscellaneousFormAtLocation(String saveMiscellaneousFormAtLocation) {
-		this.saveMiscellaneousFormAtLocation = saveMiscellaneousFormAtLocation;
+	public void setSaveNSKFDCLettersAtLocation(String saveNSKFDCLettersAtLocation) {
+		this.saveNSKFDCLettersAtLocation = saveNSKFDCLettersAtLocation;
+	}
+	public String getSaveGeneralDarkAndLetterAtLocation() {
+		return saveGeneralDarkAndLetterAtLocation;
+	}
+	public void setSaveGeneralDarkAndLetterAtLocation(String saveGeneralDarkAndLetterAtLocation) {
+		this.saveGeneralDarkAndLetterAtLocation = saveGeneralDarkAndLetterAtLocation;
 	}
 	public String getOrgNameForApplicationId() {
 		return orgNameForApplicationId;
@@ -72,31 +102,59 @@ public class ReadApplicationConstants {
 	public void setApplicationIdSeperator(String applicationIdSeperator) {
 		this.applicationIdSeperator = applicationIdSeperator;
 	}
-	public String getInvoiceIntitials() {
-		return invoiceIntitials;
+	public String getDocumentNotStartedStatus() {
+		return documentNotStartedStatus;
 	}
-	public void setInvoiceIntitials(String invoiceIntitials) {
-		this.invoiceIntitials = invoiceIntitials;
+	public void setDocumentNotStartedStatus(String documentNotStartedStatus) {
+		this.documentNotStartedStatus = documentNotStartedStatus;
 	}
-	public String getApplicationFormInitials() {
-		return applicationFormInitials;
+	public String getDocUploadErrorMessage() {
+		return docUploadErrorMessage;
 	}
-	public void setApplicationFormInitials(String applicationFormInitials) {
-		this.applicationFormInitials = applicationFormInitials;
+	public void setDocUploadErrorMessage(String docUploadErrorMessage) {
+		this.docUploadErrorMessage = docUploadErrorMessage;
 	}
-	public String getCertificateInitials() {
-		return certificateInitials;
+	public String getApplicationIdGenerationErrorMessage() {
+		return applicationIdGenerationErrorMessage;
 	}
-	public void setCertificateInitials(String certificateInitials) {
-		this.certificateInitials = certificateInitials;
+	public void setApplicationIdGenerationErrorMessage(String applicationIdGenerationErrorMessage) {
+		this.applicationIdGenerationErrorMessage = applicationIdGenerationErrorMessage;
 	}
-	public String getMiscellaneousFormInitials() {
-		return MiscellaneousFormInitials;
+	public String getPostDetailsSubmissionFailure() {
+		return postDetailsSubmissionFailure;
 	}
-	public void setMiscellaneousFormInitials(String miscellaneousFormInitials) {
-		MiscellaneousFormInitials = miscellaneousFormInitials;
+	public void setPostDetailsSubmissionFailure(String postDetailsSubmissionFailure) {
+		this.postDetailsSubmissionFailure = postDetailsSubmissionFailure;
 	}
-	
-	
+	public String getTrainingPartnerAffiliation() {
+		return trainingPartnerAffiliation;
+	}
+	public void setTrainingPartnerAffiliation(String trainingPartnerAffiliation) {
+		this.trainingPartnerAffiliation = trainingPartnerAffiliation;
+	}
+	public String getAssessmentAgencyAffiliation() {
+		return assessmentAgencyAffiliation;
+	}
+	public void setAssessmentAgencyAffiliation(String assessmentAgencyAffiliation) {
+		this.assessmentAgencyAffiliation = assessmentAgencyAffiliation;
+	}
+	public String getInvoice() {
+		return invoice;
+	}
+	public void setInvoice(String invoice) {
+		this.invoice = invoice;
+	}
+	public String getGeneralDarkAndLetterName() {
+		return GeneralDarkAndLetterName;
+	}
+	public void setGeneralDarkAndLetterName(String generalDarkAndLetterName) {
+		GeneralDarkAndLetterName = generalDarkAndLetterName;
+	}
+	public String getNSKFDCName() {
+		return NSKFDCName;
+	}
+	public void setNSKFDCName(String nSKFDCName) {
+		NSKFDCName = nSKFDCName;
+	}
 	
 }

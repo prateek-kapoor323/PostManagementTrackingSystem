@@ -87,7 +87,7 @@ public class EditApplicationDataEntryOperatorController {
 		}
 		
 		LOGGER.debug("Sending request to service method to update the post details");
-		Integer updateStatus = editApplicationDataEntryOperatorService.updatePostDetails(applicationId,receiveEditParamsDataEntryOperatorDTO);
+		Integer updateStatus = editApplicationDataEntryOperatorService.updatePostDetails(receiveEditParamsDataEntryOperatorDTO);
 		LOGGER.debug("The update status of application details received in controller is: "+updateStatus);
 		return updateStatus;
 	}
@@ -98,7 +98,8 @@ public class EditApplicationDataEntryOperatorController {
 	 * @author Prateek Kapoor
 	 * @param applicationId
 	 * @param ownerName
-	 * @return 1 if the update is successful, -1 - if any exception occurs
+	 * @return 1 if the update is successful, -1 - if any exception occurs, -255 if applicationId is null, -300 if ownerName is null
+	 * 
 	 */
 	@Privilege(value= {"DEO"})
 	@RequestMapping("/editAssignee")

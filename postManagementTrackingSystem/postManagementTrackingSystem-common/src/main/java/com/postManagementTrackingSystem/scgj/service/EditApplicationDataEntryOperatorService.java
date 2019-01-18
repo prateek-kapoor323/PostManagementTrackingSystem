@@ -48,31 +48,28 @@ public class EditApplicationDataEntryOperatorService {
 	 * @param receiveEditParamsDataEntryOperatorDTO
 	 * @return -10 if exception occurs, 1 - if the update is successful
 	 */
-	public Integer updatePostDetails(String applicationId,ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO) 
+	public Integer updatePostDetails(ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO) 
 	{
 		// TODO Auto-generated method stub
 		Integer updateStatus = -10;
 		String uploadPath="";
-		LOGGER.debug("Request received in updatePostDetails method of edit application service to update the application details with application id: "+applicationId);
+		LOGGER.debug("Request received in updatePostDetails method of edit application service to update the application details with application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 		LOGGER.debug("Sending the DTO and application id to upload file method in file utility class");
 		try {
 			LOGGER.debug("In try block to send control to uplaod file method");
-			uploadPath = applicationUtilityClass.uploadFile(receiveEditParamsDataEntryOperatorDTO.getTypeOfDocument(), receiveEditParamsDataEntryOperatorDTO.getFile(),applicationId);
+			uploadPath = applicationUtilityClass.uploadFile(receiveEditParamsDataEntryOperatorDTO.getTypeOfDocument(), receiveEditParamsDataEntryOperatorDTO.getFile(),receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 			
 			if(uploadPath == null || uploadPath.isEmpty())
 			{
 				LOGGER.error("Path is null or empty");
 				LOGGER.error("File could not be uploaded, sending null to controller");
-				return null;
+				return -10;
 			}
 			else
 			{
 				LOGGER.debug("The path of uploaded file is: "+uploadPath);
-				LOGGER.debug("Sending request to updatePostDetails method in DAO to update the file path,sender name, point of contact, contact number, date received, priority, subject, additional comment against the application id: "+applicationId);
-				
-				updateStatus = editApplicationDataEntryOperatorDao.updatePostDetails(applicationId,receiveEditParamsDataEntryOperatorDTO,uploadPath);
-				//Add code to send the dto, path and application id to Dao 
-				
+				LOGGER.debug("Sending request to updatePostDetails method in DAO to update the file path,sender name, point of contact, contact number, date received, priority, subject, additional comment against the application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+				updateStatus = editApplicationDataEntryOperatorDao.updatePostDetails(receiveEditParamsDataEntryOperatorDTO,uploadPath);
 				LOGGER.debug("The update Status after updating the post details against a batch ID is: "+updateStatus);
 				return updateStatus;
 			}

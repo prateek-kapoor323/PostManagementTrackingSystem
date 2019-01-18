@@ -57,6 +57,12 @@ private RegisterApplicationDao registerApplicationDao;
 			LOGGER.debug("The new application id number is: "+newApplicationIdNumber);
 			LOGGER.debug("Sending request to documentType method to determine the type of method and generate application id till date");
 			String uniqueIdDocumentType = documentType(submitPostDetailsDto);
+			if(uniqueIdDocumentType==null||uniqueIdDocumentType.isEmpty())
+			{
+				LOGGER.error("Document type is null");
+				LOGGER.error("Returning NULL");
+				return null;
+			}
 			LOGGER.debug("The unique id is : "+uniqueIdDocumentType);
 			LOGGER.debug("Generating the unique application id using uniqueIdTillDate and newApplicationIdNumber");
 			String uniqueApplicationId = uniqueIdDocumentType+newApplicationIdNumber;
@@ -102,36 +108,45 @@ private RegisterApplicationDao registerApplicationDao;
 		}
 		
 				
-			if(documentType.equalsIgnoreCase("invoice"))
+			if(documentType.equalsIgnoreCase(readApplicationConstants.getInvoice()))
 			{
-				LOGGER.debug("The type of document is invoice");
+				LOGGER.debug("The type of document is: "+readApplicationConstants.getInvoice());
 				LOGGER.debug("Constructing the unique id");
 			    uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getInvoiceIntitials()+readApplicationConstants.getApplicationIdSeperator();
-				LOGGER.debug("The unique id till date is: "+uniqueIdTillFormType);
+				LOGGER.debug("The unique id for Invoice is: "+uniqueIdTillFormType);
 				return uniqueIdTillFormType;
 			}
 						
-		 if(documentType.equalsIgnoreCase("applicationForm"))
+		 if(documentType.equalsIgnoreCase(readApplicationConstants.getTrainingPartnerAffiliation()))
 			{
-				LOGGER.debug("The type of document is application form");
-				uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getApplicationFormInitials()+readApplicationConstants.getApplicationIdSeperator();
-				LOGGER.debug("Unique Id for affiliation form till date: "+uniqueIdTillFormType);
+				LOGGER.debug("The type of document is: "+readApplicationConstants.getTrainingPartnerAffiliation());
+				uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getTrainingPartnerAffiliationFormInitials()+readApplicationConstants.getApplicationIdSeperator();
+				LOGGER.debug("Unique Id for Training Partner Affiliation form is: "+uniqueIdTillFormType);
 				return uniqueIdTillFormType;
 			}
+		 
+		 if(documentType.equalsIgnoreCase(readApplicationConstants.getAssessmentAgencyAffiliation()))
+		 {
+			 LOGGER.debug("The type of document is: "+readApplicationConstants.getAssessmentAgencyAffiliation());
+			 uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getAssessmentAgencyAffiliationFormInitials()+readApplicationConstants.getApplicationIdSeperator();
+			 LOGGER.debug("Unique Id for Assessment Agence Affiliation form is: "+readApplicationConstants.getAssessmentAgencyAffiliation());
+			 return uniqueIdTillFormType;
+			 
+		 }
 						
-		if(documentType.equalsIgnoreCase("certificate"))
+		if(documentType.equalsIgnoreCase(readApplicationConstants.getNSKFDCName()))
 			{
-				LOGGER.debug("The type of document is certificate");
-				uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getCertificateInitials()+readApplicationConstants.getApplicationIdSeperator();
-				LOGGER.debug("The unique id for certificate till date is: "+uniqueIdTillFormType);
+				LOGGER.debug("The type of document is: "+readApplicationConstants.getNSKFDCName());
+				uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getNSKFDCLetterInitials()+readApplicationConstants.getApplicationIdSeperator();
+				LOGGER.debug("The unique id for NSKFDC Letter is: "+uniqueIdTillFormType);
 				return uniqueIdTillFormType;
 			}
 				
 		else 
 		{
-			LOGGER.debug("The type of document is Miscellaneous");
-		    uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getMiscellaneousFormInitials()+readApplicationConstants.getApplicationIdSeperator();
-			LOGGER.debug("The unique id for miscellaneous till date is: "+uniqueIdTillFormType);
+			LOGGER.debug("The type of document is : "+readApplicationConstants.getGeneralDarkAndLetterName());
+		    uniqueIdTillFormType = readApplicationConstants.getOrgNameForApplicationId()+readApplicationConstants.getApplicationIdSeperator()+readApplicationConstants.getGeneralDarkAndLetterInitials()+readApplicationConstants.getApplicationIdSeperator();
+			LOGGER.debug("The unique id for General Dark and Letters is: "+uniqueIdTillFormType);
 			return uniqueIdTillFormType;
 		}
 				
@@ -166,7 +181,7 @@ private RegisterApplicationDao registerApplicationDao;
 //			String documentType = submitPostDetailsDto.getDocumentType();
 			LOGGER.debug("Checking the document type");
 
-				if(documentType.equalsIgnoreCase("invoice"))
+				if(documentType.equalsIgnoreCase(readApplicationConstants.getInvoice()))
 				{
 						LOGGER.debug("The type of document is invoice");
 						LOGGER.debug("Checking if the file is empty");
@@ -185,28 +200,40 @@ private RegisterApplicationDao registerApplicationDao;
 						}
 				
 				}
-				else if(documentType.equalsIgnoreCase("applicationForm"))
+				
+				else if(documentType.equalsIgnoreCase(readApplicationConstants.getTrainingPartnerAffiliation()))
 				{
-					LOGGER.debug("The document is certificate");
-					filePath = readApplicationConstants.getSaveApplicationFormAtLocation();
+					LOGGER.debug("The document is:"+readApplicationConstants.getTrainingPartnerAffiliation());
+					filePath = readApplicationConstants.getSaveTrainingPartnerAffiliationFormAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
 					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 				}
-				else if(documentType.equalsIgnoreCase("certificate"))
+				
+				else if(documentType.equalsIgnoreCase(readApplicationConstants.getAssessmentAgencyAffiliation()))
 				{
-					LOGGER.debug("The type of document is certificate");
-					filePath = readApplicationConstants.getSaveCertificatesAtLocation();
+					LOGGER.debug("The type of document is: "+readApplicationConstants.getAssessmentAgencyAffiliation());
+					filePath = readApplicationConstants.getSaveAssessmentAgencyAffiliationFormAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
 					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
 
 				}
+				
+				else if(documentType.equalsIgnoreCase(readApplicationConstants.getNSKFDCName()))
+				{
+					LOGGER.debug("The type of document is: "+readApplicationConstants.getNSKFDCName());
+					filePath = readApplicationConstants.getSaveNSKFDCLettersAtLocation();
+					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
+					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
+
+				}
+				
+				
 				else 
 				{
-					LOGGER.debug("The type of document is Miscellaneous");
-					filePath = readApplicationConstants.getSaveMiscellaneousFormAtLocation();
+					LOGGER.debug("The type of document is: "+readApplicationConstants.getGeneralDarkAndLetterName());
+					filePath = readApplicationConstants.getSaveGeneralDarkAndLetterAtLocation();
 					LOGGER.debug("File exists in the DTO. Passing file Object,filePath and ApplicationID to the saveFile method");
 					uploadedFilePath = saveFile(filePath,uniqueApplicationId,file);
-
 					
 				}
 				
@@ -229,6 +256,19 @@ private RegisterApplicationDao registerApplicationDao;
 	public String saveFile(String filePath, String uniqueApplicationId, MultipartFile file) throws IOException
 	{
 		LOGGER.debug("Request received in saveFile method to save the file");
+		LOGGER.debug("Checking if uniqueApplicaitonId,file path is empty");
+		if(filePath==null||filePath.isEmpty())
+		{
+			LOGGER.error("filePath is null or empty in ApplicationUtilityClass - saveFile method");
+			LOGGER.error("Returning NULL");
+			return null;
+		}
+		if(uniqueApplicationId==null||uniqueApplicationId.isEmpty())
+		{
+			LOGGER.error("The unique application id in ApplicationUtilityClass - saveFile method is null or empty");
+			LOGGER.error("Returning Null");
+			return null;
+		}
 		LOGGER.debug("Calculating current date to be used as a folder name");
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDateTime today = LocalDateTime.now();

@@ -1,4 +1,4 @@
-
+package com.postManagementTrackingSystem.scgj.controller;
 import java.io.IOException;
 import java.util.List;
 
@@ -48,9 +48,9 @@ public class RegisterApplicationController {
 	 * @return The generated application id of the post
 	 * @throws IOException
 	 */
-	@Privilege(value = {"DEO"})
+	@Privilege(value= {"DEO"})
 	@RequestMapping(value="/submitPostDetails",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
-	public String submitPostDetails(@ModelAttribute SubmitPostDetailsDto submitPostDetailsDto) throws IOException
+	public String submitPostDetails(@ModelAttribute SubmitPostDetailsDto submitPostDetailsDto)
 	{	
 		
 		LOGGER.debug("Received post details DTO to be submitted into database");
@@ -93,9 +93,9 @@ public class RegisterApplicationController {
 		}
 		catch(Exception e)
 		{
-			LOGGER.error("An exception occured in RegisterApplicationController while checking the values of mandatory field");
-			LOGGER.error("Returning NULL");
-			return null;
+			LOGGER.error("An exception was caught in the catch block");
+			LOGGER.error("Returning Error Message");
+			return readApplicationConstants.getApplicationIdGenerationErrorMessage();
 		}
 		
 	}

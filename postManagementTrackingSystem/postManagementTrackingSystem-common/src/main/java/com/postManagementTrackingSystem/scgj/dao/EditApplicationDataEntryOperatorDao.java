@@ -90,16 +90,16 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 	 * @param uploadPath 
 	 * @return 1 if the update is successful else -10
 	 */
-	public Integer updatePostDetails(String applicationId,
-			ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO, String uploadPath) {
+	public Integer updatePostDetails(ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO, String uploadPath)
+	{
 		// TODO Auto-generated method stub
 		
-		LOGGER.debug("Request received in updatePostDetails method to update application details in the post detials table for application id: "+applicationId);
+		LOGGER.debug("Request received in updatePostDetails method to update application details in the post detials table for application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());		
 		LOGGER.debug("Creating Hashmap of objects and inserting values into the map");
 		Map<String,Object> updateParams = new HashMap<>();
 		LOGGER.debug("Hashmap successfully created");
 		LOGGER.debug("Inserting values into the hashmap");
-		updateParams.put("applicationId", applicationId);
+		updateParams.put("applicationId", receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 		updateParams.put("senderName", receiveEditParamsDataEntryOperatorDTO.getSenderName());
 		updateParams.put("senderPoc", receiveEditParamsDataEntryOperatorDTO.getPointOfContact());
 		updateParams.put("senderContact", receiveEditParamsDataEntryOperatorDTO.getContactNumber());
@@ -116,7 +116,7 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 			return status;
 		} catch (Exception e) {
 			// TODO: handle exception
-			LOGGER.error("An exception occured while updating records of the post details table for application id: "+applicationId);
+			LOGGER.error("An exception occured while updating records of the post details table for application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 			LOGGER.error("Returning -10 "+e);
 			return -10;
 			
@@ -127,7 +127,7 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 	 * This method takes ownerId and documentId as parameters and assigns a new owner to the document id
 	 * @param ownerId
 	 * @param documentId
-	 * @return status of assignee update - 1 -- if successful, -12 -- if not successful  
+	 * @return status of assignee update  1 -- if successful, -1 -- if not successful  
 	 */
 	public Integer changeAssignee(Integer ownerId, Integer documentId) {
 		// TODO Auto-generated method stub

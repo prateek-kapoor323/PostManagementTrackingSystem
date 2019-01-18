@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.postManagementTrackingSystem.scgj.common.AbstractTransactionalDao;
 import com.postManagementTrackingSystem.scgj.common.ReadApplicationConstants;
@@ -129,8 +130,11 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * @param uniqueApplicationId
 	 * @param uploadPath
 	 * @return unique application id
+	 * @throws Exception 
 	 */
-	public String submitPostDetails(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId,String uploadPath) 
+	
+	@Transactional(rollbackFor=Exception.class)
+	public String submitPostDetails(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId,String uploadPath) throws Exception 
 	{
 		
 		// TODO Auto-generated method stub
@@ -165,25 +169,18 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 			LOGGER.debug("Calling method to fill the document status table");
 			LOGGER.debug("Sending control to fillDocumentStatusTable");
 			Integer submitStatus = fillDocumentStatusTable(docId,documentOwnerId);
-			
-			if(submitStatus == -1)
-			{
-				LOGGER.error("Details cannot be inserted in document status table");
-				LOGGER.error("Returning NULL");
-				return null;
-				
-			}
 			LOGGER.debug("The document has been submitted successfully ");
 			LOGGER.debug("Calling method to return application id on the basis of id(PK) :" +docId);
 			String uniqueId = getApplicationIdById(docId);
 			LOGGER.debug("The unique id corresponding to the generated primary key is: "+docId);
 			return uniqueId;
 		}
-		catch(Exception e)
+		catch(RuntimeException e)
 		{
 			LOGGER.error("The exception is: "+e);
 			LOGGER.error("Returning NULL");
-			return null;
+			throw new Exception(e);
+			
 		}
 		
 		
@@ -193,8 +190,11 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * This method receives docId(PK) from submit post details method and returns the applicationId corresponding to that docID
 	 * @param docId
 	 * @return applicationId
+	 * @throws Exception 
 	 */
-	private String getApplicationIdById(Integer docId) {
+	
+	@Transactional(rollbackFor = Exception.class)
+	private String getApplicationIdById(Integer docId) throws Exception {
 		// TODO Auto-generated method stub
 		String applicationId;
 		LOGGER.debug("Request receieved in getApplicationIdById method to get the application id corressponding to the docId: "+docId);
@@ -219,7 +219,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 			 LOGGER.debug("An exception occured while fetching application id corresponding to docId: "+docId);
 			 LOGGER.debug("The exception is: "+e);
 			 LOGGER.debug("Returning NULL");
-			 return null;	 
+			throw new Exception(); 
 			 
 		}
 	}
@@ -232,8 +232,10 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * @param documentOwnerId
 	 * @param additionalComments
 	 * @return submission Status - if 1 - the doc_status table was filled . Else - The document status table was not filled
+	 * @throws Exception 
 	 */
-	private Integer fillDocumentStatusTable(Integer docId, Integer documentOwnerId) {
+	@Transactional(rollbackFor=Exception.class)
+	private Integer fillDocumentStatusTable(Integer docId, Integer documentOwnerId) throws Exception {
 		// TODO Auto-generated method stub
 		LOGGER.debug("In fillDocumentStatusTable to submit the details in the documentStatus table");
 		LOGGER.debug("Creating hashmap of objects");
@@ -253,8 +255,8 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		catch(Exception e)
 		{
 			LOGGER.error("An error occured while submitting the details in doc status table: "+e);
-			LOGGER.error("returning -1");
-			return -1;
+			LOGGER.error("Throwing exception to rollback the transaction");
+			throw new Exception(e);
 			
 		}
 	}
