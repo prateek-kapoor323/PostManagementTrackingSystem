@@ -12,8 +12,16 @@ public class EditApplicationDataEntryOperatorConfig {
 	private String updateDocumentOwner;
 	private String idByApplicationId;
 	private String applicationIdWithStatusNotStarted;
+	private String updateDocumentDetailsTableWithoutFile;
 	
 
+	
+	public String getUpdateDocumentDetailsTableWithoutFile() {
+		return updateDocumentDetailsTableWithoutFile;
+	}
+	public void setUpdateDocumentDetailsTableWithoutFile(String updateDocumentDetailsTableWithoutFile) {
+		this.updateDocumentDetailsTableWithoutFile = updateDocumentDetailsTableWithoutFile;
+	}
 	public String getApplicationIdWithStatusNotStarted() {
 		return applicationIdWithStatusNotStarted;
 	}

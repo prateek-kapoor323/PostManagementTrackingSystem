@@ -56,7 +56,7 @@ public class EditApplicationDataEntryOperatorController {
 	 * @param receiveEditParamsDataEntryOperatorDTO
 	 * @return Integer value 1- if the result is successfully updated, -10 if the post cannot be updated 
 	 */
-	@Privilege(value= {"DEO"})
+//	@Privilege(value= {"DEO"})
 	@RequestMapping(value="/editPostDetails",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
 	public Integer updatePostDetails(@ModelAttribute ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO)
 	{
@@ -76,13 +76,6 @@ public class EditApplicationDataEntryOperatorController {
 		{
 			LOGGER.error("The document type is null or empty");
 			LOGGER.error("Returning NULL from Controller");
-			return null;
-		}
-
-		if(receiveEditParamsDataEntryOperatorDTO.getFile()==null||receiveEditParamsDataEntryOperatorDTO.getFile().isEmpty())
-		{
-			LOGGER.error("The multipart file is null or empty");
-			LOGGER.error("Returning null from the controller");
 			return null;
 		}
 		

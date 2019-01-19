@@ -233,6 +233,45 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		
 		}
 	}
+	/**
+	 * This method is used to update the post details without updating the file path, i.e. This method will be invoked by the service
+	 * when the user has not updated the file. This method will update all the details except for the file path
+	 * @param receiveEditParamsDataEntryOperatorDTO
+	 * @return
+	 */
+	public Integer getUpdatePostDetailsWithoutFile(ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO) {
+		// TODO Auto-generated method stub
+		LOGGER.debug("Request received from service to update post details without updating the file path");
+		LOGGER.debug("Post details to be updated for applicationId: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>parameters = new HashMap<>();
+		parameters.put("applicationId", receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+		parameters.put("senderName", receiveEditParamsDataEntryOperatorDTO.getSenderName());
+		parameters.put("senderPoc", receiveEditParamsDataEntryOperatorDTO.getPointOfContact());
+		parameters.put("senderContact", receiveEditParamsDataEntryOperatorDTO.getContactNumber());
+		parameters.put("dateReceived", receiveEditParamsDataEntryOperatorDTO.getDateReceived());
+		parameters.put("priority", receiveEditParamsDataEntryOperatorDTO.getPriority());
+		parameters.put("subject", receiveEditParamsDataEntryOperatorDTO.getSubject());
+		parameters.put("documentRemarks", receiveEditParamsDataEntryOperatorDTO.getAdditionalComment());
+		LOGGER.debug("Parameters inserted successfully");
+		try 
+		{
+		LOGGER.debug("In try block of getUpdatePostDetailsWithoutFile method to update post details");
+		LOGGER.debug("Executing query to update post details without updating file path");
+		Integer updateStatus = getJdbcTemplate().update(editApplicationDataEntryOperatorConfig.getUpdateDocumentDetailsTableWithoutFile(), parameters);
+		LOGGER.debug("The update status for getUpdatePostDetailsWithoutFile is: "+updateStatus);
+		return updateStatus;
+		}
+		catch (Exception e) 
+		{
+			LOGGER.error("An exception occured while updating post details in method-getUpdatePostDetailsWithoutFile for application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+			LOGGER.error("The exception is: "+e);
+			LOGGER.error("Returning -20 as response");
+			return -20;
+			// TODO: handle exception
+		}
+		
+	}
 	
 	
 }
