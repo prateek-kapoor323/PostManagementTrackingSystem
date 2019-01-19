@@ -22,3 +22,9 @@ editApplication:
  
  applicationIdWithStatusNotStarted: >
   select document_details.application_id from document_details INNER JOIN doc_status ON  document_details.id = doc_status.doc_id WHERE doc_status.status = "Not Started";
+
+ updateDocumentDetailsTableWithoutFile: >
+  UPDATE scgj_pmts.document_details 
+  SET sender_name= :senderName,sender_poc =:senderPoc,
+  sender_contact=:senderContact,date_received=:dateReceived,priority= :priority,subject=:subject,document_remarks= :documentRemarks
+  WHERE document_details.application_id= :applicationId;
