@@ -1,6 +1,6 @@
 package com.postManagementTrackingSystem.scgj.controller;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class RegisterApplicationController {
 	 */
 	@Privilege(value= {"DEO"})
 	@RequestMapping("/getDepartmentHeadsName")
-	public List <DepartmentHeadNameDto> getDepartmentHeadName()
+	public Collection <DepartmentHeadNameDto> getDepartmentHeadName()
 	{
 		LOGGER.debug("Request received in controller to get the name of the department heads");
 		LOGGER.debug("Sending request to service to get the record of the names of department heads");

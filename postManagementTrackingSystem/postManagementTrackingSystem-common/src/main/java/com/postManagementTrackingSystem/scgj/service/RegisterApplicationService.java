@@ -2,14 +2,13 @@ package com.postManagementTrackingSystem.scgj.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.postManagementTrackingSystem.scgj.common.ReadApplicationConstants;
 import com.postManagementTrackingSystem.scgj.dao.RegisterApplicationDao;
@@ -40,7 +39,7 @@ public class RegisterApplicationService {
 	 * to get the names of all the heads of departments
 	 * @return collection of names of department heads
 	 */
-	public List<DepartmentHeadNameDto> getDepartmentHeadName()
+	public Collection<DepartmentHeadNameDto> getDepartmentHeadName()
 	{
 		LOGGER.debug("Received request in Service to get the names of the department heads");
 		LOGGER.debug("Sending request to Dao to get the names of the department heads");

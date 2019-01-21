@@ -2,8 +2,8 @@ package com.postManagementTrackingSystem.scgj.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 * @return Collection (List) of Name Object
 	 */
 	
-	public List <DepartmentHeadNameDto> getDepartmentHeadName()
+	public Collection <DepartmentHeadNameDto> getDepartmentHeadName()
 	{
 		LOGGER.debug("Request received in DAO to get the name of all the department heads");
 		LOGGER.debug("Creating hashmap of object");
