@@ -92,6 +92,7 @@ a:focus {
 
 #sidebar ul.components {
 /*     padding: 4% 5%; */
+font-size:large;
 
 }
 
@@ -109,6 +110,7 @@ a:focus {
 }
 .navbar-right img{
 	cursor:pointer;
+	
 }
 .navbar-right span:hover{
 	cursor:pointer;
