@@ -43,7 +43,7 @@
 	display:inline-block;
 	width:auto !important;
 }
-.invalidateBorder.ng-invalid
+input.ng-invalid
 {
 	border:1px solid #ccc !important;
 }

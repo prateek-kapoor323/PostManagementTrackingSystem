@@ -22,7 +22,7 @@
 	
 		<span ng-switch="searchPostSwitch" class="col-md-4">
 			<span  ng-switch-when="applicationId">
-				<input type="text"  class="form-control applicationIdTextBox invalidateBorder" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
+				<input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
 	
 			</span>
 				
@@ -44,8 +44,8 @@
 		<span ng-switch="searchPostSwitch" class="col-md-4">
 			<span ng-switch-when="date">
 
-			<input type="text" onfocus="(this.type='date')" class="form-control dateSection invalidateBorder" onblur="(this.type='text')"  placeholder="From"  ng-model="searchParams.from" required>
-			<input type="text" onfocus="(this.type='date')" class="form-control dateSection invalidateBorder" onblur="(this.type='text')"  placeholder="Till"   ng-model="searchParams.to" required>
+			<input type="text" onfocus="(this.type='date')" class="form-control dateSection" onblur="(this.type='text')"  placeholder="From"  ng-model="searchParams.from" required>
+			<input type="text" onfocus="(this.type='date')" class="form-control dateSection" onblur="(this.type='text')"  placeholder="Till"   ng-model="searchParams.to" required>
 			</span>
 		</span>
 		
