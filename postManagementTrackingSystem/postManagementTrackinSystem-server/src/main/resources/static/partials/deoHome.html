@@ -3,31 +3,47 @@
 	</head>
 	<div class="wrapper-container" ng-controller="deoHomeController">
 		<p class="registerPostHeading">Register Post </p>
-		<form class="form-inline registerPostForm">
+		
+		<form class="form-inline registerPostForm"  id="uploadformid" ng-submit="submitPostDetails()">
 		
 			<div class="row">
-				<div class="form-group col-md-3">
-					<input type="text" class="form-control" id="senderName" placeholder="Sender Name" name="senderName">
+				<div class="form-group col-md-3" >
+					<input type="text"  class="form-control invalidateBorder" id="senderName" placeholder="Sender Name" name="senderName" ng-model="postDetails.senderName"  required>
 					</div>
 					<div class="form-group col-md-3">
-						<input type="text" class="form-control" id="pointOfContact" placeholder="Point of Contact" name="email">
+						<input type="text" class="form-control invalidateBorder" id="pointOfContact" placeholder="Point of Contact" name="pointOfContact" ng-model="postDetails.pointOfContact" required>
 						</div>
 						<div class="form-group col-md-3" >
-							<input type="number" class="form-control" id="contactNumber" placeholder="Contact Number" name="contactNumber">
+							<input type="number" class="form-control invalidateBorder" id="contactNumber" placeholder="Contact Number" name="contactNumber" ng-model="postDetails.contactNumber" required>
 							</div>
 							<div class="form-group col-md-3">
-								<input type="date" class="form-control" id="dateReceived" placeholder="Date Received" name="dateReceived">
+								<input type="text" onfocus="(this.type='date')" class="form-control invalidateBorder" onblur="(this.type='text')"  placeholder="Date Received" ng-model="postDetails.dateReceived" required>
+								
+								
+								
+								
 								</div>
 								</div>
 								<div class="row">
-								<div class="form-group col-md-3">
-									<input type="text" class="form-control" id="priority" placeholder="Priority" name="priority">
+								<div class="form-group col-md-3 invalidateBorder">
+									
+									
+									<select  ng-model="postDetails.priority" class="form-control prioritySection">
+											<option value="" selected>Priority</option>
+												<option value="High">High</option>
+												<option value="Medium">Medium</option>
+												<option value="Low">Low</option>
+											</select>
+											
 									</div>
+								
+									
+									
 									<div class="form-group col-md-3">
-										<input type="text" class="form-control" id="subject" placeholder="Subject" name="subject">
+										<input type="text" class="form-control invalidateBorder" id="subject" placeholder="Subject" name="subject" ng-model="postDetails.subject" required>
 										</div>
 										<div class="form-group col-md-3">
-											<select class="form-control typeOfDocumentSection">
+											<select  ng-model="postDetails.documentType" class="form-control typeOfDocumentSection" required>
 											<option value="" selected>Type of Document</option>
 												<option value="Training Partner Affiliation">Training Partner Affiliation</option>
 												<option value="Assessment Agency Affiliation">Assessment Agency Affiliation</option>
@@ -37,7 +53,7 @@
 											</select>
 										</div>
 										<div class="form-group col-md-3">
-											<select ng-model="postDetails.value" class="form-control departmentHeadSection" ng-options="x for x in departmentHeadsName">
+											<select ng-model="postDetails.ownerName" class="form-control departmentHeadSection" ng-options="x for x in departmentHeadsName" required>
 											<option selected value="">Department Head</option>
 											</select>
 										</div>
@@ -51,19 +67,28 @@
 								             <span>
 								             <button type="button" class="btn browseButton">Browse</button>
 								             </span>
-								             <input type="file" id ="uploadSheet" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onchange="document.getElementById('file_name').value = this.value.split('\\').pop()" file-model="masterSheet.import"/>
+								             <input type="file" id ="file" accept="application/pdf" onchange="document.getElementById('file_name').value = this.value.split('\\').pop()" fileModel="postDetails.file"/>
 								             </div>
 									             </div>             
 
 											
 											<div class="form-group col-md-6">
-												<textarea class="form-control additionalComments" rows="2" cols="50" placeholder="Additional Comments"></textarea>
+												<textarea ng-model="postDetails.additionalComments" class="form-control additionalComments" rows="2" cols="50" placeholder="Additional Comments" ></textarea>
 											</div>
 										
 										<div class="col-md-12 text-center">
 										
-											<button type="button" class="btn btn-primary registerPostButton">Submit Post</button>
+											<button type="submit" class="btn btn-primary registerPostButton">Submit Post</button>
 										</div>
+										
+										
+										<div class="col-md-12 successErrorMessageClass">
+            	    							<div class="col-md-12">
+            								    <span id="Error"></span>
+          								       <span id="Success"></span>
+           							     </div>
+                						</div>
+										
 										
 										</div>
 										

@@ -67,3 +67,31 @@
 {
 	resize: none;
 }
+
+.invalidateBorder.ng-invalid
+{
+	border:1px solid #ccc !important;
+}
+.successErrorMessageClass
+{
+	margin-top:2%;
+}
+
+#Success
+{
+	color: green;
+    font-size: larger;
+    font-weight: 600;
+}
+
+#Error
+{
+	color: red;
+    font-size: larger;
+    font-weight: 600;
+	
+}
+.prioritySection
+{
+	width:62% !important;
+}
