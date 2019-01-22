@@ -20,7 +20,7 @@ deoHome.controller("deoHomeController",function($scope, $http,registerPostServic
      	$scope.submitPostDetails = function()
      	{
      		
-     		if($scope.postDetails.additionalComments===undefined)
+     		if($scope.postDetails.additionalComments===undefined || $scope.postDetails.additionalComments===null)
      			{
      				$scope.postDetails.additionalComments="";
      			}

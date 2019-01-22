@@ -3,8 +3,66 @@
 </head>
 <div  class="search-wrapper-container" ng-controller="deoSearchController">
 <p class="searchPageHeading">Search Posts</p>
-<div class="row">
 
+	
+	<div class="row">
+		<form ng-submit=searchPostDetails()>
+
+		<div class="col-md-4">
+			<p class="searchPostDropDownText">Search Post Using</p>
+	
+				<select class="form-control selectParamOptions" ng-model="searchPostSwitch" required>
+				<option value="">Select Search Parameter</option>
+				<option value="applicationId">Post Id</option>
+				<option value="department">Department</option>
+				<option value="date">Date Received</option>
+				</select>
+	
+		</div>
+	
+		<span ng-switch="searchPostSwitch" class="col-md-4">
+			<span  ng-switch-when="applicationId">
+				<input type="text"  class="form-control applicationIdTextBox invalidateBorder" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
+	
+			</span>
+				
+		</span>
+
+		<span ng-switch="searchPostSwitch" class="col-md-4 departmentSection">
+			<span ng-switch-when="department"  >
+				<select class="form-control selectDepartmentOptions" ng-model="searchParams.department" required>
+				<option value="" selected disabled>Select Department</option>
+				<option value="Assessment and Assurance">Assessment and Assurance</option>
+				<option value="Finance">Finance</option>
+				<option value="Marketing">Marketing</option>
+				<option value="Standard and Research">Standard and Research</option>
+				</select>
+			</span>
+		</span>
+		
+		
+		<span ng-switch="searchPostSwitch" class="col-md-4">
+			<span ng-switch-when="date">
+
+			<input type="text" onfocus="(this.type='date')" class="form-control dateSection invalidateBorder" onblur="(this.type='text')"  placeholder="From"  ng-model="searchParams.from" required>
+			<input type="text" onfocus="(this.type='date')" class="form-control dateSection invalidateBorder" onblur="(this.type='text')"  placeholder="Till"   ng-model="searchParams.to" required>
+			</span>
+		</span>
+		
+		<div class="col-md-2">
+		<button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+		<span class="errorMessage"><b>{{searchErrorMessage}}</b></span>
+		<span class="errorMessage"><b>{{downloadError}}</b></span>
+		</div>
+
+
+
+		</form>
+	</div>
+
+
+		<div class="gridTable">
+		<div ui-grid="searchPostInfo"  class="grid grid-align" ui-grid-auto-resize ></div> 
+	</div>  
 </div>
 
-</div>
