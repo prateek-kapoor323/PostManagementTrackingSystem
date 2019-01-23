@@ -21,7 +21,6 @@ deoEdit.controller("deoEditController", function ($scope, $http, $timeout) {
 	$scope.departmentHeadsName = [];
 	$http.get(departmentHeadUrl)
 		.then(function (response) {
-			console.log(response.data);
 			let dt = response.data;
 			for (i in dt) {
 				$scope.departmentHeadsName.push(response.data[i].departmentHeadName);
@@ -35,7 +34,6 @@ deoEdit.controller("deoEditController", function ($scope, $http, $timeout) {
 		$http.get(searchUrl)
 			.then(function (response) {
 				$scope.searchParam.applicationId = "";
-				console.log(response);
 				if (response.data == null || response.data == "") {
 					$scope.searchResultError = "No Results Found";
 					$scope.editPostDetail = [];
@@ -123,19 +121,17 @@ deoEdit.controller("deoEditController", function ($scope, $http, $timeout) {
 		} else if (applicationId == undefined || applicationId == null || applicationId == "") {
 			$scope.mandatoryFeildsError = "Owner cannot be updated, Please contact your administrator";
 		} else {
-			console.log("Update Owner Here");
 			var updateUrl = '/editAssignee?applicationId=' + applicationId + '&ownerName=' + newOwnerName;
-			console.log("The url with params is: " + updateUrl);
 
 			$http.get(updateUrl)
 				.then(function (response) {
 
-					console.log(response.data);
+					
 					if (response.data == 1) {
-						console.log("Success");
+					
 						$scope.updateSuccessMessage = "Application Owner Updated Successfully";
 					} else {
-						console.log("Unsuccessfull");
+					
 						$scope.updateErrormessage = "Application Owner could not be updated";
 					}
 
