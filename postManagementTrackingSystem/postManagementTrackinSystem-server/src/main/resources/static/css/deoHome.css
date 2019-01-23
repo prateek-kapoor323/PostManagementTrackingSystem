@@ -1,97 +1,75 @@
-.registerPostForm
-{
-	padding:2%;
+.registerPostForm {
+     padding:2%;
 }
-.wrapper-container
-{
-	background-color: white;
+ .wrapper-container {
+     background-color: white;
+     height: 100vh;
 }
-.registerPostHeading
-{
-	color: rgb(109,110,113);
-	font-size: 18pt;
-	margin-left: 1%;
+ .registerPostHeading {
+     color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
 }
-.form-group
-{
-	margin-bottom: 20%;
+ .form-group {
+     margin-bottom: 20%;
 }
-.browseButton
-{
-	background-color: rgb(31,177,203);
-	color:white;
+ .browseButton {
+     background-color: rgb(31,177,203);
+     color:white;
 }
-.row
-{
-	margin-bottom:2%;
+ .row {
+     margin-bottom:2%;
 }
-.registerPostButton
-{
-	margin-top:2%;
+ .registerPostButton {
+     margin-top:2%;
 }
-.fileUpload {
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
+ .fileUpload {
+     position: relative;
+     overflow: hidden;
+     margin: 10px;
 }
-.file {
-  visibility: hidden;
-  position: absolute;
+ .file {
+     visibility: hidden;
+     position: absolute;
 }
-.btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline;
+ .btn-wrapper {
+     position: relative;
+     overflow: hidden;
+     display: inline;
 }
-
-
-.btn-wrapper input[type=file] {
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-        margin-left: 16%;
-    cursor: pointer;
+ .btn-wrapper input[type=file] {
+     position: absolute;
+     left: 0;
+     top: 0;
+     opacity: 0;
+     margin-left: 16%;
+     cursor: pointer;
 }
-
-.departmentHeadSection
-{
-	width:62% !important;
+ .departmentHeadSection {
+     width:62% !important;
 }
-
-.typeOfDocumentSection
-{
-	width:62% !important;
+ .typeOfDocumentSection {
+     width:62% !important;
 }
-.additionalComments
-{
-	resize: none;
+ .additionalComments {
+     resize: none;
 }
-
-input.ng-invalid
-{
-	border:1px solid #ccc !important;
+ input.ng-invalid {
+     border:1px solid #ccc !important;
 }
-.successErrorMessageClass
-{
-	margin-top:2%;
+ .successErrorMessageClass {
+     margin-top:2%;
 }
-
-#Success
-{
-	color: green;
-    font-size: larger;
-    font-weight: 600;
+ #Success {
+     color: green;
+     font-size: larger;
+     font-weight: 600;
 }
-
-#Error
-{
-	color: red;
-    font-size: larger;
-    font-weight: 600;
-	
+ #Error {
+     color: red;
+     font-size: larger;
+     font-weight: 600;
 }
-.prioritySection
-{
-	width:62% !important;
+ .prioritySection {
+     width:62% !important;
 }

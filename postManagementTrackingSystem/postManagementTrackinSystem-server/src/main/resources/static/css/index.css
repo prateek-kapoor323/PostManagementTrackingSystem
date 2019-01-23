@@ -1,19 +1,15 @@
-
-#google_translate_element {
-  	position: absolute;
-    z-index: 99999;
-    margin: 30% 0 0 -5%;
-    -ms-transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    transform: rotate(90deg);
+ #google_translate_element {
+     position: absolute;
+     z-index: 99999;
+     margin: 30% 0 0 -5%;
+     -ms-transform: rotate(90deg);
+     -webkit-transform: rotate(90deg);
+     transform: rotate(90deg);
 }
-
-.backgroundImageForLogin{
-	 background-image: url("../images/loginBackground.jpg");
-	 background-size: cover;
-	  height:100vh;
- 
-   
+ .backgroundImageForLogin{
+     background-image: url("../images/loginBackground.jpg");
+     background-size: cover;
+     height:100vh;
 }
  .form {
      height:52%;
@@ -28,9 +24,9 @@
      border: 1px solid red;
 }
  #scgj-logo {
-    height: 23%;
-    width: 47%;
-    display: inline;
+     height: 23%;
+     width: 47%;
+     display: inline;
 }
  #valid-email {
      margin-left:50%;
@@ -75,8 +71,6 @@
      margin-top:2%;
      margin-left:24%;
 }
-
-
  .user-icon {
      margin-left:102%;
      margin-top:2%;
@@ -95,10 +89,9 @@
  #lg-username {
      display:inline;
 }
-
-#errorMessage{
-	color:red;
-	font-size: 9pt;
-	font-weight: bold;
+ #errorMessage{
+     color:red;
+     font-size: 9pt;
+     font-weight: bold;
 }
  
