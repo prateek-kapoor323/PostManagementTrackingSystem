@@ -23,12 +23,9 @@
 		<span ng-switch="searchPostSwitch" class="col-md-4">
 			<span  ng-switch-when="applicationId">
 				<input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
-	
 			</span>
 				
-		</span>
-
-		<span ng-switch="searchPostSwitch" class="col-md-4 departmentSection">
+			<span ng-switch="searchPostSwitch" class="departmentSection">
 			<span ng-switch-when="department"  >
 				<select class="form-control selectDepartmentOptions" ng-model="searchParams.department" required>
 				<option value="" selected disabled>Select Department</option>
@@ -40,14 +37,20 @@
 			</span>
 		</span>
 		
-		
-		<span ng-switch="searchPostSwitch" class="col-md-4">
+		<span ng-switch="searchPostSwitch">
 			<span ng-switch-when="date">
 
 			<input type="text" onfocus="(this.type='date')" class="form-control dateSection" onblur="(this.type='text')"  placeholder="From"  ng-model="searchParams.from" required>
 			<input type="text" onfocus="(this.type='date')" class="form-control dateSection" onblur="(this.type='text')"  placeholder="Till"   ng-model="searchParams.to" required>
 			</span>
 		</span>
+				
+		</span>
+
+		
+		
+		
+		
 		
 		<div class="col-md-2">
 		<button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
