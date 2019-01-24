@@ -45,12 +45,12 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		Map<String,Object> params = new HashMap<>();
 		LOGGER.debug("Inserting params into hashmap");
 		params.put("applicationId", applicationId);
-		LOGGER.debug("Params inserted successfully into hashmap: "+params.get(applicationId));
+		LOGGER.debug("Params inserted successfully into hashmap");
 		try {
 			
 			LOGGER.debug("In try block to get the details of application by application id: "+applicationId);
 			LOGGER.debug("Executing query to get details of application using application id");
-			return getJdbcTemplate().query(editApplicationDataEntryOperatorConfig.getEditApplicationByIdSearch(), params, ROW_MAPPER);
+			return  getJdbcTemplate().query(editApplicationDataEntryOperatorConfig.getEditApplicationByIdSearch(), params, ROW_MAPPER);
 		} catch (Exception e) {
 			// TODO: handle exception
 			LOGGER.error("An exception occured while fetching the details of the application in class EditApplicationDataEntryOperatorDao and method - getApplicationDetails for application id: "+applicationId);
@@ -269,6 +269,33 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 			LOGGER.error("Returning -20 as response");
 			return -20;
 			// TODO: handle exception
+		}
+		
+	}
+	
+	/**
+	 * This method gets the file path for the application id and returns to the service
+	 * @param applicationId
+	 * @return filePath of existing file
+	 */
+	public String getExistingFilePath(String applicationId) {
+		// TODO Auto-generated method stub
+		LOGGER.debug("Request received from service to get the file path for applicationId: "+applicationId);
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>deletePathParam = new HashMap<>();
+		LOGGER.debug("Inserting application id into hashmap");
+		deletePathParam.put("applicationId", applicationId);
+		try {
+			
+			LOGGER.debug("In try block to get the path of file with application id: "+applicationId);
+			LOGGER.debug("Executing query to get the file path for application id: "+applicationId);
+			return getJdbcTemplate().queryForObject(editApplicationDataEntryOperatorConfig.getFilePathForApplicationId(), deletePathParam, String.class);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error("An Exception occured while fetching the existing path: "+e);
+			LOGGER.error("Returning NULL");
+			return null;
 		}
 		
 	}
