@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.postManagementTrackingSystem.scgj.common.Privilege;
 import com.postManagementTrackingSystem.scgj.dto.GetApplicationIdDto;
 import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsDataEntryOperatorDTO;
+import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsWithoutFileDataEntryOperatorDTO;
 import com.postManagementTrackingSystem.scgj.dto.ShowEditApplicationDetailsDto;
 import com.postManagementTrackingSystem.scgj.service.EditApplicationDataEntryOperatorService;
 
@@ -50,14 +51,61 @@ public class EditApplicationDataEntryOperatorController {
 		return editApplicationDataEntryOperatorService.getApplicationDetails(applicationId);
 	}
 	
+	
+	/**
+	 * This method takes the post details without the file and updates the post related information for that application id
+	 * @param receiveEditParamsWithoutFileDataEntryOperatorDTO
+	 * @return -20 if not successfull, 1 if successfull
+	 */
+	@Privilege(value= {"DEO"})
+	@RequestMapping(value="/editPostDetailsWithoutFile",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
+	public Integer updatePostDetailsWithoutFile(@ModelAttribute ReceiveEditParamsWithoutFileDataEntryOperatorDTO receiveEditParamsWithoutFileDataEntryOperatorDTO)
+	{
+	
+		LOGGER.debug("Request received from front end to update post details without file where applicationId: "+receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
+		LOGGER.debug("Fetching application id from the DTO");
+		LOGGER.debug("Fetching applicationId out of the DTO to send application id and the DTO object as parameter");
+		String applicationId = receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId();
+		LOGGER.debug("Checking if the parameters are null or empty");
+		if(applicationId == null || applicationId.isEmpty())
+		{
+			LOGGER.error("The application id is null or empty");
+			LOGGER.error("Returning NULL from Controller");
+			return null;
+		}
+		if(receiveEditParamsWithoutFileDataEntryOperatorDTO.getTypeOfDocument() == null || receiveEditParamsWithoutFileDataEntryOperatorDTO.getTypeOfDocument().isEmpty())
+		{
+			LOGGER.error("The document type is null or empty");
+			LOGGER.error("Returning NULL from Controller");
+			return null;
+		}
+		
+		LOGGER.debug("Sending request to service method to update the post details");
+		Integer updateStatus = editApplicationDataEntryOperatorService.updatePostDetailsWithoutFile(receiveEditParamsWithoutFileDataEntryOperatorDTO);
+		LOGGER.debug("The update status of application details received in controller is: "+updateStatus);
+		return updateStatus;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * This method is invoked when the DEO(Data Entry Operator) updates the feilds and clicks on update button
 	 * @author Prateek Kapoor
 	 * @param receiveEditParamsDataEntryOperatorDTO
 	 * @return Integer value 1- if the result is successfully updated, -10 if the post cannot be updated 
 	 */
-//	@Privilege(value= {"DEO"})
-	@RequestMapping(value="/editPostDetails",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
+	@Privilege(value= {"DEO"})
+	@RequestMapping(value="/editPostDetailsWithFile",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
 	public Integer updatePostDetails(@ModelAttribute ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO)
 	{
 	
