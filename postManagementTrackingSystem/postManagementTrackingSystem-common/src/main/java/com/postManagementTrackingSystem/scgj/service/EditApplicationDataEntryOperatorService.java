@@ -1,5 +1,6 @@
 package com.postManagementTrackingSystem.scgj.service;
 
+import java.io.File;
 import java.util.Collection;
 
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import com.postManagementTrackingSystem.scgj.dao.EditApplicationDataEntryOperato
 import com.postManagementTrackingSystem.scgj.dao.RegisterApplicationDao;
 import com.postManagementTrackingSystem.scgj.dto.GetApplicationIdDto;
 import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsDataEntryOperatorDTO;
+import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsWithoutFileDataEntryOperatorDTO;
 import com.postManagementTrackingSystem.scgj.dto.ShowEditApplicationDetailsDto;
 import com.postManagementTrackingSystem.scgj.utils.ApplicationUtilityClass;
 
@@ -42,6 +44,7 @@ public class EditApplicationDataEntryOperatorService {
 		return editApplicationDataEntryOperatorDao.getApplicationDetails(applicationId);
 	}
 	
+	
 	/**
 	 * This method updates the post details received by the controller and also updates the file path which is sent to the DAO
 	 * @param applicationId
@@ -55,23 +58,12 @@ public class EditApplicationDataEntryOperatorService {
 		String uploadPath="";
 		Integer updatePostDetails = -20;
 		LOGGER.debug("Request received in updatePostDetails method of edit application service to update the application details with application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
-		LOGGER.debug("Checking if the file is present in the DTO");
-		if(receiveEditParamsDataEntryOperatorDTO.getFile()==null||receiveEditParamsDataEntryOperatorDTO.getFile().isEmpty())
-		{
-			LOGGER.debug("The user has not uploaded the file, Updating the remaining fields");
-			LOGGER.debug("Sending request to method in DAO to update ");
-			updatePostDetails = editApplicationDataEntryOperatorDao.getUpdatePostDetailsWithoutFile(receiveEditParamsDataEntryOperatorDTO);
-			LOGGER.debug("The value of updatePostDetails is: "+updatePostDetails);
-			LOGGER.debug("Returning updatePostDetails to controller");
-			return updatePostDetails;
-		}
-
-		else
-		{
 			
 			LOGGER.debug("Sending the DTO and application id to upload file method in file utility class");
 			try {
 				LOGGER.debug("In try block to send control to uplaod file method");
+						
+				
 				uploadPath = applicationUtilityClass.uploadFile(receiveEditParamsDataEntryOperatorDTO.getTypeOfDocument(), receiveEditParamsDataEntryOperatorDTO.getFile(),receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 				
 				if(uploadPath == null || uploadPath.isEmpty())
@@ -82,10 +74,13 @@ public class EditApplicationDataEntryOperatorService {
 				}
 				else
 				{
+					
 					LOGGER.debug("The path of uploaded file is: "+uploadPath);
+					LOGGER.debug("Calling method to get the existing file path for applicationId: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 					LOGGER.debug("Sending request to updatePostDetails method in DAO to update the file path,sender name, point of contact, contact number, date received, priority, subject, additional comment against the application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
 					updateStatus = editApplicationDataEntryOperatorDao.updatePostDetails(receiveEditParamsDataEntryOperatorDTO,uploadPath);
-					LOGGER.debug("The update Status after updating the post details against a batch ID is: "+updateStatus);
+
+		        	LOGGER.debug("The update Status after updating the post details against a batch ID is: "+updateStatus);
 					return updateStatus;
 				}
 			} 
@@ -94,10 +89,11 @@ public class EditApplicationDataEntryOperatorService {
 				// TODO Auto-generated catch block
 				LOGGER.error("An exception occured while uploading file: "+e);
 				LOGGER.error("Returning -10 (updateStatus value) to the controller ");
-				return updateStatus;
+				return -10;
+				
 			}
 
-		}
+		
 		
 				
 	}
@@ -146,5 +142,30 @@ public class EditApplicationDataEntryOperatorService {
 		LOGGER.debug("Request received from service to get application id with status NOT STARTED");
 		LOGGER.debug("Sending request to DAO to get the application ID");
 		return editApplicationDataEntryOperatorDao.getApplicationIdWithStatusNotStarted();
+	}
+
+	/**
+	 * This method updates the post related details when the file is not uploaded by the user
+	 * @param receiveEditParamsWithoutFileDataEntryOperatorDTO
+	 * @return -20 if error, 1 if successfull
+	 */
+	public Integer updatePostDetailsWithoutFile(
+			ReceiveEditParamsWithoutFileDataEntryOperatorDTO receiveEditParamsWithoutFileDataEntryOperatorDTO) {
+			
+		LOGGER.debug("Request received from controller to update the post details of user with applicationId: "+receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
+		LOGGER.debug("Sending requst to method in DAO to update the post details of the post without updating the path of the file");
+		Integer postUpdateStatus = editApplicationDataEntryOperatorDao.getUpdatePostDetailsWithoutFile(receiveEditParamsWithoutFileDataEntryOperatorDTO);
+		if(postUpdateStatus>0)
+		{
+			LOGGER.debug("Post without file successfully updated for application id: " +receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
+			LOGGER.debug("Returning result back to controller: "+postUpdateStatus);
+			return postUpdateStatus;
+		}
+		else
+		{
+			LOGGER.debug("Post without file could not be updated for application id: "+receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
+			LOGGER.debug("Returning result to controller: "+postUpdateStatus);
+			return postUpdateStatus;
+		}
 	}
 }
