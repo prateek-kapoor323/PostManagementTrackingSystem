@@ -21,15 +21,22 @@
    </div>
    <div class="row">
       <p class="editApplicationDetailsText">Edit Application Details</p>
-      <form class="updateApplicationDetails" ng-submit=getPostDetail()>
-         <select ng-model="searchParam.editApplicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
+      <form class="updateApplicationDetails" ng-submit="searchPostDetailsUsingApplicationId()">
+         <select ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
             <option selected disabled value="">Select Application Id</option>
          </select>
          <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+         <span class="Error">{{getDetailsErrorMessage}}</span>
       </form>
    </div>
-   <form class="form-inline updatePostForm" id="uploadformid" ng-submit="submitPostDetails()">
+   
+   
+   
+   <form class="form-inline updatePostForm" id="updateForm" ng-submit="updatePostDetails()">
       <div class="row ">
+      <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="applicationId" placeholder="Post Id" name="applicationId" ng-model="postDetails.applicationId" required readonly>
+         </div>
          <div class="form-group col-md-3">
             <input type="text" class="form-control " id="senderName" placeholder="Sender Name" name="senderName" ng-model="postDetails.senderName" required>
          </div>
@@ -39,11 +46,12 @@
          <div class="form-group col-md-3">
             <input type="number" class="form-control " id="contactNumber" placeholder="Contact Number" name="contactNumber" ng-model="postDetails.contactNumber" required>
          </div>
-         <div class="form-group col-md-3">
-            <input type="text" onfocus="(this.type='date')" class="form-control " onblur="(this.type='text')" placeholder="Date Received" ng-model="postDetails.dateReceived" required>
-         </div>
+       
       </div>
       <div class="row ">
+        <div class="form-group col-md-3">
+            <input type="text" onfocus="(this.type='date')" class="form-control " onblur="(this.type='text')" placeholder="Date Received" ng-model="postDetails.dateReceived" required>
+         </div>
          <div class="form-group col-md-3 ">
             <select ng-model="postDetails.priority" class="form-control prioritySection">
                <option value="" selected>Priority</option>
@@ -55,10 +63,17 @@
          <div class="form-group col-md-3">
             <input type="text" class="form-control " id="subject" placeholder="Subject" name="subject" ng-model="postDetails.subject" required>
          </div>
-         <div class="form-group col-md-3 btn-wrapper">
+         
+         <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="documentType" placeholder="Document Type" name="documentType" ng-model="postDetails.documentType" required readonly>
+         </div>
+        
+      </div>
+      <div class="row">
+       <div class="form-group col-md-3 btn-wrapper">
             <div class="form-group">
                <span>
-               <input type="text" name="file_name" id="file_name" class="form-control" required>
+               <input type="text" name="file_name" id="file_name" class="form-control">
                </span>
                <span>
                <button type="button" class="btn browseButton">Browse</button>
@@ -66,8 +81,6 @@
                <input type="file" id="file" accept="application/pdf" onchange="document.getElementById('file_name').value = this.value.split('\\').pop()" fileModel="postDetails.file" />
             </div>
          </div>
-      </div>
-      <div class="row">
          <div class="form-group col-md-6">
             <textarea ng-model="postDetails.additionalComments" class="form-control additionalComments" rows="2" cols="50" placeholder="Additional Comments"></textarea>
          </div>
@@ -77,8 +90,8 @@
       </div>
       <div class="col-md-12 successErrorMessageClass">
          <div class="col-md-12">
-            <span class="Error"></span>
-            <span class="Success"></span>
+            <span id="updateSuccessMessage"></span>
+            <span id="updateErrorMessage"></span>
          </div>
       </div>
    </form>
