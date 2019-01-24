@@ -62,13 +62,11 @@
 }
  #Success {
      color: green;
-     font-size: larger;
-     font-weight: 600;
+     font-size: 16px;
 }
  #Error {
      color: red;
-     font-size: larger;
-     font-weight: 600;
+    font-size: 16px;
 }
  .prioritySection {
      width:62% !important;

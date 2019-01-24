@@ -98,15 +98,31 @@
 }
  .Success {
      color: green;
-     font-size: larger;
-     font-weight: 600;
-}
+     font-size: 16px;
+     
+     }
  .Error {
      color: red;
-     font-size: larger;
-     font-weight: 600;
+     font-size: 16px;
+     
 }
  .updatePostButton {
      margin-top:2%;
 }
  
+ #updateSuccessMessage
+ {
+ 	color: green;
+    position: absolute;
+    right: 40%;
+    font-size: 16px;
+ }
+ 
+ #updateErrorMessage
+ {
+ 	color: red;
+    position: absolute;
+    right: 40%;
+    font-size: 16px;
+ }
+    
