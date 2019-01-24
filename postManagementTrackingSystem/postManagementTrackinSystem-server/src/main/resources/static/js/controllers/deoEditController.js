@@ -1,6 +1,6 @@
 var deoEdit = angular.module("app");
 
-deoEdit.controller("deoEditController", function ($scope, $http, $timeout) {
+deoEdit.controller("deoEditController", function ($scope, updatePostService,$http, $timeout) {
 
 
 	/*This method gets the application ids whose status is NOT STARTED*/
@@ -189,6 +189,97 @@ deoEdit.controller("deoEditController", function ($scope, $http, $timeout) {
 		type: 'text/plain'
 	});
 	$scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
+	
+	
+	
+	
+	
+	
+	/** This method gets the existing document related details which the DEO can edit  **/
+	
+	$scope.searchPostDetailsUsingApplicationId = function()
+	{
+		
+		if($scope.searchParams.editApplicationId==undefined || $scope.searchParams.editApplicationId==null||$scope.searchParams.editApplicationId=="")
+			{
+				$scope.getDetailsErrorMessage = "Cannot retreive post details, Please contact your administrator";
+			}
+		$timeout(function () {
+			$scope.getDetailsErrorMessage = "";
+		}, 6000)
+		
+		var getPostDetailUrl = '/getApplicationDetailsById?applicationId='+$scope.searchParams.editApplicationId;
+		
+		
+		$http.get(getPostDetailUrl)
+		.then(function(response){ 
+			
+			$scope.postDetails = response;
+			if(response==null||response==undefined||response=="")
+				{
+					$scope.getDetailsErrorMessage = "Cannot retreive post details, Please contact your administrator";
+				}
+			
+			else
+				{
+				
+					
+					if(response.data[0].senderContact == 0 || response.data[0].senderContact == "")
+						{
+							$scope.postDetails.contactNumber = "";
+						}
+					
+					else
+						{
+						    $scope.postDetails.applicationId = response.data[0].applicationId;
+							$scope.postDetails.senderName = response.data[0].senderName;
+							$scope.postDetails.pointOfContact = response.data[0].senderPointOfContact;
+							$scope.postDetails.contactNumber = response.data[0].senderContact;
+							$scope.postDetails.dateReceived = response.data[0].dateReceived;
+							$scope.postDetails.priority = response.data[0].priority;
+							$scope.postDetails.subject = response.data[0].subject;
+							$scope.postDetails.documentType = response.data[0].documentType;
+							$scope.postDetails.additionalComments = response.data[0].additionalComment;
+							
+						}
+				}
+		});	
+		
+		$timeout(function () {
+			$scope.getDetailsErrorMessage = "";
+		}, 6000)
+		
+		
+	}
+	
+	
+	/** This method updates the details of the post that are entered by the DEO in the edit section **/
+	$scope.updatePostDetails = function()
+	{
+		
+		if ($scope.postDetails.additionalComments === undefined || $scope.postDetails.additionalComments === null)
+		{
+			$scope.postDetails.additionalComments = "";
+		}
+		
+		var applicationId = $scope.postDetails.applicationId;
+		var senderName = $scope.postDetails.senderName;
+		var pointOfContact = $scope.postDetails.pointOfContact;
+		var contactNumber = $scope.postDetails.contactNumber;
+		var dateReceived = $scope.postDetails.dateReceived;
+		var priority = $scope.postDetails.priority;
+		var subject = $scope.postDetails.subject;
+		var documentType = $scope.postDetails.documentType;
+		var additionalComments = $scope.postDetails.additionalComments;
+		var file = $scope.postDetails.file;
+		
+		var updatePost = updatePostService.updatePost(applicationId,senderName,pointOfContact,contactNumber,dateReceived,priority,subject,documentType,additionalComments,file);
+		
+		
+	}
+	
+	
+	
 
 
 });

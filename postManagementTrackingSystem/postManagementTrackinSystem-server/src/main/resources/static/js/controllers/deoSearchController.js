@@ -14,7 +14,7 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 
 					$scope.searchParams.applicationId = "";
 					if (response.data == null || response.data == "") {
-						$scope.searchErrorMessage = "No Records Found";
+						$scope.searchErrorMessage = "No Records found";
 						$scope.searchPostInfo.data = [];
 					} else {
 						$scope.searchPostInfo.data = response.data;
@@ -36,7 +36,7 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 					$scope.searchParams.department = "";
 
 					if (response.data == null || response.data == "") {
-						$scope.searchErrorMessage = "No Records Found";
+						$scope.searchErrorMessage = "No Records found";
 						$scope.searchPostInfo.data = [];
 					} else {
 
@@ -61,7 +61,7 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 					$scope.searchParams.from = "";
 
 					if (response.data == null || response.data == "") {
-						$scope.searchErrorMessage = "No Records Found";
+						$scope.searchErrorMessage = "No Records found";
 						$scope.searchPostInfo.data = [];
 					} else {
 
