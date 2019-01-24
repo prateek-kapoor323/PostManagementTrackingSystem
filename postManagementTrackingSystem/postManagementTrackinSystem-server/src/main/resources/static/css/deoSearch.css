@@ -51,12 +51,11 @@
  .ui-grid-cell-contents{
      text-align: center;
 }
- .errorMessage {
+
+.errorMessage {
      
      font-size:16px!important;
      color:red;
      
 }
- .ui-grid, .ui-grid-viewport {
-     height: auto !important;
-}
+

@@ -127,7 +127,7 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			{
 				name: 'documentPath',
 				displayName: 'Document',
-				width: '12%',
+				width: '10%',
 				cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" style="margin-top: 3%;width: 15%;margin-left: 45%;"alt="PDF Icon"  class="pointer">'
 			}
 		]
