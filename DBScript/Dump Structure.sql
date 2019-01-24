@@ -40,7 +40,7 @@ CREATE TABLE `doc_status` (
   KEY `doc_id_idx` (`doc_id`),
   CONSTRAINT `doc_id` FOREIGN KEY (`doc_id`) REFERENCES `document_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `owner_id` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `document_details` (
   `document_remarks` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `application_id_UNIQUE` (`application_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -96,4 +96,4 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-17 15:42:45
+-- Dump completed on 2019-01-24 18:41:18
