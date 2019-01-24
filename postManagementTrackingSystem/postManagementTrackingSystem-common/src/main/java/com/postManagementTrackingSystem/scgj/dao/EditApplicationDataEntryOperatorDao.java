@@ -15,9 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import com.postManagementTrackingSystem.scgj.common.AbstractTransactionalDao;
 import com.postManagementTrackingSystem.scgj.config.EditApplicationDataEntryOperatorConfig;
-import com.postManagementTrackingSystem.scgj.dao.EditApplicationDataEntryOperatorDao.ApplicationIdRowMapper;
 import com.postManagementTrackingSystem.scgj.dto.GetApplicationIdDto;
 import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsDataEntryOperatorDTO;
+import com.postManagementTrackingSystem.scgj.dto.ReceiveEditParamsWithoutFileDataEntryOperatorDTO;
 import com.postManagementTrackingSystem.scgj.dto.ShowEditApplicationDetailsDto;
 
 @Repository
@@ -239,20 +239,20 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 	 * @param receiveEditParamsDataEntryOperatorDTO
 	 * @return
 	 */
-	public Integer getUpdatePostDetailsWithoutFile(ReceiveEditParamsDataEntryOperatorDTO receiveEditParamsDataEntryOperatorDTO) {
+	public Integer getUpdatePostDetailsWithoutFile(ReceiveEditParamsWithoutFileDataEntryOperatorDTO receiveEditParamsWithoutFileDataEntryOperatorDTO) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received from service to update post details without updating the file path");
-		LOGGER.debug("Post details to be updated for applicationId: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+		LOGGER.debug("Post details to be updated for applicationId: "+receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
 		LOGGER.debug("Creating hashmap of objects");
 		Map<String,Object>parameters = new HashMap<>();
-		parameters.put("applicationId", receiveEditParamsDataEntryOperatorDTO.getApplicationId());
-		parameters.put("senderName", receiveEditParamsDataEntryOperatorDTO.getSenderName());
-		parameters.put("senderPoc", receiveEditParamsDataEntryOperatorDTO.getPointOfContact());
-		parameters.put("senderContact", receiveEditParamsDataEntryOperatorDTO.getContactNumber());
-		parameters.put("dateReceived", receiveEditParamsDataEntryOperatorDTO.getDateReceived());
-		parameters.put("priority", receiveEditParamsDataEntryOperatorDTO.getPriority());
-		parameters.put("subject", receiveEditParamsDataEntryOperatorDTO.getSubject());
-		parameters.put("documentRemarks", receiveEditParamsDataEntryOperatorDTO.getAdditionalComment());
+		parameters.put("applicationId", receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
+		parameters.put("senderName", receiveEditParamsWithoutFileDataEntryOperatorDTO.getSenderName());
+		parameters.put("senderPoc", receiveEditParamsWithoutFileDataEntryOperatorDTO.getPointOfContact());
+		parameters.put("senderContact", receiveEditParamsWithoutFileDataEntryOperatorDTO.getContactNumber());
+		parameters.put("dateReceived", receiveEditParamsWithoutFileDataEntryOperatorDTO.getDateReceived());
+		parameters.put("priority", receiveEditParamsWithoutFileDataEntryOperatorDTO.getPriority());
+		parameters.put("subject", receiveEditParamsWithoutFileDataEntryOperatorDTO.getSubject());
+		parameters.put("documentRemarks", receiveEditParamsWithoutFileDataEntryOperatorDTO.getAdditionalComment());
 		LOGGER.debug("Parameters inserted successfully");
 		try 
 		{
@@ -264,7 +264,7 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		}
 		catch (Exception e) 
 		{
-			LOGGER.error("An exception occured while updating post details in method-getUpdatePostDetailsWithoutFile for application id: "+receiveEditParamsDataEntryOperatorDTO.getApplicationId());
+			LOGGER.error("An exception occured while updating post details in method-getUpdatePostDetailsWithoutFile for application id: "+receiveEditParamsWithoutFileDataEntryOperatorDTO.getApplicationId());
 			LOGGER.error("The exception is: "+e);
 			LOGGER.error("Returning -20 as response");
 			return -20;
@@ -273,32 +273,9 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		
 	}
 	
-	/**
-	 * This method gets the file path for the application id and returns to the service
-	 * @param applicationId
-	 * @return filePath of existing file
-	 */
-	public String getExistingFilePath(String applicationId) {
-		// TODO Auto-generated method stub
-		LOGGER.debug("Request received from service to get the file path for applicationId: "+applicationId);
-		LOGGER.debug("Creating hashmap of objects");
-		Map<String,Object>deletePathParam = new HashMap<>();
-		LOGGER.debug("Inserting application id into hashmap");
-		deletePathParam.put("applicationId", applicationId);
-		try {
-			
-			LOGGER.debug("In try block to get the path of file with application id: "+applicationId);
-			LOGGER.debug("Executing query to get the file path for application id: "+applicationId);
-			return getJdbcTemplate().queryForObject(editApplicationDataEntryOperatorConfig.getFilePathForApplicationId(), deletePathParam, String.class);
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-			LOGGER.error("An Exception occured while fetching the existing path: "+e);
-			LOGGER.error("Returning NULL");
-			return null;
-		}
+	
 		
 	}
 	
 	
-}
+
