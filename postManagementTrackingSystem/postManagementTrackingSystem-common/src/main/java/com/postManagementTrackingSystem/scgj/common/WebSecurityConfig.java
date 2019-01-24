@@ -25,7 +25,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 				http
 						.httpBasic().and()
 						.authorizeRequests()
-						.antMatchers("/","/submitPostDetails").permitAll()
+						.antMatchers("/js/**","/index.html","/","/css/**","/js/**","/images/**","/favicon.ico","/static","/images").permitAll()
 						.anyRequest().authenticated()
 						.and()
 						.csrf()
@@ -33,8 +33,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 				// @formatter:on
 			}
 
-
-
+//
+//
 //		 @Override
 //		    protected void configure(HttpSecurity http) throws Exception {
 //		     http.csrf().disable();   
