@@ -29,10 +29,15 @@ deoHome.service('registerPostService', ['$http', function ($http, $timeout) {
 
 			}]
 		}).then(function (response) {
-			if (response.data.length > 20) {
+			if (response.data.length > 20) 
+			{
+				
+				document.getElementById("Error").innerHTML = "";
 				document.getElementById("Error").innerHTML = thisIsResponse;
-			} else {
-
+			}
+			else {
+				
+				document.getElementById("Success").innerHTML = "";
 				document.getElementById("Success").innerHTML = "Your post has been Registered, Please note the Post Id for your reference: " + thisIsResponse;
 			}
 			setTimeout(function () {

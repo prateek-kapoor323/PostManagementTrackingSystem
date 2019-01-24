@@ -5,6 +5,8 @@
    <p class="editPageHeading">Edit Posts</p>
    <div class="row">
       <p class="editApplicationOwnerText">Edit Application Owner</p>
+      
+      <!--  This form is used to update the owner of the POST  -->
       <form class="searchForm" ng-submit=getPostDetail()>
          <select ng-model="searchParam.applicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
             <option selected disabled value="">Select Application Id</option>
@@ -15,12 +17,15 @@
          <span class="Error">{{updateErrorMessage}}</span>
          <span class="Success">{{updateSuccessMessage}}</span>
       </form>
+      <!-- Form ends here -->
    </div>
    <div class="gridTable">
       <div ui-grid="editPostDetail" class="grid grid-align" ui-grid-auto-resize></div>
    </div>
    <div class="row">
       <p class="editApplicationDetailsText">Edit Application Details</p>
+      
+      <!--  This form is used to find the post details by selecting the POST ID and clicking on submit button -->
       <form class="updateApplicationDetails" ng-submit="searchPostDetailsUsingApplicationId()">
          <select ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
             <option selected disabled value="">Select Application Id</option>
@@ -28,10 +33,11 @@
          <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
          <span class="Error">{{getDetailsErrorMessage}}</span>
       </form>
+      <!-- Form ends here -->
    </div>
    
    
-   
+   <!-- This form is used to enter the details of the POST Using POST ID which will be updated on a button click -->
    <form class="form-inline updatePostForm" id="updateForm" ng-submit="updatePostDetails()">
       <div class="row ">
       <div class="form-group col-md-3">
@@ -44,7 +50,7 @@
             <input type="text" class="form-control " id="pointOfContact" placeholder="Point of Contact" name="pointOfContact" ng-model="postDetails.pointOfContact" required>
          </div>
          <div class="form-group col-md-3">
-            <input type="number" class="form-control " id="contactNumber" placeholder="Contact Number" name="contactNumber" ng-model="postDetails.contactNumber" required>
+            <input type="number" class="form-control " id="contactNumber" placeholder="Contact Number" name="contactNumber" ng-model="postDetails.contactNumber" min="0" required>
          </div>
        
       </div>
@@ -95,4 +101,6 @@
          </div>
       </div>
    </form>
+   
+   <!-- Form ends here -->
 </div>

@@ -4,6 +4,7 @@
 <div  class="search-wrapper-container" ng-controller="deoSearchController">
    <p class="searchPageHeading">Search Posts</p>
    <div class="row">
+   <!-- Search form starts here -->
       <form ng-submit=searchPostDetails()>
          <div class="col-md-4">
             <p class="searchPostDropDownText">Search Post Using</p>
@@ -42,6 +43,7 @@
             <span class="errorMessage"><b>{{downloadError}}</b></span>
          </div>
       </form>
+      <!-- Form ends here -->
    </div>
    <div class="gridTable">
       <div ui-grid="searchPostInfo"  class="grid grid-align" ui-grid-auto-resize ></div>

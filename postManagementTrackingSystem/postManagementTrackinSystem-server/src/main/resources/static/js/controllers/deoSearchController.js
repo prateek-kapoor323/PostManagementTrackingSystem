@@ -7,24 +7,35 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 	$scope.searchPostDetails = function () {
 		if ($scope.searchPostSwitch == 'applicationId') {
 
-			var searchUrl = '/searchApplicationById?applicationId=' + $scope.searchParams.applicationId;
+			
+			if($scope.searchParams.applicationId === undefined || $scope.searchParams.applicationId === null || $scope.searchParams.applicationId === "")
+				{
+					$scope.searchErrorMessage = "No Records Found";
+				}
+			
+			else
+				{
+				    $scope.searchErrorMessage = "No Records Found";
+					var searchUrl = '/searchApplicationById?applicationId=' + $scope.searchParams.applicationId;
+		
+					$http.get(searchUrl)
+						.then(function (response) {
+		
+							$scope.searchParams.applicationId = "";
+							if (response.data == null || response.data == "") {
+								$scope.searchErrorMessage = "No Records found";
+								$scope.searchPostInfo.data = [];
+							} else {
+								$scope.searchPostInfo.data = response.data;
+							}
+		
+						});
+		
+					$timeout(function () {
+						$scope.searchErrorMessage = "";
+					}, 4000);
 
-			$http.get(searchUrl)
-				.then(function (response) {
-
-					$scope.searchParams.applicationId = "";
-					if (response.data == null || response.data == "") {
-						$scope.searchErrorMessage = "No Records found";
-						$scope.searchPostInfo.data = [];
-					} else {
-						$scope.searchPostInfo.data = response.data;
-					}
-
-				});
-
-			$timeout(function () {
-				$scope.searchErrorMessage = "";
-			}, 4000);
+				}
 
 		} else if ($scope.searchPostSwitch == 'department') {
 
@@ -63,8 +74,10 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 					if (response.data == null || response.data == "") {
 						$scope.searchErrorMessage = "No Records found";
 						$scope.searchPostInfo.data = [];
-					} else {
-
+					}
+					else
+					{
+						$scope.searchErrorMessage = "";
 						$scope.searchPostInfo.data = response.data;
 					}
 
@@ -128,7 +141,7 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 				name: 'documentPath',
 				displayName: 'Document',
 				width: '10%',
-				cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" style="margin-top: 3%;width: 15%;margin-left: 45%;"alt="PDF Icon"  class="pointer">'
+				cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" class="pdfIcon" alt="PDF Icon"  class="pointer">'
 			}
 		]
 

@@ -101,13 +101,13 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 				name: 'documentPath',
 				displayName: 'Document',
 				width: '12%',
-				cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" style="margin-top: 3%;width: 15%;margin-left: 45%;"alt="PDF Icon"  class="pointer">'
+				cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" alt="PDF Icon"  class="pointer pdfIcon">'
 			},
 			{
 				name: 'assign',
 				displayName: 'Update Owner',
 				width: '15%',
-				cellTemplate: '<button type="button"  class="btn btn-success" ng-click=grid.appScope.updateOwner(row.entity.newOwner,row.entity.applicationId)  style="font-size:11px;padding:2px;margin-left:18%;margin-top:3%;">Update Owner</button>'
+				cellTemplate: '<button type="button"  class="btn btn-success updateOwnerButton" ng-click=grid.appScope.updateOwner(row.entity.newOwner,row.entity.applicationId)>Update Owner</button>'
 			}
 		]
 
@@ -223,7 +223,7 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 			else
 				{
 				
-					
+					$scope.getDetailsErrorMessage = "";
 					if(response.data[0].senderContact == 0 || response.data[0].senderContact == "")
 						{
 							$scope.postDetails.contactNumber = "";

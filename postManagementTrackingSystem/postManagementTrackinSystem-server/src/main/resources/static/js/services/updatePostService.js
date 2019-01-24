@@ -35,10 +35,12 @@ deoEdit.service('updatePostService', ['$http', function ($http, $timeout) {
 							
 							if(response.data>0)
 							{
-							document.getElementById("updateSuccessMessage").innerHTML = "Post details updated successfully";
+								document.getElementById("updateErrorMessage").innerHTML = "";
+								document.getElementById("updateSuccessMessage").innerHTML = "Post details updated successfully";
 							}
 						else
 							{
+								document.getElementById("updateSuccessMessage").innerHTML = "";
 								document.getElementById("updateErrorMessage").innerHTML = "Post details could not be updated, Please contact your administrator";
 							}
 						
