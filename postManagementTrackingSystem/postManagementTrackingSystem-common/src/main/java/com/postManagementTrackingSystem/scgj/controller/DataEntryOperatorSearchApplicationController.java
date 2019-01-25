@@ -110,7 +110,7 @@ public class DataEntryOperatorSearchApplicationController {
 	 * @param response
 	 * 
 	 */
-	@Privilege(value= {"DEO"})
+	
 	@RequestMapping("/downloadFile")
 	public void downloadFile(@RequestParam("filePath") String filePath, HttpServletResponse response)
 	{
