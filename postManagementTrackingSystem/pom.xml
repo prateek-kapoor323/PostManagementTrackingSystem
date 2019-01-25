@@ -24,6 +24,7 @@
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   	<unitils.version>3.3</unitils.version>
+  	<starter-class>com.postManagementTrackingSystem.scgj.server.Application</starter-class>
   </properties>
   <dependencies>
   <dependency>
@@ -56,6 +57,20 @@
 			<groupId>org.jolokia</groupId>
 			<artifactId>jolokia-core</artifactId>
 		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.5</version>
+		</dependency>
+		
+		 <dependency>
+    		<groupId>commons-io</groupId>
+   			<artifactId>commons-io</artifactId>
+    		<version>2.1</version>
+ 		 </dependency>
+		
 
 		<dependency>
 			<groupId>commons-lang</groupId>
