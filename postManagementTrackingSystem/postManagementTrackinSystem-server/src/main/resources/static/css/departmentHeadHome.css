@@ -1,0 +1,49 @@
+ .wrapper-container {
+     background-color: white;
+     height: 100vh;
+}
+.newApplicationsHeading
+{
+	 color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
+     display:inline;
+}
+.assignOwnerButton
+{
+	width:55%;
+	font-size:14px;
+	padding:0px;
+	margin-left:20%;
+	margin-top:3%;
+}
+ .gridTable{
+     margin-top:1% !important;
+     margin-left:1%;
+     margin-bottom: 0px !important;
+     margin-right:1%;
+     height:153px !important;
+     overflow:hidden;
+}
+ .ui-grid-header-cell-primary-focus{
+     background-color: rgb(0,139,172);
+     text-align:center;
+}
+ .ui-grid-header-cell-label{
+     color:white;
+}
+ .ui-grid-cell-contents{
+     text-align: center;
+}
+.pdfIcon
+{
+	margin-top: 3%;
+	width: 15%;
+	margin-left: 45%;
+}
+ .Error {
+     color: red;
+     font-size: 16px;
+     margin-left:2%;
+     
+}

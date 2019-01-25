@@ -1,0 +1,11 @@
+departmentHeadHome:
+
+ departmentNameUsingEmail: >
+  select distinct department from users where email= :email and role_type="DH";
+ departmentEmployeeNameUsingDepartmentName: >
+  select distinct name from users where department = :department;
+ notStartedApplications: >
+  select document_details.application_id as applicationId, document_details.sender_name as senderName, document_details.date_received as dateReceived,document_details.subject as subject,
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,document_details.document_remarks
+  from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
+  INNER JOIN users ON doc_status.owner_id=users.id) where users.department= :department AND doc_status.status="Not Started" ORDER BY document_details.date_of_entry DESC;

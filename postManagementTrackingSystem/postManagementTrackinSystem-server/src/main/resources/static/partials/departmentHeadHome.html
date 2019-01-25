@@ -1,0 +1,12 @@
+<head>
+   <link href="css/departmentHeadHome.css" type="text/css" rel="stylesheet">
+</head>
+<div class="wrapper-container" ng-controller="departmentHeadHomeController">
+<p class="newApplicationsHeading">New Applications</p> 
+<span class="Error">{{downloadError}}</span>
+
+<div class="gridTable">
+      <div ui-grid="newApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+   
+</div>

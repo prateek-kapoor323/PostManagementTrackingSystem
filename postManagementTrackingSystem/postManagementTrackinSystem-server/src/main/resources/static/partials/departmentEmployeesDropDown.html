@@ -1,0 +1,8 @@
+<head>
+<link href="css/departmentEmployeesDropDown.css" type="text/css" rel="stylesheet">
+</head>
+<div>
+   <select  class="form-control ownerNameDropDown" ng-model="MODEL_COL_FIELD" data-ng-options=" x for x in grid.appScope.departmenEmployeesName" ng-click="grid.appScope.drop(selected)" required>
+      <option value="">Select Assignee</option>
+   </select>
+</div>

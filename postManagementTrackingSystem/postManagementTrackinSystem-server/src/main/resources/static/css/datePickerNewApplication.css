@@ -1,0 +1,12 @@
+.etaDatePicker
+{
+	margin-left:3% !important;
+	margin-top:1% !important;
+	width:90% !important;
+	height:25px !important;
+}
+
+.etaDatePicker.ng-invalid
+{
+	border:1px solid #ccc !important;
+}
