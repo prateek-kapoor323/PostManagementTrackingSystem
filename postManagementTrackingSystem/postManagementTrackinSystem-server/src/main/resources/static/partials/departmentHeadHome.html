@@ -4,9 +4,31 @@
 <div class="wrapper-container" ng-controller="departmentHeadHomeController">
 <p class="newApplicationsHeading">New Applications</p> 
 <span class="Error">{{downloadError}}</span>
+<span class="Error">{{errorMessage}}</span>
+<span class="Success">{{successMessage}}</span>
 
 <div class="gridTable">
       <div ui-grid="newApplications" class="grid grid-align" ui-grid-auto-resize></div>
    </div>
+
+<p class="assignedApplicationsHeading">Assigned Applications</p> 
+<div class="gridTable">
+      <div ui-grid="assignedApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+   
+<p class="inActionApplicationsHeading">In Action Applications</p> 
+<div class="gridTable">
+      <div ui-grid="inActionApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>   
+    
+<p class="onHoldApplicationsHeading">On Hold Applications</p> 
+<div class="gridTable">
+      <div ui-grid="onHoldApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>   
+   
+   <p class="auditTableHeading">Audit Table</p> 
+<div class="gridTable">
+      <div ui-grid="auditTable" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>   
    
 </div>

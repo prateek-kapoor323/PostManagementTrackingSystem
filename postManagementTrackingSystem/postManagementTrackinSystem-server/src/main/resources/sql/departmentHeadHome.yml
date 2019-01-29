@@ -4,8 +4,47 @@ departmentHeadHome:
   select distinct department from users where email= :email and role_type="DH";
  departmentEmployeeNameUsingDepartmentName: >
   select distinct name from users where department = :department;
+ 
  notStartedApplications: >
   select document_details.application_id as applicationId, document_details.sender_name as senderName, document_details.date_received as dateReceived,document_details.subject as subject,
-  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,document_details.document_remarks
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,document_details.document_remarks,doc_status.status as status
   from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
   INNER JOIN users ON doc_status.owner_id=users.id) where users.department= :department AND doc_status.status="Not Started" ORDER BY document_details.date_of_entry DESC;
+
+ assignApplicationOwner: > 
+  UPDATE scgj_pmts.doc_status SET owner_id= :ownerId,status="Assigned",eta=:eta,date_assigned=curdate(),additional_comment= :additionalComment Where doc_id= :documentId and doc_status.status = "Not Started";
+
+ documentOwnerIdForDepartment: >
+  select id from users where name= :ownerName and department= :department;
+
+ assignedApplications: >
+  select document_details.application_id as applicationId, document_details.sender_name as senderName,document_details.subject as subject,
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,doc_status.additional_comment as documentRemarks,
+  doc_status.date_assigned as dateAssigned,doc_status.eta as eta,doc_status.status,users.name as name
+  from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
+  INNER JOIN users ON doc_status.owner_id=users.id) where users.email= :email AND doc_status.status="Assigned" ORDER BY doc_status.date_assigned DESC;
+ 
+ insertAuditTableDetails: >
+  INSERT INTO scgj_pmts.audit_table (application_id, sender_name, subject, priority, assigned_to, eta, document_remarks, document_path, date_status_update, status, document_type, assigned_by) VALUES
+  (:applicationId, :senderName, :subject, :priority, :ownerId, :eta, :documentRemarks, :documentPath, curdate(), :status, :documentType, :email);
+ 
+ populateAuditTable: >
+  select audit_table.application_id as applicationId, audit_table.sender_name as senderName,audit_table.subject,audit_table.priority,audit_table.eta as eta,audit_table.document_remarks as documentRemarks,audit_table.document_path as documentPath,audit_table.document_type as documentType,audit_table.assigned_by as assignedBy, users.name as assignedTo,
+  audit_table.status as status
+  FROM audit_table INNER JOIN users ON audit_table.assigned_to = users.id where audit_table.assigned_by= :email ORDER BY audit_table.date_status_update DESC;
+  
+ inActionApplications: >
+  select document_details.application_id as applicationId, document_details.sender_name as senderName,document_details.subject as subject,
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,doc_status.additional_comment as documentRemarks,
+  doc_status.date_assigned as dateAssigned,doc_status.eta as eta,doc_status.status,users.name as name
+  from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
+  INNER JOIN users ON doc_status.owner_id=users.id) where users.email= :email AND doc_status.status="In Action" ORDER BY doc_status.date_started DESC;
+ 
+ onHoldApplications: >
+  select document_details.application_id as applicationId, document_details.sender_name as senderName,document_details.subject as subject,
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,doc_status.additional_comment as documentRemarks,
+  doc_status.date_assigned as dateAssigned,doc_status.eta as eta,doc_status.status,users.name as name
+  from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
+  INNER JOIN users ON doc_status.owner_id=users.id) where users.email= :email AND doc_status.status="On Hold" ORDER BY doc_status.date_started DESC;  
+
+ 

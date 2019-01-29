@@ -1,6 +1,6 @@
  .wrapper-container {
      background-color: white;
-     height: 100vh;
+     height: auto;
 }
 .newApplicationsHeading
 {
@@ -22,7 +22,7 @@
      margin-left:1%;
      margin-bottom: 0px !important;
      margin-right:1%;
-     height:153px !important;
+     height:auto !important;
      overflow:hidden;
 }
  .ui-grid-header-cell-primary-focus{
@@ -46,4 +46,43 @@
      font-size: 16px;
      margin-left:2%;
      
+}
+.Success
+{
+	color: green;
+     font-size: 16px;
+     margin-left:2%;	
+}
+
+.assignedApplicationsHeading
+{
+	margin-top:1%;
+	display:inline-block;
+	color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
+}
+.inActionApplicationsHeading
+{
+	margin-top:1%;
+	display:inline-block;
+	color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
+}
+.onHoldApplicationsHeading
+{
+	margin-top:1%;
+	display:inline-block;
+	color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
+}
+.auditTableHeading
+{
+	margin-top:1%;
+	display:inline-block;
+	color: rgb(109,110,113);
+     font-size: 18pt;
+     margin-left: 1%;
 }
