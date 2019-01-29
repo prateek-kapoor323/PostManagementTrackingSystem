@@ -1,21 +1,23 @@
 package com.postManagementTrackingSystem.scgj.dto;
 
-public class DepartmentHeadNotStartedApplicationDTO 
-{
+import java.sql.Date;
 
-	
+import com.postManagementTrackingSystem.scgj.common.BaseDto;
+
+public class AssignedApplicationsDTO extends BaseDto
+{
 	private static final long serialVersionUID = 1L;
-	
 	private String applicationId;
 	private String senderName;
-	private String dateReceived;
+	private Date dateAssigned;
 	private String subject;
 	private String priority;
+	private Date eta;
 	private String status;
-	private String documentPath;
 	private String documentType;
-	private String additionalComments;
-	
+	private String documentRemarks;
+	private String documentPath;
+	private String name;
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -28,11 +30,11 @@ public class DepartmentHeadNotStartedApplicationDTO
 	public void setSenderName(String senderName) {
 		this.senderName = senderName;
 	}
-	public String getDateReceived() {
-		return dateReceived;
+	public Date getDateAssigned() {
+		return dateAssigned;
 	}
-	public void setDateReceived(String dateReceived) {
-		this.dateReceived = dateReceived;
+	public void setDateAssigned(Date dateAssigned) {
+		this.dateAssigned = dateAssigned;
 	}
 	public String getSubject() {
 		return subject;
@@ -46,17 +48,17 @@ public class DepartmentHeadNotStartedApplicationDTO
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
+	public Date getEta() {
+		return eta;
+	}
+	public void setEta(Date eta) {
+		this.eta = eta;
+	}
 	public String getStatus() {
 		return status;
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public String getDocumentPath() {
-		return documentPath;
-	}
-	public void setDocumentPath(String documentPath) {
-		this.documentPath = documentPath;
 	}
 	public String getDocumentType() {
 		return documentType;
@@ -64,27 +66,41 @@ public class DepartmentHeadNotStartedApplicationDTO
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
-	public String getAdditionalComments() {
-		return additionalComments;
+	public String getDocumentRemarks() {
+		return documentRemarks;
 	}
-	public void setAdditionalComments(String additionalComments) {
-		this.additionalComments = additionalComments;
+	public void setDocumentRemarks(String documentRemarks) {
+		this.documentRemarks = documentRemarks;
 	}
-	public DepartmentHeadNotStartedApplicationDTO(String applicationId, String senderName, String dateReceived,
-			String subject, String priority, String status, String documentPath, String documentType,
-			String additionalComments) {
+	public String getDocumentPath() {
+		return documentPath;
+	}
+	public void setDocumentPath(String documentPath) {
+		this.documentPath = documentPath;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public AssignedApplicationsDTO(String applicationId, String senderName, Date dateAssigned, String subject,
+			String priority, Date eta, String status, String documentType, String documentRemarks, String documentPath,
+			String name) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
-		this.dateReceived = dateReceived;
+		this.dateAssigned = dateAssigned;
 		this.subject = subject;
 		this.priority = priority;
+		this.eta = eta;
 		this.status = status;
-		this.documentPath = documentPath;
 		this.documentType = documentType;
-		this.additionalComments = additionalComments;
+		this.documentRemarks = documentRemarks;
+		this.documentPath = documentPath;
+		this.name = name;
 	}
-	public DepartmentHeadNotStartedApplicationDTO() {
+	public AssignedApplicationsDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -93,4 +109,8 @@ public class DepartmentHeadNotStartedApplicationDTO
 	
 	
 	
+	
+	
+	
+
 }
