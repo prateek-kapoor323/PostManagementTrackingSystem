@@ -1,4 +1,4 @@
- .wrapper-container {
+.wrapper-container {
      background-color: white;
      height: auto;
 }
@@ -85,4 +85,12 @@
 	color: rgb(109,110,113);
      font-size: 18pt;
      margin-left: 1%;
+}
+.updateStatusButton
+{
+	width: 76%;
+    font-size: 12px;
+    padding: 0px;
+    margin-left: 11%;
+    margin-top: 3%;
 }
