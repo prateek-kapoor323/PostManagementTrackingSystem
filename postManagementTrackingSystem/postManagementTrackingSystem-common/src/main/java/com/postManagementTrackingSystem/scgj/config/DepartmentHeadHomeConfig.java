@@ -18,8 +18,48 @@ public class DepartmentHeadHomeConfig
 	private String populateAuditTable;
 	private String inActionApplications;
 	private String onHoldApplications;
+	private String updateStatusToOnHold;
+	private String updateStatusToInAction;
+	private String updateStatusToComplete;
+	private String checkStartDateBeforeUpdate;
+	private String updateStatusToCompleteWithoutStartDate;
 	
 	
+	
+	
+	
+	
+	
+	public String getUpdateStatusToCompleteWithoutStartDate() {
+		return updateStatusToCompleteWithoutStartDate;
+	}
+	public void setUpdateStatusToCompleteWithoutStartDate(String updateStatusToCompleteWithoutStartDate) {
+		this.updateStatusToCompleteWithoutStartDate = updateStatusToCompleteWithoutStartDate;
+	}
+	public String getUpdateStatusToOnHold() {
+		return updateStatusToOnHold;
+	}
+	public void setUpdateStatusToOnHold(String updateStatusToOnHold) {
+		this.updateStatusToOnHold = updateStatusToOnHold;
+	}
+	public String getUpdateStatusToInAction() {
+		return updateStatusToInAction;
+	}
+	public void setUpdateStatusToInAction(String updateStatusToInAction) {
+		this.updateStatusToInAction = updateStatusToInAction;
+	}
+	public String getUpdateStatusToComplete() {
+		return updateStatusToComplete;
+	}
+	public void setUpdateStatusToComplete(String updateStatusToComplete) {
+		this.updateStatusToComplete = updateStatusToComplete;
+	}
+	public String getCheckStartDateBeforeUpdate() {
+		return checkStartDateBeforeUpdate;
+	}
+	public void setCheckStartDateBeforeUpdate(String checkStartDateBeforeUpdate) {
+		this.checkStartDateBeforeUpdate = checkStartDateBeforeUpdate;
+	}
 	public String getOnHoldApplications() {
 		return onHoldApplications;
 	}

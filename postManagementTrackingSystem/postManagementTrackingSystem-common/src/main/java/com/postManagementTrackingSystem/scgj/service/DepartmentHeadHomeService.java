@@ -275,4 +275,127 @@ public class DepartmentHeadHomeService {
 		return departmentHeadHomeDao.getOnHoldApplications(email);
 		
 	}
+	
+	public Integer updateApplicationStatus(PerformActionsOverApplicationDTO performActionsOverApplicationDTO,String email)
+	{
+		LOGGER.debug("Request received from controller to update the status of application for the logged in user");
+		LOGGER.debug("Checking if the received parameters are null or empty");
+		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
+		{
+			LOGGER.error("The status to be updated is null");
+			LOGGER.error("Request cannot be processed, returning -10 to the Controller");
+			return -5;
+		}
+		else if(performActionsOverApplicationDTO.getApplicationId()==null||performActionsOverApplicationDTO.getApplicationId().isEmpty())
+		{
+			LOGGER.error("The application id is null or empty");
+			LOGGER.error("Request cannot be processed, returning -10 to the Controller");
+			return -10;
+		}
+		else if(email==null||email.isEmpty())
+		{
+			LOGGER.error("The email is empty or null");
+			LOGGER.error("Request cannot be processed, returning -5 to the controller");
+			return -10;
+		}
+		LOGGER.debug("Parameters are not null or empty");
+		LOGGER.debug("Sending request to the get department of the logged in user");
+		String department = getDepartmentOfLoggedInUser(email);
+		LOGGER.debug("Checking if the value of department received from the method is null or empty");
+		if(department==null||department.isEmpty())
+		{
+			LOGGER.error("The retreived department name is null or empty");
+			LOGGER.error("Request cannot be processed, Returning -10 to the controller");
+			return -10;
+		}
+		LOGGER.debug("The retreived parameter is not null");
+		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
+		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
+		LOGGER.debug("Sending request to get Owner ID by department name and owner name to get the ownerId of the logged in user with email: "+email);
+		Integer ownerId = departmentHeadHomeDao.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), department);
+		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
+		if(ownerId==null)
+		{
+			LOGGER.error("The retreived parameter ownerId is null or empty");
+			LOGGER.error("Request cannot be processed");
+			LOGGER.error("Returning -10 to controller");
+			return -10;
+		}
+		LOGGER.debug("The retreived ownerId for logged in user: "+email+" is: "+ownerId);
+		LOGGER.error("Sending request to get id by application id method to get the id of the application id:  "+performActionsOverApplicationDTO.getAssignedTo());
+		Integer documentId = editApplicationDataEntryOperatorDAO.getDocumentIdByApplicaitonId(performActionsOverApplicationDTO.getApplicationId());
+		LOGGER.debug("Checking if the documentId retreived for application id: "+performActionsOverApplicationDTO.getApplicationId()+" is null or empty");
+		if(documentId==null)
+		{
+			LOGGER.error("The document id retreived is null");
+			LOGGER.error("Request cannot be processed");
+			LOGGER.error("Returning -5 to the controller");
+			return -5;
+		}
+		LOGGER.debug("The retreived parameter is not null");
+		LOGGER.debug("The document id corresponding to the application id: "+performActionsOverApplicationDTO.getApplicationId()+" is : "+documentId);
+		LOGGER.debug("Checking the status of the application that has to be updated for the application with application id: "+performActionsOverApplicationDTO.getApplicationId());
+		if(performActionsOverApplicationDTO.getUpdatedStatus().equalsIgnoreCase("In Action"))
+		{
+			LOGGER.debug("The application has to be updated to status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+			LOGGER.debug("Sending request to updateApplicationStatusToInAction method in dao");
+			try 
+			{
+				LOGGER.debug("In try block to execute query for updating application status to In Action");
+				return departmentHeadHomeDao.updateApplicationStatusToInAction(performActionsOverApplicationDTO, ownerId, documentId, email);
+			}
+			catch (Exception e)
+			{
+				LOGGER.error("An exception occured in DAO: "+e);
+				LOGGER.error("Database transactions for audit table and doc_status table are rolled back");
+				LOGGER.error("Returning -10 to controller");
+				return -10;
+			}
+			
+		}
+		else if(performActionsOverApplicationDTO.getUpdatedStatus().equalsIgnoreCase("On Hold"))
+		{
+			LOGGER.debug("The application has to be updated to status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+			LOGGER.debug("Sending request to updateApplicationStatusToOnHold method in dao");
+			try
+			{
+				LOGGER.debug("In try block to execute query for updating application status to On Hold");
+				return departmentHeadHomeDao.updateApplicationStatusToOnHold(performActionsOverApplicationDTO, ownerId, documentId,email);
+			} 
+			catch (Exception e)
+			{
+				LOGGER.error("An exception occured in DAO: "+e);
+				LOGGER.error("Database transactions for audit table and doc_status table are rolled back");
+				LOGGER.error("Returning -10 to controller");
+				return -10;
+			}
+		}
+		else if(performActionsOverApplicationDTO.getUpdatedStatus().equalsIgnoreCase("Closed"))
+		{
+			LOGGER.debug("The status of application to be updated is CLOSED");
+			LOGGER.debug("The application has to be updated to status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+			LOGGER.debug("Sending request to updateApplicationStatusToClosed method in dao");
+			try 
+			{
+				LOGGER.debug("In try block to execute query for updating application status to Delayed");
+				return departmentHeadHomeDao.updateApplicationStatusToClosed(performActionsOverApplicationDTO, ownerId, documentId,email);
+			}
+			catch (Exception e)
+			{
+				LOGGER.error("An exception occured in DAO: "+e);
+				LOGGER.error("Database transactions for audit table and doc_status table are rolled back");
+				LOGGER.error("Returning -10 to controller");
+				return -10;
+			}
+
+		}
+		else
+		{
+			LOGGER.error("The status to be updated does not match the status in database tables");
+			LOGGER.error("Returning -10");
+			return -10;
+			
+		}
+
+	}
 }

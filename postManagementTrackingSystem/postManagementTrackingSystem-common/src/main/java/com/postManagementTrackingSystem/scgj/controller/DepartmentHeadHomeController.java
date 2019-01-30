@@ -218,4 +218,45 @@ public class DepartmentHeadHomeController {
 		return departmentHeadHomeService.getOnHoldApplications(email);
 		
 	}
+	
+	@Privilege(value= {"DH"})
+	@RequestMapping(value="/updateApplicationStatusDH",method=RequestMethod.POST,consumes=MediaType.ALL_VALUE)
+	public Integer updateApplicationStatus(@ModelAttribute PerformActionsOverApplicationDTO performActionsOverApplicationDTO)
+	{
+		LOGGER.debug("Request received in controller to update the application status of an application for the logged in user");
+		LOGGER.debug("Checking if the received parameters are null or empty");
+		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
+		{
+			LOGGER.error("The status to be updated is null");
+			LOGGER.error("Request cannot be processed, returning -10 to the front end");
+			return -5;
+		}
+		else if(performActionsOverApplicationDTO.getApplicationId()==null||performActionsOverApplicationDTO.getApplicationId().isEmpty())
+		{
+			LOGGER.error("The application id is null or empty");
+			LOGGER.error("Request cannot be processed, returning -10 to the front end");
+			return -10;
+		}
+		else if(performActionsOverApplicationDTO.getAssignedTo()==null||performActionsOverApplicationDTO.getAssignedTo().isEmpty())
+		{
+			LOGGER.error("The owner of the application name is null or empty");
+			LOGGER.error("Request cannot be processed, returning -10 to front end");
+			return -10;
+		}
+		LOGGER.debug("The paramters are not empty");
+		LOGGER.debug("Fetching the email of the logged in user from session");
+		String email = sessionUserUtility.getSessionMangementfromSession().getUsername();
+		LOGGER.debug("Checking if the retreived email is null or empty");
+		if(email==null||email.isEmpty())
+		{
+			LOGGER.error("Could not retreive the email of the logged in user");
+			LOGGER.error("Request could not be processed further");
+			LOGGER.error("Returning null to front end");
+			return null;
+		}
+		LOGGER.debug("The retreived email is not null or empty");
+		LOGGER.debug("The retreived email from the session is: "+email);
+		LOGGER.debug("Sending request to the service to update the status of application with application id: "+performActionsOverApplicationDTO.getApplicationId()+" to status : "+performActionsOverApplicationDTO.getUpdatedStatus());
+		return departmentHeadHomeService.updateApplicationStatus(performActionsOverApplicationDTO, email);
+	}
 }

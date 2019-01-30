@@ -14,12 +14,8 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	private String eta;
 	private String documentRemarks;
 	private String documentPath;
-	private String status;
 	private String documentType;
-	
-	
-	
-	
+	private String updatedStatus;
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -68,21 +64,21 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	public void setDocumentPath(String documentPath) {
 		this.documentPath = documentPath;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public String getDocumentType() {
 		return documentType;
 	}
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getUpdatedStatus() {
+		return updatedStatus;
+	}
+	public void setUpdatedStatus(String updatedStatus) {
+		this.updatedStatus = updatedStatus;
+	}
 	public PerformActionsOverApplicationDTO(String applicationId, String senderName, String subject, String priority,
-			String assignedTo, String eta, String documentRemarks, String documentPath, String status,
-			String documentType) {
+			String assignedTo, String eta, String documentRemarks, String documentPath, String documentType,
+			String updatedStatus) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -92,15 +88,13 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 		this.eta = eta;
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
-		this.status = status;
 		this.documentType = documentType;
+		this.updatedStatus = updatedStatus;
 	}
 	public PerformActionsOverApplicationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	
 	

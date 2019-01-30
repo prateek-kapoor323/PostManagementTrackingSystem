@@ -297,19 +297,27 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 		  LOGGER.debug("In try block to assign owner to the application with documentId: "+documentId);
 		  LOGGER.debug("Executing query to assign owner to application with documentId: "+documentId);
 		  Integer documentUpdateStatus = getJdbcTemplate().update(departmentHeadHomeConfig.getAssignApplicationOwner(), assignOwnerParams);
+		  
+		  if(documentUpdateStatus>0)
+		  {
 			  LOGGER.debug("Document status table successfully updated, updating the audit table");
 			  LOGGER.debug("Calling updateAuditTable method to update the details in the audit table");
 			  LOGGER.debug("Setting status of the application as ASSIGNED for Audit Table");
-			  String applicationStatus = "Assigned";
-			  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email,applicationStatus);
+			  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email);
 			  LOGGER.debug("The status of audit table update is : "+auditTableUpdate);
 			  return auditTableUpdate;
-		 
+		  }
+		  
+		  else
+		  {
+			  LOGGER.error("The application if with document id: "+documentId+" cannot be assigned");
+			  LOGGER.error("Returning -25");
+			  return -25;
+		  }
 		} catch (Exception e) 
 		{
 			LOGGER.error("An exception occured while assigning owner to application with document Id: "+documentId );
 			LOGGER.error("The exception is: "+e);
-			LOGGER.error("Returning -30 to the service");
 			throw new Exception(e);
 		}
 		
@@ -324,7 +332,7 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 	 * @throws Exception 
 	 */
 	@Transactional(rollbackFor=Exception.class)
-	public Integer updateAuditTable(PerformActionsOverApplicationDTO performActionsOverApplicationDTO, Integer ownerId,String email,String applicationStatus) throws Exception {
+	public Integer updateAuditTable(PerformActionsOverApplicationDTO performActionsOverApplicationDTO, Integer ownerId,String email) throws Exception {
 		
 		LOGGER.debug("Request received in DAO - updateAuditTable() to insert the audit details into the table");
 		LOGGER.debug("Creating hashmap of objects");
@@ -338,7 +346,7 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 		paramMap.put("eta", performActionsOverApplicationDTO.getEta());
 		paramMap.put("documentRemarks", performActionsOverApplicationDTO.getDocumentRemarks());
 		paramMap.put("documentPath", performActionsOverApplicationDTO.getDocumentPath());
-		paramMap.put("status", applicationStatus);
+		paramMap.put("status", performActionsOverApplicationDTO.getUpdatedStatus());
 		paramMap.put("documentType", performActionsOverApplicationDTO.getDocumentType());
 		paramMap.put("email", email);
 		LOGGER.debug("Parameters successfully inserted into hashmap");
@@ -562,5 +570,278 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 		}
 	}
 	
+	
+	/**
+	 * This method  the status of the application using the document id and owner id to In Action
+	 * @param performActionsOverApplicationDTO
+	 * @param ownerId
+	 * @param documentId
+	 * @param email 
+	 * @return 1 if the status is updated, -5 if any parameter is empty, -10 if an exception occurs
+	 * @throws Exception - this will roll back the update and also will rollback the update in the audit table
+	 */
+	@Transactional(rollbackFor=Exception.class)
+	public Integer updateApplicationStatusToInAction(PerformActionsOverApplicationDTO performActionsOverApplicationDTO,Integer ownerId,Integer documentId, String email) throws Exception
+	{
+		LOGGER.debug("Request received from service to update the status of application for logged in user");
+		LOGGER.debug("Checking if the received parameters are null or empty");
+		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
+		{
+			LOGGER.error("The status to be updated is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		if(ownerId==null)
+		{
+			LOGGER.error("The owner id received is null");
+			LOGGER.error("Request cannot be processed, returning - 5 to the service");
+			return -5;
+		}
+		if(documentId == null)
+		{
+			LOGGER.error("The document id received is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		LOGGER.debug("Parameters are not null or empty, Processing request to update the status of application with application Id: "+performActionsOverApplicationDTO.getApplicationId()+" to new status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>updateStatusParams = new HashMap<>();
+		LOGGER.debug("Hashmap Created Successfully, Inserting parameters into hashmap");
+		updateStatusParams.put("updatedStatus", performActionsOverApplicationDTO.getUpdatedStatus());
+		updateStatusParams.put("ownerId", ownerId);
+		updateStatusParams.put("documentId", documentId);
+		LOGGER.debug("updated status, ownerId, documentId inserted into hashmap");
+		try
+		{
+			LOGGER.debug("In try block to update the application status to In Action for application id: "+performActionsOverApplicationDTO.getApplicationId());
+			LOGGER.debug("Executing query to update the status of application to In Action");
+			Integer updateStatus = getJdbcTemplate().update(departmentHeadHomeConfig.getUpdateStatusToInAction(), updateStatusParams);
+			if(updateStatus>0)
+			{
+				  LOGGER.debug("Document status table successfully updated, updating the audit table");
+				  LOGGER.debug("Calling updateAuditTable method to update the details in the audit table");
+				  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email);
+				  LOGGER.debug("The status of audit table update is : "+auditTableUpdate);
+				  return auditTableUpdate;
+			}
+			else
+			{
+				LOGGER.error("Status cannot be updated, Returning -10 to service");
+				return -10;
+			}
+		}
+		catch(Exception e)
+		{
+			LOGGER.error("An exception occured while updating the status of the application to In Action: "+e);
+			LOGGER.error("Throwing exception to service");
+			throw new Exception(e);
+		}
+		
+	}
+	
+	/**
+	 * This method updates the status of the application to ON HOLD
+	 * @param performActionsOverApplicationDTO
+	 * @param ownerId
+	 * @param documentId
+	 * @param email 
+	 * @return -10 if an exception occurs, 1 if success, -5 if params are empty 
+	 * @throws Exception 
+	 */
+	@Transactional(rollbackFor=Exception.class)
+	public Integer updateApplicationStatusToOnHold(PerformActionsOverApplicationDTO performActionsOverApplicationDTO,Integer ownerId,Integer documentId, String email) throws Exception
+	{
+		LOGGER.debug("Request received from service to change the application status to On Hold for the logged in user");
+		LOGGER.debug("Checking if the received parameters are null or empty");
+		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
+		{
+			LOGGER.error("The status to be updated is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		if(ownerId==null)
+		{
+			LOGGER.error("The owner id received is null");
+			LOGGER.error("Request cannot be processed, returning - 5 to the service");
+			return -5;
+		}
+		if(documentId == null)
+		{
+			LOGGER.error("The document id received is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		LOGGER.debug("Parameters are not null or empty, Processing request to update the status of application with application Id: "+performActionsOverApplicationDTO.getApplicationId()+" to new status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>updateStatusParams = new HashMap<>();
+		LOGGER.debug("Hashmap successfully created, Inserting parameters into hashmap");
+		updateStatusParams.put("updatedStatus", performActionsOverApplicationDTO.getUpdatedStatus());
+		updateStatusParams.put("ownerId", ownerId);
+		updateStatusParams.put("documentId", documentId);
+		LOGGER.debug("updated status, ownerId, documentId inserted into hashmap");
+		try 
+		{
+			LOGGER.debug("In try block to update the application status to On Hold for application id: "+performActionsOverApplicationDTO.getApplicationId());
+			LOGGER.debug("Executing query to update the status of application to On Hold");
+			Integer updateStatus = getJdbcTemplate().update(departmentHeadHomeConfig.getUpdateStatusToOnHold(), updateStatusParams);
+			if(updateStatus>0)
+			{
+				  LOGGER.debug("Document status table successfully updated, updating the audit table");
+				  LOGGER.debug("Calling updateAuditTable method to update the details in the audit table");
+				  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email);
+				  LOGGER.debug("The status of audit table update is : "+auditTableUpdate);
+				  return auditTableUpdate;
+			}
+			else
+			{
+				LOGGER.error("Status cannot be updated, Returning -10 to service");
+				return -10;
+			}
+		}
+		catch(Exception e)
+		{
+			LOGGER.error("An exception occured while updating the status of the application to On Hold: "+e);
+			LOGGER.error("Throwing exception to service");
+			throw new Exception(e);
+		}
+		
+	}
+	
+	
+	/**
+	 * This method checks if the startdate of the application is present -
+	 * 1. If the startdate is present then it updates the status to completed and updates the date_closed
+	 * 2. If the startDate is not present then it updates status to completed and also updates the date_started to curdate() and dateCloed to curdate()
+	 * @param performActionsOverApplicationDTO
+	 * @param ownerId
+	 * @param documentId
+	 * @param email 
+	 * @return -5 if any parameter is empty, 1 if success, -10 in case of any exception
+	 * @throws Exception 
+	 * 
+	 */
+	
+	@Transactional(rollbackFor=Exception.class)
+	public Integer updateApplicationStatusToClosed(PerformActionsOverApplicationDTO performActionsOverApplicationDTO,Integer ownerId,Integer documentId, String email) throws Exception
+	{
+		LOGGER.debug("Request received from service to change the application status to Closed for the logged in user");
+		LOGGER.debug("Checking if the received parameters are null or empty");
+		String checkStartDateStatus="";
+		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
+		{
+			LOGGER.error("The status to be updated is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		else if(ownerId==null)
+		{
+			LOGGER.error("The owner id received is null");
+			LOGGER.error("Request cannot be processed, returning - 5 to the service");
+			return -5;
+		}
+		else if(documentId == null)
+		{
+			LOGGER.error("The document id received is null");
+			LOGGER.error("Request cannot be processed, returning -5 to the service");
+			return -5;
+		}
+		LOGGER.debug("Parameters are not null or empty, Processing request to update the status of application with application Id: "+performActionsOverApplicationDTO.getApplicationId()+" to new status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+		LOGGER.debug("Checking if the application has been started or not");
+		LOGGER.debug("Creating hashmap of objects to check if the application has been started");
+		Map<String,Object>checkStartDate = new HashMap<>();
+		LOGGER.debug("Hashmap successfully created, Inserting parameters into hashmap");
+		checkStartDate.put("ownerId", ownerId);
+		checkStartDate.put("documentId", documentId);
+		LOGGER.debug("Parameters inserted into hashmap to check the startDate of the application with applicationId: "+performActionsOverApplicationDTO.getApplicationId());
+		try
+		{
+			LOGGER.debug("In try block to check the startDate of application for the document Id and ownerId");
+			LOGGER.debug("Executing query to check the startdate of application");
+			checkStartDateStatus = getJdbcTemplate().queryForObject(departmentHeadHomeConfig.getCheckStartDateBeforeUpdate(), checkStartDate, String.class);
+			
+		}
+		catch(Exception e)
+		{
+			LOGGER.error("An exception occured while checking the startDate of application with applicationId: "+performActionsOverApplicationDTO.getApplicationId());
+			LOGGER.error("Throwing exception to service");
+			throw new Exception(e);
+		}
+		
+		if(checkStartDateStatus==null||checkStartDateStatus.isEmpty())
+		{
+			LOGGER.debug("There is no start date for application with application id: "+performActionsOverApplicationDTO.getApplicationId());
+			LOGGER.debug("Creating hashmap of objects");
+			Map<String,Object> updateStatusParams = new HashMap<>();
+			LOGGER.debug("Hash map of objects created");
+			updateStatusParams.put("updatedStatus", performActionsOverApplicationDTO.getUpdatedStatus());
+			updateStatusParams.put("ownerId", ownerId);
+			updateStatusParams.put("documentId", documentId);
+			LOGGER.debug("updated status, ownerId, documentId inserted into hashmap");
+			try 
+			{
+				LOGGER.debug("In try block to update the application status to closed and assign start date as current date for application id: "+performActionsOverApplicationDTO.getApplicationId());
+				LOGGER.debug("Executing query to update the status of application to Closed");
+				Integer updateStatus = getJdbcTemplate().update(departmentHeadHomeConfig.getUpdateStatusToCompleteWithoutStartDate(), updateStatusParams);
+				if(updateStatus>0)
+				{
+					  LOGGER.debug("Document status table successfully updated, updating the audit table");
+					  LOGGER.debug("Calling updateAuditTable method to update the details in the audit table");
+					  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email);
+					  LOGGER.debug("The status of audit table update is : "+auditTableUpdate);
+					  return auditTableUpdate;
+				}
+				else
+				{
+					LOGGER.error("Status cannot be updated, Returning -10 to service");
+					return -10;
+				}
+			}
+			catch(Exception e)
+			{
+				LOGGER.error("An exception occured while updating the status of the application to Closed: "+e);
+				LOGGER.error("Throwing exception to service");
+				throw new Exception(e);
+			}
+		}
+		else
+		{
+			LOGGER.debug("The start date for application with application id: "+performActionsOverApplicationDTO.getApplicationId()+" is present: "+checkStartDate);
+			LOGGER.debug("Creating hashmap of objects");
+			Map<String,Object> updateStatusParams = new HashMap<>();
+			LOGGER.debug("Hash map of objects created");
+			updateStatusParams.put("updatedStatus", performActionsOverApplicationDTO.getUpdatedStatus());
+			updateStatusParams.put("ownerId", ownerId);
+			updateStatusParams.put("documentId", documentId);
+			LOGGER.debug("updated status, ownerId, documentId inserted into hashmap");
+			try 
+			{
+				LOGGER.debug("In try block to update the application status to closed and assign start date as current date for application id: "+performActionsOverApplicationDTO.getApplicationId());
+				LOGGER.debug("Executing query to update the status of application to Closed");
+				Integer updateStatus = getJdbcTemplate().update(departmentHeadHomeConfig.getUpdateStatusToComplete(), updateStatusParams);
+				if(updateStatus>0)
+				{
+					  LOGGER.debug("Document status table successfully updated, updating the audit table");
+					  LOGGER.debug("Calling updateAuditTable method to update the details in the audit table");
+					  Integer auditTableUpdate = updateAuditTable(performActionsOverApplicationDTO,ownerId,email);
+					  LOGGER.debug("The status of audit table update is : "+auditTableUpdate);
+					  return auditTableUpdate;
+				}
+				else
+				{
+					LOGGER.error("Status cannot be updated, Returning -10 to service");
+					return -10;
+				}
+			}
+			catch(Exception e)
+			{
+				LOGGER.error("An exception occured while updating the status of the application to Closed: "+e);
+				LOGGER.error("Throwing exception to service");
+				throw new Exception(e);
+			}
+		}
+		
+		
+		
+	}
 	
 }
