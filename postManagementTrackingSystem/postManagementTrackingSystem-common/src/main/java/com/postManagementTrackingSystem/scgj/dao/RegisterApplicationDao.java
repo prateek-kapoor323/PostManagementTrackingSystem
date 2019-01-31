@@ -134,7 +134,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 	 */
 	
 	@Transactional(rollbackFor=Exception.class)
-	public String submitPostDetails(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId,String uploadPath) throws Exception 
+	public String submitPostDetails(SubmitPostDetailsDto submitPostDetailsDto, String uniqueApplicationId,String uploadPath, String email) throws Exception 
 	{
 		
 		// TODO Auto-generated method stub
@@ -172,18 +172,60 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 			LOGGER.debug("The document has been submitted successfully ");
 			LOGGER.debug("Calling method to return application id on the basis of id(PK) :" +docId);
 			String uniqueId = getApplicationIdById(docId);
-			LOGGER.debug("The unique id corresponding to the generated primary key is: "+docId);
+			LOGGER.debug("The unique id corresponding to the generated primary key is: "+uniqueId);
+			LOGGER.debug("Sending request to fill the audit table");
+			int auditTableUpdateStatus = updateAuditTable(submitPostDetailsDto,uniqueId,documentOwnerId,uploadPath,email);
 			return uniqueId;
+			
 		}
 		catch(RuntimeException e)
 		{
 			LOGGER.error("The exception is: "+e);
-			LOGGER.error("Returning NULL");
+			LOGGER.error("Throwing exception");
 			throw new Exception(e);
 			
 		}
 		
 		
+	}
+
+	/**
+	 * This method is invoked when the DEO has sent a request to register a post and both document_details and doc_status table have been updated
+	 * @param submitPostDetailsDto
+	 * @param uniqueId
+	 * @param documentOwnerId
+	 * @return
+	 * @throws Exception 
+	 */
+	@Transactional(rollbackFor=Exception.class)
+	private int updateAuditTable(SubmitPostDetailsDto submitPostDetailsDto, String uniqueId, Integer documentOwnerId, String uploadPath,String email) throws Exception 
+	{
+		LOGGER.debug("Request received from submitPostDetails() method to fill the audit table for application with application id: "+uniqueId);
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>auditTableUpdate = new HashMap<>();
+		LOGGER.debug("Hashmap of objects successfully created, Inserting parameters into hashmap");
+		auditTableUpdate.put("applicationId", uniqueId);
+		auditTableUpdate.put("senderName",submitPostDetailsDto.getSenderName());
+		auditTableUpdate.put("subject",submitPostDetailsDto.getSubject());
+		auditTableUpdate.put("priority", submitPostDetailsDto.getPriority());
+		auditTableUpdate.put("ownerId", documentOwnerId);
+		auditTableUpdate.put("documentPath", uploadPath);
+		auditTableUpdate.put("documentType", submitPostDetailsDto.getDocumentType());
+		auditTableUpdate.put("email", email);
+		LOGGER.debug("Parameters successfully inserted into hashmap");
+		try 
+		{
+			LOGGER.debug("In try block to update the audit table details for application with id: "+uniqueId);
+			LOGGER.debug("Executing query to update the audit table");
+			return getJdbcTemplate().update(registerApplicationConfig.getInsertAuditTableWhileRegister(), auditTableUpdate);
+		} catch (Exception e)
+		{
+			LOGGER.error("An exception occured while updating the audit table: "+e);
+			LOGGER.error("Throwing exception");
+			throw new Exception(e);			
+		}
+		
+	
 	}
 
 	/**

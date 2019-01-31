@@ -13,7 +13,17 @@ public class RegisterApplicationConfig {
 	private String documentOwnerId;
 	private String submitDocumentStatus;
 	private String applicationIdById;
+	private String insertAuditTableWhileRegister;
 	
+	
+	
+	
+	public String getInsertAuditTableWhileRegister() {
+		return insertAuditTableWhileRegister;
+	}
+	public void setInsertAuditTableWhileRegister(String insertAuditTableWhileRegister) {
+		this.insertAuditTableWhileRegister = insertAuditTableWhileRegister;
+	}
 	public String getDepartmentHeadNamesSql() {
 		return departmentHeadNamesSql;
 	}

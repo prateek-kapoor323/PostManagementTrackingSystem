@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.postManagementTrackingSystem.scgj.common.Privilege;
 import com.postManagementTrackingSystem.scgj.common.ReadApplicationConstants;
+import com.postManagementTrackingSystem.scgj.common.SessionUserUtility;
 import com.postManagementTrackingSystem.scgj.dto.DepartmentHeadNameDto;
 import com.postManagementTrackingSystem.scgj.dto.SubmitPostDetailsDto;
 import com.postManagementTrackingSystem.scgj.service.RegisterApplicationService;
@@ -25,6 +26,8 @@ public class RegisterApplicationController {
 	private RegisterApplicationService registerApplicationService;
 	@Autowired
 	private ReadApplicationConstants readApplicationConstants;
+	@Autowired
+	private SessionUserUtility sessionUserUtility;
 	
 	/**
 	 * @author Prateek Kapoor
@@ -54,7 +57,19 @@ public class RegisterApplicationController {
 	{	
 		
 		LOGGER.debug("Received post details DTO to be submitted into database");
+		LOGGER.debug("Fetching the email of the logged in user from session");
+		String email = sessionUserUtility.getSessionMangementfromSession().getUsername();
+		LOGGER.debug("Checking if the retreived email is null or empty");
+		if(email==null||email.isEmpty())
+		{
+			LOGGER.error("Could not retreive the email of the logged in user");
+			LOGGER.error("Request could not be processed further");
+			LOGGER.error("Returning null to front end");
+			return null;
+		}
+		LOGGER.debug("Email is not empty");
 		LOGGER.debug("Checking if the parameters - documentType, dateReceived,ownerName, file are empty");
+		
 		try
 		{
 			LOGGER.debug("Checking if documentType is null");
@@ -87,7 +102,7 @@ public class RegisterApplicationController {
 			{
 				LOGGER.debug("Received post details dto and multipart file to be submitted");
 				LOGGER.debug("Sending request to register application service to submit the details and upload the file");
-				return registerApplicationService.submitPost(submitPostDetailsDto);
+				return registerApplicationService.submitPost(submitPostDetailsDto,email);
 			}
 			
 		}
