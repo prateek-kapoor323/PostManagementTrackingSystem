@@ -10,12 +10,12 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			
 			if($scope.searchParams.applicationId === undefined || $scope.searchParams.applicationId === null || $scope.searchParams.applicationId === "")
 				{
-					$scope.searchErrorMessage = "No Records Found";
+					$scope.searchErrorMessage = "Please enter the application id";
 				}
 			
 			else
 				{
-				    $scope.searchErrorMessage = "No Records Found";
+
 					var searchUrl = '/searchApplicationById?applicationId=' + $scope.searchParams.applicationId;
 		
 					$http.get(searchUrl)
