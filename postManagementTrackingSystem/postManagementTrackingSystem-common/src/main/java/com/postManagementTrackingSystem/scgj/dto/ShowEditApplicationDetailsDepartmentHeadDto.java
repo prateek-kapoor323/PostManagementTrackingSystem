@@ -1,22 +1,28 @@
 package com.postManagementTrackingSystem.scgj.dto;
 
+import java.sql.Date;
+
 import com.postManagementTrackingSystem.scgj.common.BaseDto;
 
-public class PerformActionsOverApplicationDTO extends BaseDto
+/**
+ * This dto is used to show the details of the application that has to be edited by the department head
+ * @author Prateek Kapoor
+ *
+ */
+public class ShowEditApplicationDetailsDepartmentHeadDto extends BaseDto
 {
-
 	private static final long serialVersionUID = 1L;
 	private String applicationId;
 	private String senderName;
 	private String subject;
 	private String priority;
-	private String assignedTo;
-	private String eta;
+	private Date dateAssigned;
 	private String documentRemarks;
 	private String documentPath;
 	private String documentType;
-	private String updatedStatus;
-	
+	private String status;
+	private Date eta;
+	private String ownerName;
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -41,17 +47,11 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	public void setPriority(String priority) {
 		this.priority = priority;
 	}
-	public String getAssignedTo() {
-		return assignedTo;
+	public Date getDateAssigned() {
+		return dateAssigned;
 	}
-	public void setAssignedTo(String assignedTo) {
-		this.assignedTo = assignedTo;
-	}
-	public String getEta() {
-		return eta;
-	}
-	public void setEta(String eta) {
-		this.eta = eta;
+	public void setDateAssigned(Date dateAssigned) {
+		this.dateAssigned = dateAssigned;
 	}
 	public String getDocumentRemarks() {
 		return documentRemarks;
@@ -71,32 +71,44 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
-	public String getUpdatedStatus() {
-		return updatedStatus;
+	public String getStatus() {
+		return status;
 	}
-	public void setUpdatedStatus(String updatedStatus) {
-		this.updatedStatus = updatedStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	public PerformActionsOverApplicationDTO(String applicationId, String senderName, String subject, String priority,
-			String assignedTo, String eta, String documentRemarks, String documentPath, String documentType,
-			String updatedStatus) {
+	public Date getEta() {
+		return eta;
+	}
+	public void setEta(Date eta) {
+		this.eta = eta;
+	}
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	public ShowEditApplicationDetailsDepartmentHeadDto(String applicationId, String senderName, String subject,
+			String priority, Date dateAssigned, String documentRemarks, String documentPath, String documentType,
+			String status, Date eta, String ownerName) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
 		this.subject = subject;
 		this.priority = priority;
-		this.assignedTo = assignedTo;
-		this.eta = eta;
+		this.dateAssigned = dateAssigned;
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
 		this.documentType = documentType;
-		this.updatedStatus = updatedStatus;
+		this.status = status;
+		this.eta = eta;
+		this.ownerName = ownerName;
 	}
-	public PerformActionsOverApplicationDTO() {
+	public ShowEditApplicationDetailsDepartmentHeadDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+
 	
 }

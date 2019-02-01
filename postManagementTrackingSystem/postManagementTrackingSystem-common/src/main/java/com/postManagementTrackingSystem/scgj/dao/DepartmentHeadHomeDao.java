@@ -360,7 +360,7 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 		catch (Exception e) 
 		{
 			LOGGER.error("An exception occured while inserting details into the audit table: "+e);
-			LOGGER.error("Returning -10 to the calling method");
+			LOGGER.error("Throwing an exception and rolling back the db transactions");
 			throw new Exception(e);
 		}
 	}

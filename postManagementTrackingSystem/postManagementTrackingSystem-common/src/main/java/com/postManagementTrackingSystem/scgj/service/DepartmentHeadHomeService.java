@@ -55,7 +55,7 @@ public class DepartmentHeadHomeService {
 		if(department==null||department.isEmpty())
 		{
 			LOGGER.error("Could not retreive the department name for the logged in user: "+email);
-			LOGGER.error("Request could not be processed further, Returning null to front end");
+			LOGGER.error("Request could not be processed further, Returning null to Controller");
 			return null;
 		}
 		LOGGER.debug("The department name was not null or empty");
