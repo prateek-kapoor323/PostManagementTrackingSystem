@@ -4,7 +4,7 @@ delimiter |
 
 CREATE EVENT set_application_status_to_delayed
     ON SCHEDULE
-      EVERY 24 Hour
+      EVERY 12 Hour
     DO
       BEGIN
       
