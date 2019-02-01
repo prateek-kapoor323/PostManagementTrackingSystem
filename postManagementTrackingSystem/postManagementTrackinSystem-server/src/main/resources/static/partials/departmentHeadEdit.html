@@ -1,0 +1,55 @@
+<head>
+   <link href="css/departmentHeadEdit.css" type="text/css" rel="stylesheet">
+</head>
+<div class="wrapper-container" ng-controller="departmentHeadEditController">
+<p class="editApplicationsHeading">Edit Application Owner</p> 
+
+ <div class="row">
+   <!-- Search form starts here -->
+      <form ng-submit="searchEditOwner()">
+		
+		<div class="col-md-4 editOwnerText">
+		<p class="enterApplicationIdText">Enter Application Id</p>
+		 <input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
+		</div>
+		<span class="col-md-4 editOwnerText">
+		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+            <span class="errorMessage">{{searchErrorMessage}}</span>
+            <span class="successMessage">{{editOwnerSuccessMessage}}</span>
+            <span class="errorMessage">{{editOwnerErrorMessage}}</span>
+            <span class="errorMessage">{{downloadError}}</span>
+		</span>
+	  </form>
+  </div>
+  <div class="gridTable">
+      <div ui-grid="editOwnerSearchResult"  class="grid grid-align" ui-grid-auto-resize ></div>
+   </div>
+   
+   
+   
+   <p class="editApplicationsEtaHeading">Edit Application ETA</p>
+    <div class="row">
+   <!-- Search form starts here -->
+      <form ng-submit="searchEditEta()">
+		
+		<div class="col-md-4 editOwnerText">
+		<p class="enterApplicationIdText">Enter Application Id</p>
+		 <input type="text"  class="form-control applicationIdTextBox" id="editEtaApplicationId" placeholder="Enter Application Id" name="editEtaApplicationId"  ng-model="editETA.editEtaApplicationId" required>
+		</div>
+		<span class="col-md-4 editOwnerText">
+		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+            <span class="errorMessage">{{editEtaSearchErrorMessage}}</span>
+            <span class="successMessage">{{editEtaSuccessMessage}}</span>
+            <span class="errorMessage">{{editEtaErrorMessage}}</span>
+            <span class="errorMessage">{{editEtaDownloadError}}</span>
+		</span>
+	  </form>	  
+  </div>
+  <div class="gridTable">
+      <div ui-grid="editEtaSearchResult"  class="grid grid-align" ui-grid-auto-resize ></div>
+   </div>
+   
+   
+   
+   
+</div>
