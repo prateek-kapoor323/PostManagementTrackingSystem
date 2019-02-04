@@ -32,6 +32,11 @@ private RegisterApplicationDao registerApplicationDao;
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationUtilityClass.class);
 
 	
+	
+	
+	
+
+	
 	/**
 	 * @author Prateek Kapoor
 	 * Description - This method is invoked by service class to generate the unique application id each time a new application comes in the system
@@ -178,7 +183,6 @@ private RegisterApplicationDao registerApplicationDao;
 		else
 		{
 			LOGGER.debug("DocumentType is present. Checking the document type of the file");
-//			String documentType = submitPostDetailsDto.getDocumentType();
 			LOGGER.debug("Checking the document type");
 
 				if(documentType.equalsIgnoreCase(readApplicationConstants.getInvoice()))

@@ -11,6 +11,7 @@ import com.postManagementTrackingSystem.scgj.dao.DepartmentHeadHomeDao;
 import com.postManagementTrackingSystem.scgj.dao.EditApplicationDataEntryOperatorDao;
 import com.postManagementTrackingSystem.scgj.dto.ReceiveEditApplicationParamsDHDto;
 import com.postManagementTrackingSystem.scgj.dto.ShowEditApplicationDetailsDepartmentHeadDto;
+import com.postManagementTrackingSystem.scgj.utils.PerformPostActionsUtility;
 
 @Service
 public class DepartmentHeadEditApplicationService {
@@ -23,6 +24,9 @@ public class DepartmentHeadEditApplicationService {
 	
 	@Autowired
 	private DepartmentHeadHomeDao departmentHeadHomeDao;
+	
+	@Autowired
+	private PerformPostActionsUtility performPostActionsUtility;
 	
 	@Autowired
 	private EditApplicationDataEntryOperatorDao editApplicationDataEntryOperatorDAO;
@@ -47,7 +51,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("Received parameters are not null or empty");
 		LOGGER.debug("Processing request to get the application details for application id: "+applicationId);
 		LOGGER.debug("Sending request to department head home service get department name method to get the name of the department for the logged in user with email: "+email);
-		String department = departmentHeadHomeService.getDepartmentOfLoggedInUser(email);
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
 		LOGGER.debug("Checking if the response is null or empty");
 		if(department==null||department.isEmpty())
@@ -85,7 +89,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("The retreived parameter is not null");
 		LOGGER.debug("The document id corresponding to the application id: "+receiveEditApplicationParamsDHDto.getApplicationId()+" is: "+documentId);
 		LOGGER.debug("Sending request to method to get the method to get the department of the logged in user");
-		String department = departmentHeadHomeService.getDepartmentOfLoggedInUser(email);
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
 		LOGGER.debug("Checking if the response is null or empty");
 		if(department==null||department.isEmpty())
@@ -96,8 +100,8 @@ public class DepartmentHeadEditApplicationService {
 		}
 		LOGGER.debug("The department name was not null or empty");
 		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
-		LOGGER.debug("Sending request to method to get the id of the owner with department: "+department);
-		Integer ownerId = departmentHeadHomeDao.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
+		LOGGER.debug("Sending request to  performPostActionsUtility utility method to get the id of the owner with department: "+department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{
@@ -162,7 +166,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("The retreived parameter is not null");
 		LOGGER.debug("The document id corresponding to the application id: "+receiveEditApplicationParamsDHDto.getApplicationId()+" is: "+documentId);
 		LOGGER.debug("Sending request to method to get the method to get the department of the logged in user");
-		String department = departmentHeadHomeService.getDepartmentOfLoggedInUser(email);
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
 		LOGGER.debug("Checking if the response is null or empty");
 		if(department==null||department.isEmpty())
@@ -174,7 +178,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("The department name was not null or empty");
 		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
 		LOGGER.debug("Sending request to method to get the id of the owner with department: "+department);
-		Integer ownerId = departmentHeadHomeDao.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{

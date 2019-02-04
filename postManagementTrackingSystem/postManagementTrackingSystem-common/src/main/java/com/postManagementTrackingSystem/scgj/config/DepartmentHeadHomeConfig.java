@@ -23,6 +23,7 @@ public class DepartmentHeadHomeConfig
 	private String updateStatusToComplete;
 	private String checkStartDateBeforeUpdate;
 	private String updateStatusToCompleteWithoutStartDate;
+	private String delayedApplications;
 	
 	
 	
@@ -120,10 +121,11 @@ public class DepartmentHeadHomeConfig
 	public void setPopulateAuditTable(String populateAuditTable) {
 		this.populateAuditTable = populateAuditTable;
 	}
-	
-	
-	
-	
-	
-	
+	public String getDelayedApplications() {
+		return delayedApplications;
+	}
+	public void setDelayedApplications(String delayedApplications) {
+		this.delayedApplications = delayedApplications;
+	}
+
 }

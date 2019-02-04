@@ -16,6 +16,7 @@ import com.postManagementTrackingSystem.scgj.dto.DepartmentHeadNotStartedApplica
 import com.postManagementTrackingSystem.scgj.dto.DisplayAuditTableDHDTO;
 import com.postManagementTrackingSystem.scgj.dto.GetNameOfDepartmentEmployeesDTO;
 import com.postManagementTrackingSystem.scgj.dto.PerformActionsOverApplicationDTO;
+import com.postManagementTrackingSystem.scgj.utils.PerformPostActionsUtility;
 
 @Service
 public class DepartmentHeadHomeService {
@@ -28,7 +29,7 @@ public class DepartmentHeadHomeService {
 	private EditApplicationDataEntryOperatorDao editApplicationDataEntryOperatorDAO;
 	
 	@Autowired
-	private RegisterApplicationDao registerApplicationDao;
+	private PerformPostActionsUtility performPostActionsUtility;
 	
 	/**
 	 * This method receives the email of the logged in user and sends request to getDepartmentOfLoggedInUser method to get the name of the logged in user and then gets the names of 
@@ -49,7 +50,7 @@ public class DepartmentHeadHomeService {
 		}
 		LOGGER.debug("Received parameter is not null or empty, processing further request");
 		LOGGER.debug("Sending request to getDepartmentOfLoggedInUser() method to get the name of the department");
-		String department = getDepartmentOfLoggedInUser(email);
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
 		LOGGER.debug("Checking if the response is null or empty");
 		if(department==null||department.isEmpty())
@@ -85,7 +86,7 @@ public class DepartmentHeadHomeService {
 		LOGGER.debug("The parameter received is not null or empty");
 		LOGGER.debug("Processing request to get the department name of the logged in user with email: "+email);
 		LOGGER.debug("Sending request to getDepartmentOfLoggedInUser to get the department of the logged in user ");
-		String departmentName = getDepartmentOfLoggedInUser(email);
+		String departmentName =performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Checking if the retreived department name is null or empty");
 		if(departmentName==null||departmentName.isEmpty())
 		{
@@ -101,25 +102,6 @@ public class DepartmentHeadHomeService {
 				
 	}
 	
-	/**
-	 * This method receives the email of the logged in user and gets the name of the department corresponding to that email
-	 * @param email
-	 * @return
-	 */
-	public String getDepartmentOfLoggedInUser(String email)
-	{
-		LOGGER.debug("Checking if the email is null or empty");
-		if(email==null||email.isEmpty())
-		{
-			LOGGER.error("Email of the logged in user received null or empty in service method");
-			LOGGER.error("Returning NULL");
-			return null;
-		}
-		LOGGER.debug("Request received in service to get the department of the logged in user with email: "+email);
-		LOGGER.debug("Calling method in dao to get the department name of the logged in user");
-		return departmentHeadHomeDao.getDepartmentOfLoggedInUser(email);
-	
-	}
 
 	/**
 	 * This method assigns owner, ETA to the applications and sets the status as ASSIGNED for the corresponding application
@@ -137,7 +119,7 @@ public class DepartmentHeadHomeService {
 		LOGGER.debug("Processing the request to update the owner of the application with application id: "+performActionsOverApplicationDTO.getApplicationId());
 		LOGGER.debug("Sending Request to RegisterApplicationDao's getOwnerId method to get the id of the owner with name: "+performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Sending request to method to get the department of the logged in user");
-		String departmentName = getDepartmentOfLoggedInUser(email);
+		String departmentName = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Checking if the retreived department name is null or empty");
 	
 		if(departmentName==null||departmentName.isEmpty())
@@ -149,7 +131,7 @@ public class DepartmentHeadHomeService {
 		LOGGER.debug("The retreived parameter is not null");
 		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+departmentName);
 		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+departmentName);
-		Integer ownerId = departmentHeadHomeDao.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), departmentName);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), departmentName);
 		LOGGER.debug("Received the ID of the owner for the owner name: "+performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Checking if the owner id is null or empty");
 		
@@ -209,7 +191,7 @@ public class DepartmentHeadHomeService {
 		LOGGER.debug("Parameter received is not null or empty");
 		LOGGER.debug("Processing request to get the details of assigned applications to logged in user using email: "+email);
 		LOGGER.debug("Sending request to dao and returning response");
-		return departmentHeadHomeDao.getAssignedApplications(email);
+		return performPostActionsUtility.getAssignedApplications(email);
 	}
 	
 	/**
@@ -250,7 +232,7 @@ public class DepartmentHeadHomeService {
 		}
 		LOGGER.debug("Parameter received is not null or empty");
 		LOGGER.debug("Processing request to get the details of application with status IN ACTION for logged in user with email: "+email);
-		return departmentHeadHomeDao.getInActionApplications(email);
+		return performPostActionsUtility.getInActionApplications(email);
 		
 	}
 	
@@ -272,10 +254,16 @@ public class DepartmentHeadHomeService {
 		}
 		LOGGER.debug("Parameter received is not null or empty");
 		LOGGER.debug("Processing request to get the details of application with status ON HOLD for logged in user with email: "+email);
-		return departmentHeadHomeDao.getOnHoldApplications(email);
+		return performPostActionsUtility.getOnHoldApplications(email);
 		
 	}
 	
+	/**
+	 * This method checks for the status that has to be updated and then updates the status of the application and updates the audit table
+	 * @param performActionsOverApplicationDTO
+	 * @param email
+	 * @return 1 if success, -5 if parameters received are null, -10 if exception occurs 
+	 */
 	public Integer updateApplicationStatus(PerformActionsOverApplicationDTO performActionsOverApplicationDTO,String email)
 	{
 		LOGGER.debug("Request received from controller to update the status of application for the logged in user");
@@ -283,43 +271,43 @@ public class DepartmentHeadHomeService {
 		if(performActionsOverApplicationDTO.getUpdatedStatus()==null)
 		{
 			LOGGER.error("The status to be updated is null");
-			LOGGER.error("Request cannot be processed, returning -10 to the Controller");
+			LOGGER.error("Request cannot be processed, returning -5 to the Controller");
 			return -5;
 		}
 		else if(performActionsOverApplicationDTO.getApplicationId()==null||performActionsOverApplicationDTO.getApplicationId().isEmpty())
 		{
 			LOGGER.error("The application id is null or empty");
-			LOGGER.error("Request cannot be processed, returning -10 to the Controller");
-			return -10;
+			LOGGER.error("Request cannot be processed, returning -5 to the Controller");
+			return -5;
 		}
 		else if(email==null||email.isEmpty())
 		{
 			LOGGER.error("The email is empty or null");
 			LOGGER.error("Request cannot be processed, returning -5 to the controller");
-			return -10;
+			return -5;
 		}
 		LOGGER.debug("Parameters are not null or empty");
 		LOGGER.debug("Sending request to the get department of the logged in user");
-		String department = getDepartmentOfLoggedInUser(email);
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
 		LOGGER.debug("Checking if the value of department received from the method is null or empty");
 		if(department==null||department.isEmpty())
 		{
 			LOGGER.error("The retreived department name is null or empty");
-			LOGGER.error("Request cannot be processed, Returning -10 to the controller");
-			return -10;
+			LOGGER.error("Request cannot be processed, Returning -5 to the controller");
+			return -5;
 		}
 		LOGGER.debug("The retreived parameter is not null");
 		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
 		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
 		LOGGER.debug("Sending request to get Owner ID by department name and owner name to get the ownerId of the logged in user with email: "+email);
-		Integer ownerId = departmentHeadHomeDao.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), department);
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{
 			LOGGER.error("The retreived parameter ownerId is null or empty");
 			LOGGER.error("Request cannot be processed");
-			LOGGER.error("Returning -10 to controller");
-			return -10;
+			LOGGER.error("Returning -5 to controller");
+			return -5;
 		}
 		LOGGER.debug("The retreived ownerId for logged in user: "+email+" is: "+ownerId);
 		LOGGER.error("Sending request to get id by application id method to get the id of the application id:  "+performActionsOverApplicationDTO.getAssignedTo());
@@ -342,7 +330,7 @@ public class DepartmentHeadHomeService {
 			try 
 			{
 				LOGGER.debug("In try block to execute query for updating application status to In Action");
-				return departmentHeadHomeDao.updateApplicationStatusToInAction(performActionsOverApplicationDTO, ownerId, documentId, email);
+				return performPostActionsUtility.updateApplicationStatusToInAction(performActionsOverApplicationDTO, ownerId, documentId, email);
 			}
 			catch (Exception e)
 			{
@@ -360,7 +348,7 @@ public class DepartmentHeadHomeService {
 			try
 			{
 				LOGGER.debug("In try block to execute query for updating application status to On Hold");
-				return departmentHeadHomeDao.updateApplicationStatusToOnHold(performActionsOverApplicationDTO, ownerId, documentId,email);
+				return performPostActionsUtility.updateApplicationStatusToOnHold(performActionsOverApplicationDTO, ownerId, documentId,email);
 			} 
 			catch (Exception e)
 			{
@@ -378,7 +366,7 @@ public class DepartmentHeadHomeService {
 			try 
 			{
 				LOGGER.debug("In try block to execute query for updating application status to Delayed");
-				return departmentHeadHomeDao.updateApplicationStatusToClosed(performActionsOverApplicationDTO, ownerId, documentId,email);
+				return performPostActionsUtility.updateApplicationStatusToClosed(performActionsOverApplicationDTO, ownerId, documentId,email);
 			}
 			catch (Exception e)
 			{
