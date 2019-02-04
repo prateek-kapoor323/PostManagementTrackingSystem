@@ -1,22 +1,7 @@
-var departmentHeadSearch = angular.module("app");
+var departmentEmployeeSearch = angular.module("app");
 
-departmentHeadSearch.controller("departmentHeadSearchController", function ($scope, $http, registerPostService, $timeout) {
-	
-	
-	var getDepartmentEmployeesName = "/getNameOfDepartmentEmployees";
-	$scope.departmenEmployeesName = [];
+departmentEmployeeSearch.controller("departmentEmployeeSearchController",function($scope, $http, $timeout){
 
-	$http.get(getDepartmentEmployeesName)
-	.then(function (response)
-	{
-		
-		let dt = response.data;
-		for (i in dt) {
-			$scope.departmenEmployeesName.push(response.data[i].departmentEmployeeName);
-			
-		}
-	});
-	
 	
 	/* This method checks the type of search parameter and then sends the request to that respective controller */
 	$scope.searchParams = {};
@@ -31,12 +16,13 @@ departmentHeadSearch.controller("departmentHeadSearchController", function ($sco
 			 else
 				 {
 				 	$scope.searchErrorMessage = "";
-				 	var url="/getApplicationDetailsUsingApplicationId?applicationId="+$scope.searchParams.applicationId;
+				 	var url="/getApplicationDetailsByApplicationIdDE?applicationId="+$scope.searchParams.applicationId;
 				 	$http.get(url)
 					.then(function (response) {
 	
 						$scope.searchParams.applicationId = "";
-						if (response.data == null || response.data == "") {
+						if (response.data == null || response.data == "") 
+						{
 							$scope.searchErrorMessage = "No Records found";
 							$scope.searchPostInfo.data = [];
 						}
@@ -62,8 +48,7 @@ departmentHeadSearch.controller("departmentHeadSearchController", function ($sco
 				else
 					{
 					$scope.searchErrorMessage = "";
-				 	var url="/getApplicationDetailsUsingApplicationStatus?status="+$scope.searchParams.status;
-				 	
+				 	var url="/getApplicationDetailsUsingApplicationStatusDE?status="+$scope.searchParams.status;
 				 	$http.get(url)
 					.then(function (response) {
 		
@@ -85,44 +70,9 @@ departmentHeadSearch.controller("departmentHeadSearchController", function ($sco
 					}, 4000);
 
 			}
-		else if($scope.searchPostSwitch=='owner')
-			{
-				if($scope.searchParams.ownerName===undefined||$scope.searchParams.ownerName===null)
-				{
-					$scope.searchErrorMessage = "Please select the owner";
-				}
-				else
-				{
-					$scope.searchErrorMessage = "";
-				 	var url="/getApplicationDetailsUsingApplicationOwner?ownerName="+$scope.searchParams.ownerName;
-				 	$http.get(url)
-					.then(function (response) {
 		
-						$scope.searchParams.applicationId = "";
-						if (response.data == null || response.data == "") {
-							$scope.searchErrorMessage = "No Records found";
-							$scope.searchPostInfo.data = [];
-						}
-						else
-						{	
-							$scope.searchErrorMessage="";
-							$scope.searchPostInfo.data = response.data;
-						}
-		
-					});
-					}
-				$timeout(function () {
-					$scope.searchErrorMessage = "";
-					}, 4000);
 			}
-	}
-	
-	
-	
-	
-	
-	
-	
+
 	$scope.searchPostInfo = {
 
 			enableGridMenus: false,

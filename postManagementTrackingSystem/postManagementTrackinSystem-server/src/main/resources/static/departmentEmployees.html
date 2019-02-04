@@ -1,6 +1,70 @@
 <head>
- <link href="css/departmentEmplyees.css" type="text/css" rel="stylesheet">
+ <link href="css/departmentEmployees.css" type="text/css" rel="stylesheet">
 </head>
 
 <div ng-controller="mainController">
+ <nav class="navbar">
+      <div class="container-fluid">
+         <div class="navbar-header navbar-brand row">
+            <div class="col-md-3">
+               <a href="http://sscgj.in/"  target="_blank">
+               <img src="images/SCGJlogo.png" class="scgjLogo" alt="SCGJ logo" style="width:12vw" >
+               </a>
+            </div>
+            <div class="col-md-3 logout" align="right" style="padding: 6pt;position: absolute;right: 2%;">
+               <a class="">
+                  <p class="userName" ><b>{{username}}</b></p>
+                  <img src="images/logout.png" alt="logout" width="6%">&nbsp;<span ng-click="logout()">Logout</span>
+               </a>
+            </div>
+         </div>
+      </div>
+   </nav>
+   <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <nav id="sidebar">
+         <ul class="list-unstyled components">
+            <li>
+               <a ng-click="page='homePage'; alpha=true; beta=false; gamma=false; delta=false;" ng-class="{alpha : alpha}">
+               <img src="images/departmentHeadHomeIcon.png" alt="register post" width="10%">&nbsp;
+               Home
+               </a>
+            </li>
+            <li>
+               <a ng-click="page='searchPost'; alpha=false; beta=true; gamma=false; delta=false;" ng-class="{beta: beta}">
+               <img src="images/search-post.png" alt="document" width="10%">&nbsp;
+               Search Post
+               </a>
+            </li>
+         </ul>
+      </nav>
+      <!-- Page Content Holder -->
+      <div id="content" class="container-fluid">
+         <div ng-switch on="page">
+            <div ng-switch-default>
+               <div ng-include src="'partials/departmentEmployeeHome.html'"></div>
+            </div>
+            <div ng-switch-when="searchPost">
+               <div ng-include src="'partials/departmentEmployeeSearch.html'"></div>
+            </div>
+
+         </div>
+      </div>
+   </div>
+   <footer class="page-footer">
+      <div class="container-fluid">
+         <div class="upperFooter">
+            <div class="link-wrapper">
+               <a href="http://sscgj.in/about-us/" target="_blank" class="link">About Us</a><span class="vert-bars"> | </span>
+               <a href="http://sscgj.in/operational-standards/" target="_blank" class="link">National Standards</a><span class="vert-bars"> | </span>
+               <a href="http://sscgj.in/affiliation/" target="_blank" class="link">Affiliation</a><span class="vert-bars"> | </span>
+               <a href="http://sscgj.in/publications/" target="_blank" class="link">Publications</a><span class="vert-bars"> | </span>
+               <a href="http://sscgj.in/state-linkages/" target="_blank" class="link">State Linkages</a>
+            </div>
+         </div>
+         <div class="lowerFooter">
+            <h5 class="copyright">Copyright &copy 2017-2020 sscgj.in - All Rights Reserved.</h5>
+         </div>
+      </div>
+   </footer>
 </div>

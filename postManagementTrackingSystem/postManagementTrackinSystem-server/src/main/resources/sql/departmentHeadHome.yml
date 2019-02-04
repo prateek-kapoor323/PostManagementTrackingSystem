@@ -1,7 +1,7 @@
 departmentHeadHome:
 
  departmentNameUsingEmail: >
-  select distinct department from users where email= :email and role_type="DH";
+  select distinct department from users where email= :email;
  departmentEmployeeNameUsingDepartmentName: >
   select distinct name from users where department = :department;
  
@@ -62,5 +62,10 @@ departmentHeadHome:
  checkStartDateBeforeUpdate: >
   select date_started from scgj_pmts.doc_status where owner_id=:ownerId AND doc_id=:documentId;
 
-
+ delayedApplications: >
+  select document_details.application_id as applicationId, document_details.sender_name as senderName,document_details.subject as subject,
+  document_details.priority as priority, document_details.document_path as documentPath,document_details.document_type as documentType,doc_status.additional_comment as documentRemarks,
+  doc_status.date_assigned as dateAssigned,doc_status.eta as eta,doc_status.status,users.name as name
+  from ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id)
+  INNER JOIN users ON doc_status.owner_id=users.id) where users.email= :email AND doc_status.status="Delayed" ORDER BY doc_status.date_started DESC;
  

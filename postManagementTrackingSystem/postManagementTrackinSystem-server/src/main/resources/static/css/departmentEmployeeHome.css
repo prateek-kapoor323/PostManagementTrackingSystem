@@ -2,20 +2,12 @@
      background-color: white;
      height: auto;
 }
-.newApplicationsHeading
+.departmentEmployeeAssignedApplicationsHeading
 {
 	 color: rgb(109,110,113);
      font-size: 18pt;
      margin-left: 1%;
      display:inline;
-}
-.assignOwnerButton
-{
-	width:55%;
-	font-size:14px;
-	padding:0px;
-	margin-left:20%;
-	margin-top:3%;
 }
  .gridTable{
      margin-top:1% !important;
@@ -54,7 +46,7 @@
      margin-left:2%;	
 }
 
-.assignedApplicationsHeading
+.departmentEmployeeActionApplicationsHeading
 {
 	margin-top:1%;
 	display:inline-block;
@@ -62,7 +54,7 @@
      font-size: 18pt;
      margin-left: 1%;
 }
-.inActionApplicationsHeading
+.departmentEmployeeOnHoldApplicationsHeading
 {
 	margin-top:1%;
 	display:inline-block;
@@ -70,7 +62,7 @@
      font-size: 18pt;
      margin-left: 1%;
 }
-.onHoldApplicationsHeading
+.departmentEmployeeDelayedApplicationsHeading
 {
 	margin-top:1%;
 	display:inline-block;
@@ -78,14 +70,7 @@
      font-size: 18pt;
      margin-left: 1%;
 }
-.auditTableHeading
-{
-	margin-top:1%;
-	display:inline-block;
-	color: rgb(109,110,113);
-     font-size: 18pt;
-     margin-left: 1%;
-}
+
 .updateStatusButton
 {
 	width: 83%;

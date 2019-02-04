@@ -1,0 +1,46 @@
+<head>
+   <link href="css/departmentEmployeeSearch.css" type="text/css" rel="stylesheet">
+</head>
+<div class="wrapper-container" ng-controller="departmentEmployeeSearchController">
+<p class="searchPageHeading">Search Posts</p>
+ <div class="row">
+   <!-- Search form starts here -->
+      <form ng-submit=getPostDetails()>
+         <div class="col-md-6">
+            <p class="searchPostDropDownText">Search Post Using</p>
+            <select class="form-control selectParamOptions" ng-model="searchPostSwitch" required>
+               <option value="">Select Search Parameter</option>
+               <option value="applicationId">Post Id</option>
+               <option value="status">Status</option>
+            </select>
+         </div>
+         <span ng-switch="searchPostSwitch" class="col-md-3">
+            <span  ng-switch-when="applicationId">
+            <input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
+            </span>
+            <span ng-switch="searchPostSwitch">
+            <span ng-switch-when="status">
+            	 <select class="form-control selectStatusOptions" ng-model="searchParams.status" required>
+                     <option value="" selected disabled>Select Status</option>
+                     <option value="Assigned">Assigned</option>
+                     <option value="In Action">In Action</option>
+                     <option value="On Hold">On Hold</option>
+                     <option value="Delayed">Delayed</option>
+                     <option value="Closed">Closed</option>
+                  </select>
+            	
+            </span>
+            </span>
+            </span>
+            
+            <div class="col-md-3">
+            <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+            <span class="errorMessage">{{searchErrorMessage}}</span>
+            <span class="errorMessage">{{downloadError}}</span>
+         </div>
+</form>
+</div>
+<div class="gridTable">
+      <div ui-grid="searchPostInfo"  class="grid grid-align" ui-grid-auto-resize ></div>
+   </div>
+</div>

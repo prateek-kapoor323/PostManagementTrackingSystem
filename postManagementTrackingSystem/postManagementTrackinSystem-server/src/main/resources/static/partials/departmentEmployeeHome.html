@@ -1,0 +1,27 @@
+<head>
+   <link href="css/departmentEmployeeHome.css" type="text/css" rel="stylesheet">
+</head>
+<div class="wrapper-container" ng-controller="departmentEmployeeHomeController">
+   <p class="departmentEmployeeAssignedApplicationsHeading">Assigned Applications</p>
+   <span class="Error">{{assignedErrorMessage}}</span>
+   <span class="Success">{{assignedSuccessMessage}}</span>
+   <div class="gridTable">
+      <div ui-grid="assignedApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+   <p class="departmentEmployeeActionApplicationsHeading">In Action Applications</p>
+   <span class="Error">{{InActionErrorMessage}}</span>
+   <span class="Success">{{InActionSuccessMessage}}</span>
+   <div class="gridTable">
+      <div ui-grid="inActionApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+   <p class="departmentEmployeeOnHoldApplicationsHeading">On Hold Applications</p>
+   <span class="Error">{{onHoldErrorMessage}}</span>
+   <span class="Success">{{onHoldSuccessMessage}}</span>
+   <div class="gridTable">
+      <div ui-grid="onHoldApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+   <p class="departmentEmployeeDelayedApplicationsHeading">Delayed Applications</p>
+   <div class="gridTable">
+      <div ui-grid="delayedApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
+</div>
