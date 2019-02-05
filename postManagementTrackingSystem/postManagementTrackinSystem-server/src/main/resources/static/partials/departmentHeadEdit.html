@@ -8,11 +8,11 @@
    <!-- Search form starts here -->
       <form ng-submit="searchEditOwner()">
 		
-		<div class="col-md-4 editOwnerText">
+		<div class="col-md-6 editOwnerText">
 		<p class="enterApplicationIdText">Enter Application Id</p>
 		 <input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
 		</div>
-		<span class="col-md-4 editOwnerText">
+		<span class="col-md-6 editOwnerText">
 		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
             <span class="errorMessage">{{searchErrorMessage}}</span>
             <span class="successMessage">{{editOwnerSuccessMessage}}</span>
@@ -32,11 +32,11 @@
    <!-- Search form starts here -->
       <form ng-submit="searchEditEta()">
 		
-		<div class="col-md-4 editOwnerText">
+		<div class="col-md-6 editOwnerText">
 		<p class="enterApplicationIdText">Enter Application Id</p>
 		 <input type="text"  class="form-control applicationIdTextBox" id="editEtaApplicationId" placeholder="Enter Application Id" name="editEtaApplicationId"  ng-model="editETA.editEtaApplicationId" required>
 		</div>
-		<span class="col-md-4 editOwnerText">
+		<span class="col-md-6 editOwnerText">
 		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
             <span class="errorMessage">{{editEtaSearchErrorMessage}}</span>
             <span class="successMessage">{{editEtaSuccessMessage}}</span>
