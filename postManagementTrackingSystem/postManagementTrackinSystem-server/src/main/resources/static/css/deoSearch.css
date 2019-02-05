@@ -9,7 +9,7 @@
 }
  .searchPostDropDownText {
      width:12% !important;
-     margin-left: 12%;
+     margin-left: 2%;
      font-size: medium;
      color:black;
      display:inline;
@@ -31,8 +31,9 @@
 }
  .dateSection {
      display:inline-block;
-     width:auto !important;
+     width: 10em !important;
 }
+
  input.ng-invalid {
      border:1px solid #ccc !important;
 }
@@ -63,4 +64,15 @@
 	margin-top: 3%;
 	width: 15%;
 	margin-left: 45%;
+}
+
+.searchPostClass
+{
+	width:36% !important;
+}
+
+@media (min-width: 992px)
+.searchPostSection 
+{
+    width: 40.333333% !important;
 }

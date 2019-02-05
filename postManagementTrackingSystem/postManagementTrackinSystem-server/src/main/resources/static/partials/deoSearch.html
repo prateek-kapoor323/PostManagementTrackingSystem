@@ -6,7 +6,7 @@
    <div class="row">
    <!-- Search form starts here -->
       <form ng-submit=searchPostDetails()>
-         <div class="col-md-4">
+         <div class="col-md-6 searchPostClass">
             <p class="searchPostDropDownText">Search Post Using</p>
             <select class="form-control selectParamOptions" ng-model="searchPostSwitch" required>
                <option value="">Select Search Parameter</option>
@@ -37,7 +37,7 @@
             </span>
             </span>
          </span>
-         <div class="col-md-4">
+         <div class="col-md-2">
             <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
             <span class="errorMessage">{{searchErrorMessage}}</span>
             <span class="errorMessage">{{downloadError}}</span>

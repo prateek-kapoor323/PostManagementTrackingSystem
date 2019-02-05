@@ -38,6 +38,7 @@ deoHome.service('registerPostService', ['$http', function ($http, $timeout) {
 			else {
 				
 				document.getElementById("Success").innerHTML = "";
+				document.getElementById("Error").innerHTML = "";
 				document.getElementById("Success").innerHTML = "Your post has been Registered, Please note the Post Id for your reference: " + thisIsResponse;
 			}
 			setTimeout(function () {

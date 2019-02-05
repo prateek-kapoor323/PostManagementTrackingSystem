@@ -46,10 +46,10 @@
      cursor: pointer;
 }
  .departmentHeadSection {
-     width:62% !important;
+     width:78% !important;
 }
  .typeOfDocumentSection {
-     width:62% !important;
+     width:78% !important;
 }
  .additionalComments {
      resize: none;
@@ -69,5 +69,5 @@
     font-size: 16px;
 }
  .prioritySection {
-     width:62% !important;
+     width:78% !important;
 }
