@@ -152,6 +152,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		((MapSqlParameterSource) postDetailsParams).addValue("priority", submitPostDetailsDto.getPriority());
 		((MapSqlParameterSource) postDetailsParams).addValue("subject", submitPostDetailsDto.getSubject());
 		((MapSqlParameterSource) postDetailsParams).addValue("documentType", submitPostDetailsDto.getDocumentType());
+		((MapSqlParameterSource) postDetailsParams).addValue("referenceNumber", submitPostDetailsDto.getReferenceNumber());
 		((MapSqlParameterSource) postDetailsParams).addValue("documentPath", uploadPath);
 		((MapSqlParameterSource) postDetailsParams).addValue("documentRemarks", submitPostDetailsDto.getAdditionalComments());
 		LOGGER.debug("Values succcessfully inserted into hashmap");
@@ -211,6 +212,7 @@ public class RegisterApplicationDao extends AbstractTransactionalDao {
 		auditTableUpdate.put("ownerId", documentOwnerId);
 		auditTableUpdate.put("documentPath", uploadPath);
 		auditTableUpdate.put("documentType", submitPostDetailsDto.getDocumentType());
+		auditTableUpdate.put("referenceNumber", submitPostDetailsDto.getReferenceNumber());
 		auditTableUpdate.put("email", email);
 		LOGGER.debug("Parameters successfully inserted into hashmap");
 		try 

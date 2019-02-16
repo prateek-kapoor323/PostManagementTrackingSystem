@@ -13,7 +13,17 @@ public class EditApplicationDataEntryOperatorConfig {
 	private String idByApplicationId;
 	private String applicationIdWithStatusNotStarted;
 	private String updateDocumentDetailsTableWithoutFile;
+	private String updateAuditTableDetails;
+	
+	
+	
 
+	public String getUpdateAuditTableDetails() {
+		return updateAuditTableDetails;
+	}
+	public void setUpdateAuditTableDetails(String updateAuditTableDetails) {
+		this.updateAuditTableDetails = updateAuditTableDetails;
+	}
 	public String getUpdateDocumentDetailsTableWithoutFile() {
 		return updateDocumentDetailsTableWithoutFile;
 	}

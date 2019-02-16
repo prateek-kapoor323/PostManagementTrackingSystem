@@ -259,4 +259,28 @@ public class DepartmentHeadHomeController {
 		LOGGER.debug("Sending request to the service to update the status of application with application id: "+performActionsOverApplicationDTO.getApplicationId()+" to status : "+performActionsOverApplicationDTO.getUpdatedStatus());
 		return departmentHeadHomeService.updateApplicationStatus(performActionsOverApplicationDTO, email);
 	}
+	
+	
+	@Privilege(value= {"DH"})
+	@RequestMapping("/getInReviewApplications")
+	public Collection<AssignedApplicationsDTO> getInReviewApplicationDetails()
+	{
+		LOGGER.debug("Request received from front end to get the details of applications with status as IN REVIEW");
+		LOGGER.debug("Fetching the email of the logged in user from session");
+		String email = sessionUserUtility.getSessionMangementfromSession().getUsername();
+		LOGGER.debug("Checking if the retreived email is null or empty");
+		if(email==null||email.isEmpty())
+		{
+			LOGGER.error("Could not retreive the email of the logged in user");
+			LOGGER.error("Request could not be processed further");
+			LOGGER.error("Returning null to front end");
+			return null;
+		}
+		LOGGER.debug("The retreived email is not null or empty");
+		LOGGER.debug("The retreived email from the session is: "+email);
+		LOGGER.debug("Processing request to get the application details with status as In Review");
+		LOGGER.debug("Sending request to service");
+		return departmentHeadHomeService.getInReviewApplicationDetails(email);
+		
+	}
 }

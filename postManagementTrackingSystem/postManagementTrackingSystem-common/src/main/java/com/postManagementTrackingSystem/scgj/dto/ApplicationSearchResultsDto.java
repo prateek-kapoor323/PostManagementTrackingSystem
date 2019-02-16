@@ -22,6 +22,8 @@ public class ApplicationSearchResultsDto extends BaseDto
 	private Date eta;
 	private String documentPath;
 	private String documentType;
+	private String referenceNumber;
+	
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -82,8 +84,15 @@ public class ApplicationSearchResultsDto extends BaseDto
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public ApplicationSearchResultsDto(String applicationId, String senderName, Date dateReceived, Date dateAssigned,
-			String subject, String ownerName, String status, Date eta, String documentPath, String documentType) {
+			String subject, String ownerName, String status, Date eta, String documentPath, String documentType,
+			String referenceNumber) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -95,10 +104,13 @@ public class ApplicationSearchResultsDto extends BaseDto
 		this.eta = eta;
 		this.documentPath = documentPath;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 	}
 	public ApplicationSearchResultsDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 }

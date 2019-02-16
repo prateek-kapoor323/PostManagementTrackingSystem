@@ -15,6 +15,7 @@ public class AssignedApplicationsDTO extends BaseDto
 	private Date eta;
 	private String status;
 	private String documentType;
+	private String referenceNumber;
 	private String documentRemarks;
 	private String documentPath;
 	private String name;
@@ -66,6 +67,12 @@ public class AssignedApplicationsDTO extends BaseDto
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getDocumentRemarks() {
 		return documentRemarks;
 	}
@@ -85,8 +92,8 @@ public class AssignedApplicationsDTO extends BaseDto
 		this.name = name;
 	}
 	public AssignedApplicationsDTO(String applicationId, String senderName, Date dateAssigned, String subject,
-			String priority, Date eta, String status, String documentType, String documentRemarks, String documentPath,
-			String name) {
+			String priority, Date eta, String status, String documentType, String referenceNumber,
+			String documentRemarks, String documentPath, String name) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -96,6 +103,7 @@ public class AssignedApplicationsDTO extends BaseDto
 		this.eta = eta;
 		this.status = status;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
 		this.name = name;
@@ -104,10 +112,6 @@ public class AssignedApplicationsDTO extends BaseDto
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
 	
 	
 	

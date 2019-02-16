@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.postManagementTrackingSystem.scgj.common.Privilege;
+
 @Component
 public class FileUtility {
 
@@ -24,6 +26,7 @@ public class FileUtility {
 	 * @param response
 	 *
 	 */
+	@Privilege(value= {"DEO","DH","DE"})
 	public void downloadFile(String filePath, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received from Controller to download path at location: "+filePath);

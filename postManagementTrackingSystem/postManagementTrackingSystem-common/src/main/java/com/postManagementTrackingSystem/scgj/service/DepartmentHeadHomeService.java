@@ -50,19 +50,19 @@ public class DepartmentHeadHomeService {
 		}
 		LOGGER.debug("Received parameter is not null or empty, processing further request");
 		LOGGER.debug("Sending request to getDepartmentOfLoggedInUser() method to get the name of the department");
-		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
-		LOGGER.debug("Checking if the response is null or empty");
-		if(department==null||department.isEmpty())
-		{
-			LOGGER.error("Could not retreive the department name for the logged in user: "+email);
-			LOGGER.error("Request could not be processed further, Returning null to Controller");
-			return null;
-		}
-		LOGGER.debug("The department name was not null or empty");
-		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
-		LOGGER.debug("Sending request to DAO to get the names of employee for the department: "+department);
-		return departmentHeadHomeDao.getNameOfDepartmentEmployees(department);
+//		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+//		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
+//		LOGGER.debug("Checking if the response is null or empty");
+//		if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("Could not retreive the department name for the logged in user: "+email);
+//			LOGGER.error("Request could not be processed further, Returning null to Controller");
+//			return null;
+//		}
+		//LOGGER.debug("The department name was not null or empty");
+		//LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
+		//LOGGER.debug("Sending request to DAO to get the names of employee for the department: "+department);
+		return departmentHeadHomeDao.getNameOfEmployees();
 	}
 	
 	
@@ -118,20 +118,20 @@ public class DepartmentHeadHomeService {
 		LOGGER.debug("All the parameters received in service are not null or empty");
 		LOGGER.debug("Processing the request to update the owner of the application with application id: "+performActionsOverApplicationDTO.getApplicationId());
 		LOGGER.debug("Sending Request to RegisterApplicationDao's getOwnerId method to get the id of the owner with name: "+performActionsOverApplicationDTO.getAssignedTo());
-		LOGGER.debug("Sending request to method to get the department of the logged in user");
-		String departmentName = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Checking if the retreived department name is null or empty");
-	
-		if(departmentName==null||departmentName.isEmpty())
-		{
-			LOGGER.error("The retreived department name is null or empty");
-			LOGGER.error("Request cannot be processed, Returning null to the controller");
-			return null;
-		}
-		LOGGER.debug("The retreived parameter is not null");
-		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+departmentName);
-		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+departmentName);
-		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), departmentName);
+//		LOGGER.debug("Sending request to method to get the department of the logged in user");
+//		String departmentName = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+//		LOGGER.debug("Checking if the retreived department name is null or empty");
+//	
+//		if(departmentName==null||departmentName.isEmpty())
+//		{
+//			LOGGER.error("The retreived department name is null or empty");
+//			LOGGER.error("Request cannot be processed, Returning null to the controller");
+//			return null;
+//		}
+//		LOGGER.debug("The retreived parameter is not null");
+//		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+departmentName);
+//		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+departmentName);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Received the ID of the owner for the owner name: "+performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Checking if the owner id is null or empty");
 		
@@ -288,19 +288,19 @@ public class DepartmentHeadHomeService {
 		}
 		LOGGER.debug("Parameters are not null or empty");
 		LOGGER.debug("Sending request to the get department of the logged in user");
-		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Checking if the value of department received from the method is null or empty");
-		if(department==null||department.isEmpty())
-		{
-			LOGGER.error("The retreived department name is null or empty");
-			LOGGER.error("Request cannot be processed, Returning -5 to the controller");
-			return -5;
-		}
+		//String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+		//LOGGER.debug("Checking if the value of department received from the method is null or empty");
+//		if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("The retreived department name is null or empty");
+//			LOGGER.error("Request cannot be processed, Returning -5 to the controller");
+//			return -5;
+//		}
 		LOGGER.debug("The retreived parameter is not null");
-		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
-		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
+		//LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
+		//LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
 		LOGGER.debug("Sending request to get Owner ID by department name and owner name to get the ownerId of the logged in user with email: "+email);
-		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{
@@ -385,5 +385,42 @@ public class DepartmentHeadHomeService {
 			
 		}
 
+	}
+
+	/**
+	 * This method gets the details of the applications whose status is In Review for the logged in user
+	 * @param email
+	 * @return Collection<AssignedApplicationsDTO>
+	 */
+	public Collection<AssignedApplicationsDTO> getInReviewApplicationDetails(String email) 
+	{
+		// TODO Auto-generated method stub
+		if(email==null||email.isEmpty())
+		{
+			LOGGER.error("The received param - email are null or empty");
+			LOGGER.error("Request cannot be processed further");
+			LOGGER.error("Returning null to the controller");
+			return null;
+		}
+		
+		LOGGER.debug("Request received from controller to get the application with status IN REVIEW for the logged in user");
+		LOGGER.debug("Checking if the params received are null or empty");
+		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+		LOGGER.debug("Received response from the getDepartmentOfLoggedInUser()");
+		LOGGER.debug("Checking if the response is null or empty");
+		if(department==null||department.isEmpty())
+		{
+			LOGGER.error("Could not retreive the department name for the logged in user: "+email);
+			LOGGER.error("Request could not be processed further, Returning null to Controller");
+			return null;
+		}
+		LOGGER.debug("The department name was not null or empty");
+		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
+		LOGGER.debug("Sending request to DAO to get the names of employee for the department: "+department);
+		
+		
+		LOGGER.debug("Parameter received is not null or empty");
+		LOGGER.debug("Processing request to get the details of application with status IN REVIEW for logged in user with email: "+email);
+		return performPostActionsUtility.getInReviewApplicationDetails(department);
 	}
 }

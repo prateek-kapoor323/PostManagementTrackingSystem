@@ -17,6 +17,7 @@ public class ReceiveEditParamsWithoutFileDataEntryOperatorDTO {
 	private String priority;
 	private String subject;
 	private String typeOfDocument;
+	private String referenceNumber;
 	private String additionalComment;
 	public String getApplicationId() {
 		return applicationId;
@@ -66,6 +67,12 @@ public class ReceiveEditParamsWithoutFileDataEntryOperatorDTO {
 	public void setTypeOfDocument(String typeOfDocument) {
 		this.typeOfDocument = typeOfDocument;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getAdditionalComment() {
 		return additionalComment;
 	}
@@ -74,7 +81,7 @@ public class ReceiveEditParamsWithoutFileDataEntryOperatorDTO {
 	}
 	public ReceiveEditParamsWithoutFileDataEntryOperatorDTO(String applicationId, String senderName,
 			String pointOfContact, Long contactNumber, Date dateReceived, String priority, String subject,
-			String typeOfDocument, String additionalComment) {
+			String typeOfDocument, String referenceNumber, String additionalComment) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -84,15 +91,14 @@ public class ReceiveEditParamsWithoutFileDataEntryOperatorDTO {
 		this.priority = priority;
 		this.subject = subject;
 		this.typeOfDocument = typeOfDocument;
+		this.referenceNumber = referenceNumber;
 		this.additionalComment = additionalComment;
 	}
 	public ReceiveEditParamsWithoutFileDataEntryOperatorDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	
 	
 	
-
 }

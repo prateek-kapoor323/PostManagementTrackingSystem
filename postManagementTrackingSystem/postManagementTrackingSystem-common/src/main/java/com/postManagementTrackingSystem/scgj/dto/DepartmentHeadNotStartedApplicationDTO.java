@@ -14,8 +14,8 @@ public class DepartmentHeadNotStartedApplicationDTO
 	private String status;
 	private String documentPath;
 	private String documentType;
+	private String referenceNumber;
 	private String additionalComments;
-	
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -64,6 +64,12 @@ public class DepartmentHeadNotStartedApplicationDTO
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getAdditionalComments() {
 		return additionalComments;
 	}
@@ -72,7 +78,7 @@ public class DepartmentHeadNotStartedApplicationDTO
 	}
 	public DepartmentHeadNotStartedApplicationDTO(String applicationId, String senderName, String dateReceived,
 			String subject, String priority, String status, String documentPath, String documentType,
-			String additionalComments) {
+			String referenceNumber, String additionalComments) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -82,15 +88,12 @@ public class DepartmentHeadNotStartedApplicationDTO
 		this.status = status;
 		this.documentPath = documentPath;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 		this.additionalComments = additionalComments;
 	}
 	public DepartmentHeadNotStartedApplicationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
 	
 }

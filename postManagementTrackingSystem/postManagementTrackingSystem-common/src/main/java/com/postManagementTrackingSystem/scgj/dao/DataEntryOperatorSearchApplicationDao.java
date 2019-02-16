@@ -147,10 +147,13 @@ public class DataEntryOperatorSearchApplicationDao extends AbstractTransactional
 			String subject = rs.getString("subject");
 			String priority = rs.getString("priority");
 			String name = rs.getString("name");//name of scgj poc
+			String documentType = rs.getString("documentType");
+			String referenceNumber = rs.getString("referenceNumber");
+			String status = rs.getString("status");
 			String department = rs.getString("department");
 			String documentPath = rs.getString("documentPath");
 			
-			return new DataEntryOperatorApplicationSearchResultsDto(applicationId,senderName,dateReceived,subject,priority,name,department,documentPath);
+			return new DataEntryOperatorApplicationSearchResultsDto(applicationId,senderName,dateReceived,subject,priority,name,documentType,referenceNumber,status,department,documentPath);
 			 
 			 
 			

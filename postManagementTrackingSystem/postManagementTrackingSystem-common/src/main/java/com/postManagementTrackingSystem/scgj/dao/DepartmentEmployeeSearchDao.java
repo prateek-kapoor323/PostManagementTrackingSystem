@@ -154,9 +154,10 @@ public class DepartmentEmployeeSearchDao extends AbstractTransactionalDao
 			Date eta = rs.getDate("eta");
 			String documentPath = rs.getString("documentPath");
 			String documentType= rs.getString("documentType");
+			String referenceNumber = rs.getString("referenceNumber");
 			
 						
-			return new ApplicationSearchResultsDto(applicationId, senderName, dateReceived, dateAssigned, subject, ownerName, status, eta, documentPath, documentType);
+			return new ApplicationSearchResultsDto(applicationId, senderName, dateReceived, dateAssigned, subject, ownerName, status, eta, documentPath, documentType,referenceNumber);
 			
 		}
 	}

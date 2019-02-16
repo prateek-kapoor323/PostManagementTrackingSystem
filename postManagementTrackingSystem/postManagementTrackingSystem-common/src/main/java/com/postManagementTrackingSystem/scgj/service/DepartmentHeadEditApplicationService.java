@@ -101,7 +101,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("The department name was not null or empty");
 		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
 		LOGGER.debug("Sending request to  performPostActionsUtility utility method to get the id of the owner with department: "+department);
-		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner());
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{
@@ -178,7 +178,7 @@ public class DepartmentHeadEditApplicationService {
 		LOGGER.debug("The department name was not null or empty");
 		LOGGER.debug("The department retreived for user with email: "+email+" is: "+department);
 		LOGGER.debug("Sending request to method to get the id of the owner with department: "+department);
-		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(receiveEditApplicationParamsDHDto.getUpdatedOwner());
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{

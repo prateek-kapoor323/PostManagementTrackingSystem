@@ -13,6 +13,9 @@ public class DataEntryOperatorApplicationSearchResultsDto extends BaseDto
 	private String subject;
 	private String priority;
 	private String name;
+	private String documentType;
+	private String referenceNumber;
+	private String status;
 	private String department;
 	private String documentPath;
 	public String getApplicationId() {
@@ -51,6 +54,24 @@ public class DataEntryOperatorApplicationSearchResultsDto extends BaseDto
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getDocumentType() {
+		return documentType;
+	}
+	public void setDocumentType(String documentType) {
+		this.documentType = documentType;
+	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getDepartment() {
 		return department;
 	}
@@ -63,12 +84,9 @@ public class DataEntryOperatorApplicationSearchResultsDto extends BaseDto
 	public void setDocumentPath(String documentPath) {
 		this.documentPath = documentPath;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 	public DataEntryOperatorApplicationSearchResultsDto(String applicationId, String senderName, Date dateReceived,
-			String subject, String priority, String name, String department, String documentPath) {
+			String subject, String priority, String name, String documentType, String referenceNumber, String status,
+			String department, String documentPath) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -76,13 +94,17 @@ public class DataEntryOperatorApplicationSearchResultsDto extends BaseDto
 		this.subject = subject;
 		this.priority = priority;
 		this.name = name;
+		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
+		this.status = status;
 		this.department = department;
 		this.documentPath = documentPath;
 	}
-	
 	public DataEntryOperatorApplicationSearchResultsDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 }

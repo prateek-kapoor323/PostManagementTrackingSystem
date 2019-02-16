@@ -24,61 +24,8 @@ public class DepartmentHeadHomeConfig
 	private String checkStartDateBeforeUpdate;
 	private String updateStatusToCompleteWithoutStartDate;
 	private String delayedApplications;
-	
-	
-	
-	
-	
-	
-	
-	public String getUpdateStatusToCompleteWithoutStartDate() {
-		return updateStatusToCompleteWithoutStartDate;
-	}
-	public void setUpdateStatusToCompleteWithoutStartDate(String updateStatusToCompleteWithoutStartDate) {
-		this.updateStatusToCompleteWithoutStartDate = updateStatusToCompleteWithoutStartDate;
-	}
-	public String getUpdateStatusToOnHold() {
-		return updateStatusToOnHold;
-	}
-	public void setUpdateStatusToOnHold(String updateStatusToOnHold) {
-		this.updateStatusToOnHold = updateStatusToOnHold;
-	}
-	public String getUpdateStatusToInAction() {
-		return updateStatusToInAction;
-	}
-	public void setUpdateStatusToInAction(String updateStatusToInAction) {
-		this.updateStatusToInAction = updateStatusToInAction;
-	}
-	public String getUpdateStatusToComplete() {
-		return updateStatusToComplete;
-	}
-	public void setUpdateStatusToComplete(String updateStatusToComplete) {
-		this.updateStatusToComplete = updateStatusToComplete;
-	}
-	public String getCheckStartDateBeforeUpdate() {
-		return checkStartDateBeforeUpdate;
-	}
-	public void setCheckStartDateBeforeUpdate(String checkStartDateBeforeUpdate) {
-		this.checkStartDateBeforeUpdate = checkStartDateBeforeUpdate;
-	}
-	public String getOnHoldApplications() {
-		return onHoldApplications;
-	}
-	public void setOnHoldApplications(String onHoldApplications) {
-		this.onHoldApplications = onHoldApplications;
-	}
-	public String getInsertAuditTableDetails() {
-		return insertAuditTableDetails;
-	}
-	public void setInsertAuditTableDetails(String insertAuditTableDetails) {
-		this.insertAuditTableDetails = insertAuditTableDetails;
-	}	
-	public String getInActionApplications() {
-		return inActionApplications;
-	}
-	public void setInActionApplications(String inActionApplications) {
-		this.inActionApplications = inActionApplications;
-	}
+	private String inReviewApplications;
+	private String updateStatusToInReview;
 	public String getDepartmentNameUsingEmail() {
 		return departmentNameUsingEmail;
 	}
@@ -115,11 +62,59 @@ public class DepartmentHeadHomeConfig
 	public void setAssignedApplications(String assignedApplications) {
 		this.assignedApplications = assignedApplications;
 	}
+	public String getInsertAuditTableDetails() {
+		return insertAuditTableDetails;
+	}
+	public void setInsertAuditTableDetails(String insertAuditTableDetails) {
+		this.insertAuditTableDetails = insertAuditTableDetails;
+	}
 	public String getPopulateAuditTable() {
 		return populateAuditTable;
 	}
 	public void setPopulateAuditTable(String populateAuditTable) {
 		this.populateAuditTable = populateAuditTable;
+	}
+	public String getInActionApplications() {
+		return inActionApplications;
+	}
+	public void setInActionApplications(String inActionApplications) {
+		this.inActionApplications = inActionApplications;
+	}
+	public String getOnHoldApplications() {
+		return onHoldApplications;
+	}
+	public void setOnHoldApplications(String onHoldApplications) {
+		this.onHoldApplications = onHoldApplications;
+	}
+	public String getUpdateStatusToOnHold() {
+		return updateStatusToOnHold;
+	}
+	public void setUpdateStatusToOnHold(String updateStatusToOnHold) {
+		this.updateStatusToOnHold = updateStatusToOnHold;
+	}
+	public String getUpdateStatusToInAction() {
+		return updateStatusToInAction;
+	}
+	public void setUpdateStatusToInAction(String updateStatusToInAction) {
+		this.updateStatusToInAction = updateStatusToInAction;
+	}
+	public String getUpdateStatusToComplete() {
+		return updateStatusToComplete;
+	}
+	public void setUpdateStatusToComplete(String updateStatusToComplete) {
+		this.updateStatusToComplete = updateStatusToComplete;
+	}
+	public String getCheckStartDateBeforeUpdate() {
+		return checkStartDateBeforeUpdate;
+	}
+	public void setCheckStartDateBeforeUpdate(String checkStartDateBeforeUpdate) {
+		this.checkStartDateBeforeUpdate = checkStartDateBeforeUpdate;
+	}
+	public String getUpdateStatusToCompleteWithoutStartDate() {
+		return updateStatusToCompleteWithoutStartDate;
+	}
+	public void setUpdateStatusToCompleteWithoutStartDate(String updateStatusToCompleteWithoutStartDate) {
+		this.updateStatusToCompleteWithoutStartDate = updateStatusToCompleteWithoutStartDate;
 	}
 	public String getDelayedApplications() {
 		return delayedApplications;
@@ -127,5 +122,20 @@ public class DepartmentHeadHomeConfig
 	public void setDelayedApplications(String delayedApplications) {
 		this.delayedApplications = delayedApplications;
 	}
+	public String getInReviewApplications() {
+		return inReviewApplications;
+	}
+	public void setInReviewApplications(String inReviewApplications) {
+		this.inReviewApplications = inReviewApplications;
+	}
+	public String getUpdateStatusToInReview() {
+		return updateStatusToInReview;
+	}
+	public void setUpdateStatusToInReview(String updateStatusToInReview) {
+		this.updateStatusToInReview = updateStatusToInReview;
+	}
+	
+	
 
+	
 }

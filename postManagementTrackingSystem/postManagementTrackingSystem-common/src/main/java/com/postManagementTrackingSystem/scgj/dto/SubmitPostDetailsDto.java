@@ -17,12 +17,10 @@ public class SubmitPostDetailsDto extends BaseDto {
 	private String priority;
 	private String subject;
 	private String documentType;
+	private String referenceNumber;
 	private String ownerName;
 	private String additionalComments;
 	private MultipartFile file;
-	
-	
-	
 	
 	
 	public String getSenderName() {
@@ -67,6 +65,12 @@ public class SubmitPostDetailsDto extends BaseDto {
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getOwnerName() {
 		return ownerName;
 	}
@@ -85,12 +89,9 @@ public class SubmitPostDetailsDto extends BaseDto {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	public SubmitPostDetailsDto(String senderName, String pointOfContact, long contactNumber, Date dateReceived,
-			String priority, String subject, String documentType, String ownerName, String additionalComments,
-			MultipartFile file) {
+			String priority, String subject, String documentType, String referenceNumber, String ownerName,
+			String additionalComments, MultipartFile file) {
 		super();
 		this.senderName = senderName;
 		this.pointOfContact = pointOfContact;
@@ -99,6 +100,7 @@ public class SubmitPostDetailsDto extends BaseDto {
 		this.priority = priority;
 		this.subject = subject;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 		this.ownerName = ownerName;
 		this.additionalComments = additionalComments;
 		this.file = file;
@@ -108,7 +110,6 @@ public class SubmitPostDetailsDto extends BaseDto {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	 
+		 
 	
 }

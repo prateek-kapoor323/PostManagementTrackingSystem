@@ -42,34 +42,34 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 	 * @param department
 	 * @return LIST of GetNameOfDepartmentEmployeesDTO object if successful else returns null
 	 */
-	public List<GetNameOfDepartmentEmployeesDTO> getNameOfDepartmentEmployees(String department)
+	public List<GetNameOfDepartmentEmployeesDTO> getNameOfEmployees()
 	{
-		LOGGER.debug("Received department parameter in dao method to get name of department employees");
-		LOGGER.debug("Checking if the department parameter is null or empty");
-		if(department==null || department.isEmpty())
-		{
-			LOGGER.error("Department is null or empty in getNameOfDepartmentEmployees method in dao");
-			LOGGER.error("Returning null to service");
-			return null;
-		}
-		LOGGER.debug("Department name is not null or empty, Processing the request");
-		LOGGER.debug("Request received to get the name of the employees in department with name: "+department);
+		LOGGER.debug("Received request in dao method to get name of employees with role DE and DH");
+//		LOGGER.debug("Checking if the department parameter is null or empty");
+//		if(department==null || department.isEmpty())
+//		{
+//			LOGGER.error("Department is null or empty in getNameOfDepartmentEmployees method in dao");
+//			LOGGER.error("Returning null to service");
+//			return null;
+//		}
+	//	LOGGER.debug("Department name is not null or empty, Processing the request");
+		//LOGGER.debug("Request received to get the name of the employees in department with name: "+department);
 		LOGGER.debug("Creating hashmap of objects");
 		Map<String,Object>departmentParams = new HashMap<>();
 		LOGGER.debug("Hashmap created successfully");
-		LOGGER.debug("Inserting department name into hashmap");
-		departmentParams.put("department", department);
+//		LOGGER.debug("Inserting department name into hashmap");
+//		departmentParams.put("department", department);
 		try 
 		{
 			
-			LOGGER.debug("In try block to get the name of employees in department: "+department);
-			LOGGER.debug("Executing query to get the names of employees in department: "+department);
+			LOGGER.debug("In try block to get the name of employees with role DE and DH");
+			LOGGER.debug("Executing query to get the names of employees with role DE and DH");
 			return getJdbcTemplate().query(departmentHeadHomeConfig.getDepartmentEmployeeNameUsingDepartmentName(), departmentParams, ROW_MAPPER);
 			
 		} catch (Exception e) 
 		{
 			
-			LOGGER.error("An exception occured while fetching the names of department employees for department: "+department);
+			LOGGER.error("An exception occured while fetching the names of department employees with role DE and DH");
 			LOGGER.error("The exception is: "+e);
 			LOGGER.error("Returning null to the service");
 			return null;
@@ -154,9 +154,10 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 			String status = rs.getString("status");
 			String documentPath = rs.getString("documentPath");
 			String documentType = rs.getString("documentType");
+			String referenceNumber = rs.getString("referenceNumber");
 			String additionalComments = rs.getString("document_remarks");
 						
-			return new DepartmentHeadNotStartedApplicationDTO(applicationId, senderName, dateReceived, subject, priority,status, documentPath, documentType, additionalComments);
+			return new DepartmentHeadNotStartedApplicationDTO(applicationId, senderName, dateReceived, subject, priority,status, documentPath, documentType,referenceNumber, additionalComments);
 
 			
 		}
@@ -268,9 +269,9 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 		paramMap.put("documentPath", performActionsOverApplicationDTO.getDocumentPath());
 		paramMap.put("status", performActionsOverApplicationDTO.getUpdatedStatus());
 		paramMap.put("documentType", performActionsOverApplicationDTO.getDocumentType());
+		paramMap.put("referenceNumber", performActionsOverApplicationDTO.getReferenceNumber());
 		paramMap.put("email", email);
 		LOGGER.debug("Parameters successfully inserted into hashmap");
-		
 		try 
 		{
 			LOGGER.debug("In try block to update the audit table for application id: "+performActionsOverApplicationDTO.getApplicationId());
@@ -341,13 +342,14 @@ public class DepartmentHeadHomeDao extends AbstractTransactionalDao{
 			Date eta = rs.getDate("eta");
 			String status = rs.getString("status");
 			String documentType = rs.getString("documentType");
+			String referenceNumber = rs.getString("referenceNumber");
 			String documentRemarks = rs.getString("documentRemarks");
 			String documentPath = rs.getString("documentPath");
 			String assignedTo = rs.getString("assignedTo");
 			String assignedBy = rs.getString("assignedBy");
 			
 						
-			return new DisplayAuditTableDHDTO(applicationId, senderName, subject, priority, eta, status, documentType, documentRemarks, documentPath, assignedTo, assignedBy);
+			return new DisplayAuditTableDHDTO(applicationId, senderName, subject, priority, eta, status, documentType, referenceNumber,documentRemarks, documentPath, assignedTo, assignedBy);
 
 			
 		}

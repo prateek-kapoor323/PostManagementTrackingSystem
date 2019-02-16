@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.postManagementTrackingSystem.scgj.common.AbstractTransactionalDao;
 import com.postManagementTrackingSystem.scgj.config.EditApplicationDataEntryOperatorConfig;
@@ -71,11 +72,13 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 			Long senderContact = rs.getLong("senderContact");
 			Date dateReceived = rs.getDate("dateReceived");
 			String priority = rs.getString("priority");
+			String referenceNumber = rs.getString("referenceNumber");
 			String subject = rs.getString("subject");
+			String status = rs.getString("status");
 			String documentType = rs.getString("documentType");
 			String additionalComment = rs.getString("additionalComment");
 			
-			return new ShowEditApplicationDetailsDto(applicationId,senderName,senderPointOfContact,senderContact,dateReceived,priority,subject,documentType,additionalComment);
+			return new ShowEditApplicationDetailsDto(applicationId,senderName,senderPointOfContact,senderContact,dateReceived,priority,referenceNumber,subject,status,documentType,additionalComment);
 			 
 			 
 			
@@ -105,6 +108,7 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		updateParams.put("senderContact", receiveEditParamsDataEntryOperatorDTO.getContactNumber());
 		updateParams.put("dateReceived", receiveEditParamsDataEntryOperatorDTO.getDateReceived());
 		updateParams.put("priority", receiveEditParamsDataEntryOperatorDTO.getPriority());
+		updateParams.put("referenceNumber", receiveEditParamsDataEntryOperatorDTO.getReferenceNumber());
 		updateParams.put("subject", receiveEditParamsDataEntryOperatorDTO.getSubject());
 		updateParams.put("documentPath", uploadPath);
 		updateParams.put("documentRemarks", receiveEditParamsDataEntryOperatorDTO.getAdditionalComment());
@@ -127,9 +131,18 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 	 * This method takes ownerId and documentId as parameters and assigns a new owner to the document id
 	 * @param ownerId
 	 * @param documentId
-	 * @return status of assignee update  1 -- if successful, -1 -- if not successful  
+	 * @param email 
+	 * @param documentPath 
+	 * @param documentType 
+	 * @param status 
+	 * @param subject 
+	 * @param senderName 
+	 * @param email2 
+	 * @return status of assignee update  1 -- if successful,   
+	 * @throws Exception and rollsback the transaction
 	 */
-	public Integer changeAssignee(Integer ownerId, Integer documentId) {
+	@Transactional(rollbackFor=Exception.class)
+	public Integer changeAssignee(Integer ownerId, Integer documentId, String applicationId, String senderName, String subject, String status, String documentType, String documentPath, String email) throws Exception {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received from service to update the owner of the application with documentId: "+documentId+" to owner with ownerId: "+ownerId);
 		LOGGER.debug("Creating hashmap of objects");
@@ -146,19 +159,71 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 			Integer updateStatus = getJdbcTemplate().update(editApplicationDataEntryOperatorConfig.getUpdateDocumentOwner(), ownerParams);
 			LOGGER.debug("The update status for owner in changeAssignee method is: "+updateStatus);
 			LOGGER.debug("Returning updateStatus to the service"+updateStatus);
-			return updateStatus;
+			if(updateStatus>0)
+			{
+				LOGGER.debug("The owner successfully updated, Sending request to update the audit table");
+				int auditTableUpdateStatus = updateAuditTable(ownerId,applicationId,senderName,subject,status,documentType,documentPath,email);
+				return auditTableUpdateStatus;
+			}
+			else
+			{
+				LOGGER.error("Record could not be updated, returning -300");
+				return -300;
+			}
+			
 		}
-		catch (Exception e)
+		catch (RuntimeException e)
 		{
 			// TODO: handle exception
 			LOGGER.error("An exception has occured while updating the assignee of the document "+e);
-			LOGGER.error("Returning -1");
-			return -1;
+			LOGGER.error("Throwing exception to rollback the transaction");
+			throw new Exception(e);
 		}
 	}
 	
 	
-	
+	/**
+	 * This method inserts the following parameters into the audit table when the DEO updates the owner of the application
+	 * @param ownerId
+	 * @param applicationId
+	 * @param senderName
+	 * @param subject
+	 * @param status
+	 * @param documentType
+	 * @param documentPath
+	 * @return 1 if inserted, else throws an exception and rollsback the transaction
+	 * @throws Exception 
+	 */
+	@Transactional(rollbackFor=Exception.class)
+	private int updateAuditTable(Integer ownerId, String applicationId, String senderName, String subject,
+			String status, String documentType, String documentPath, String email) throws Exception 
+	{
+		LOGGER.debug("Request received from submitPostDetails() method to fill the audit table for application with application id: "+applicationId);
+		LOGGER.debug("Creating hashmap of objects");
+		Map<String,Object>auditTableUpdate = new HashMap<>();
+		LOGGER.debug("Hashmap of objects successfully created, Inserting parameters into hashmap");
+		auditTableUpdate.put("applicationId", applicationId);
+		auditTableUpdate.put("senderName",senderName);
+		auditTableUpdate.put("subject",subject);
+		auditTableUpdate.put("ownerId", ownerId);
+		auditTableUpdate.put("status", status);
+		auditTableUpdate.put("documentPath", documentPath);
+		auditTableUpdate.put("documentType", documentType);
+		auditTableUpdate.put("email", email);
+		
+		try
+		{
+			
+			LOGGER.debug("In try block to update the audit table details for application with id: "+applicationId);
+			LOGGER.debug("Executing query to update the audit table");
+			return getJdbcTemplate().update(editApplicationDataEntryOperatorConfig.getUpdateAuditTableDetails(), auditTableUpdate);
+		} catch (Exception e)
+		{
+			LOGGER.error("An exception occured while updating the audit table: "+e);
+			LOGGER.error("Throwing exception");
+			throw new Exception(e);			
+		}
+	}
 	/**
 	 * this method takes application id as a parameter and gets the id(PK) against that applicaiton id 
 	 * @param applicationId
@@ -196,25 +261,25 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 	
 	/**
 	 * @author Prateek Kapoor
-	 * Description - This method returns the application id whose status is NOT STARTED
+	 * Description - This method returns the application id 
 	 * @return Collection of Application ID
 	 * @return NULL if exception occurs
 	 */
 	public Collection<GetApplicationIdDto> getApplicationIdWithStatusNotStarted()
 	{
-		LOGGER.debug("Request received from service to get the application id with status as NOT STARTED");
+		LOGGER.debug("Request received from service to get the application id");
 		LOGGER.debug("Creating hashmap of objects");
 		Map<String,Object>params = new HashMap<>();
 		LOGGER.debug("Hashmap successfully created");
 		try 
 		{
-			LOGGER.debug("In Try block to get the records of application id with status as NOT STARTED");
-			LOGGER.debug("Executing query to fetch application id with status as NOT STARTED");
+			LOGGER.debug("In Try block to get the records of application id");
+			LOGGER.debug("Executing query to fetch application id");
 			return getJdbcTemplate().query(editApplicationDataEntryOperatorConfig.getApplicationIdWithStatusNotStarted(), ApplicationId_Mapper);
 			
 		} catch (Exception e) {
 		
-			LOGGER.error("An exception occured while fetching the records of application with status NOT STARTED");
+			LOGGER.error("An exception occured while fetching the records of application");
 			LOGGER.error("The exception is: "+e);
 			LOGGER.error("Returning NULL");
 			return null;
@@ -251,6 +316,7 @@ public class EditApplicationDataEntryOperatorDao extends AbstractTransactionalDa
 		parameters.put("senderContact", receiveEditParamsWithoutFileDataEntryOperatorDTO.getContactNumber());
 		parameters.put("dateReceived", receiveEditParamsWithoutFileDataEntryOperatorDTO.getDateReceived());
 		parameters.put("priority", receiveEditParamsWithoutFileDataEntryOperatorDTO.getPriority());
+		parameters.put("referenceNumber", receiveEditParamsWithoutFileDataEntryOperatorDTO.getReferenceNumber());
 		parameters.put("subject", receiveEditParamsWithoutFileDataEntryOperatorDTO.getSubject());
 		parameters.put("documentRemarks", receiveEditParamsWithoutFileDataEntryOperatorDTO.getAdditionalComment());
 		LOGGER.debug("Parameters inserted successfully");

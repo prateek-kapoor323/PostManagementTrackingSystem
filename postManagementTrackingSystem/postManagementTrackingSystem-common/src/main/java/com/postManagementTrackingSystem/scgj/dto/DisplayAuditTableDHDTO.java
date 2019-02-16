@@ -15,12 +15,11 @@ public class DisplayAuditTableDHDTO extends BaseDto {
 	private Date eta;
 	private String status;
 	private String documentType;
+	private String referenceNumber;
 	private String documentRemarks;
 	private String documentPath;
 	private String assignedTo;
 	private String assignedBy;
-	
-	
 	public String getApplicationId() {
 		return applicationId;
 	}
@@ -63,6 +62,12 @@ public class DisplayAuditTableDHDTO extends BaseDto {
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getDocumentRemarks() {
 		return documentRemarks;
 	}
@@ -88,8 +93,8 @@ public class DisplayAuditTableDHDTO extends BaseDto {
 		this.assignedBy = assignedBy;
 	}
 	public DisplayAuditTableDHDTO(String applicationId, String senderName, String subject, String priority, Date eta,
-			String status, String documentType, String documentRemarks, String documentPath, String assignedTo,
-			String assignedBy) {
+			String status, String documentType, String referenceNumber, String documentRemarks, String documentPath,
+			String assignedTo, String assignedBy) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -98,6 +103,7 @@ public class DisplayAuditTableDHDTO extends BaseDto {
 		this.eta = eta;
 		this.status = status;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
 		this.assignedTo = assignedTo;
@@ -107,6 +113,7 @@ public class DisplayAuditTableDHDTO extends BaseDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 	

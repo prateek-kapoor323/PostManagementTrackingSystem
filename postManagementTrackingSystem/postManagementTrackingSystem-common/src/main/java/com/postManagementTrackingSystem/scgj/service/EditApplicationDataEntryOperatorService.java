@@ -102,9 +102,16 @@ public class EditApplicationDataEntryOperatorService {
 	 * This method changes the assignee of the application id to the owner given in the paramerts
 	 * @param applicationId
 	 * @param ownerName
-	 * @return status of assigneeUpdate
+	 * @param email 
+	 * @param documentPath 
+	 * @param documentType 
+	 * @param status 
+	 * @param subject 
+	 * @param senderName 
+	 * @return status of assigneeUpdate 1 if success, -36 if exception occurs, -32 if params are null or empty
 	 */
-	public Integer changeAssignee(String applicationId, String ownerName) {
+	public Integer changeAssignee(String applicationId, String ownerName, String senderName, String subject, String status, String documentType, String documentPath, String email) 
+	{
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received from controller to change assignee of the application with application id: "+applicationId+" to new owner with name: "+ownerName);
 		LOGGER.debug("Sending request to method to get the Id of the owner with name: "+ownerName);
@@ -127,19 +134,31 @@ public class EditApplicationDataEntryOperatorService {
 			return -23;
 		}
 		LOGGER.debug("Sending control to changeAssignee method in DAO to update the owner of application id: "+applicationId+ " to owner: "+ownerName );
-		Integer updateStatus = editApplicationDataEntryOperatorDao.changeAssignee(ownerId,documentId);
-		LOGGER.debug("The status of assignee change is: "+updateStatus);
-		return updateStatus;
+		Integer updateStatus;
+		try 
+		{
+			LOGGER.debug("In try block of changeAssignee method to update the owner of post with id: "+applicationId);
+			updateStatus = editApplicationDataEntryOperatorDao.changeAssignee(ownerId,documentId,applicationId,senderName,subject,status,documentType,documentPath,email);
+			LOGGER.debug("The status of assignee change is: "+updateStatus);
+			return updateStatus;
+		}
+		catch (Exception e) 
+		{
+			LOGGER.error("An exception occured while updating the owner of the post with id: "+applicationId);
+			LOGGER.error("Rolling back transaction and returning -36 to controller");
+			return -36;
+		}
+
 	}
 	
 	/**
 	 * @author Prateek Kapoor
-	 * This method returns the collection of application id with status NOT STARTED
+	 * This method returns the collection of application id
 	 * @return COLLECTION of GetApplicationIdDto Object
 	 */
 	public Collection<GetApplicationIdDto> getApplicationIdWithStatusNotStarted()
 	{
-		LOGGER.debug("Request received from service to get application id with status NOT STARTED");
+		LOGGER.debug("Request received from service to get application id ");
 		LOGGER.debug("Sending request to DAO to get the application ID");
 		return editApplicationDataEntryOperatorDao.getApplicationIdWithStatusNotStarted();
 	}

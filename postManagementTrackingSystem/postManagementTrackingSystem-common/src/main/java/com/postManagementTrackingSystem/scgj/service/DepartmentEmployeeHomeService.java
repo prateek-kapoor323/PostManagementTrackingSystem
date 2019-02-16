@@ -145,19 +145,19 @@ public class DepartmentEmployeeHomeService
 		}
 		LOGGER.debug("Parameters are not null or empty");
 		LOGGER.debug("Sending request to the get department of the logged in user");
-		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Checking if the value of department received from the method is null or empty");
-		if(department==null||department.isEmpty())
-		{
-			LOGGER.error("The retreived department name is null or empty");
-			LOGGER.error("Request cannot be processed, Returning -5 to the controller");
-			return -5;
-		}
-		LOGGER.debug("The retreived parameter is not null");
-		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
-		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
+		//String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+		//LOGGER.debug("Checking if the value of department received from the method is null or empty");
+//		if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("The retreived department name is null or empty");
+//			LOGGER.error("Request cannot be processed, Returning -5 to the controller");
+//			return -5;
+//		}
+//		LOGGER.debug("The retreived parameter is not null");
+//		LOGGER.debug("The department name for the logged in user with email: "+email+" is: "+department);
+//		LOGGER.debug("Sending request to getOwnerIdByOwnerName in DAO to get the id of the document Owner for department: "+department);
 		LOGGER.debug("Sending request to get Owner ID by department name and owner name to get the ownerId of the logged in user with email: "+email);
-		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo(), department);
+		Integer ownerId = performPostActionsUtility.getOwnerIdByOwnerName(performActionsOverApplicationDTO.getAssignedTo());
 		LOGGER.debug("Checking if the parameter received from the getOwnerByOwnerName method is null or empty");
 		if(ownerId==null)
 		{
@@ -198,6 +198,26 @@ public class DepartmentEmployeeHomeService
 			}
 			
 		}
+		
+		else if(performActionsOverApplicationDTO.getUpdatedStatus().equalsIgnoreCase("In Review"))
+		{
+			LOGGER.debug("The application has to be updated to status: "+performActionsOverApplicationDTO.getUpdatedStatus());
+			LOGGER.debug("Sending request to updateApplicationStatusToInReview method in dao");
+			try 
+			{
+				LOGGER.debug("In try block to execute query for updating application status to In Review");
+				return performPostActionsUtility.updateApplicationStatusToInReview(performActionsOverApplicationDTO, ownerId, documentId, email);
+			}
+			catch (Exception e)
+			{
+				LOGGER.error("An exception occured in DAO: "+e);
+				LOGGER.error("Database transactions for audit table and doc_status table are rolled back");
+				LOGGER.error("Returning -10 to controller");
+				return -10;
+			}
+			
+		}
+		
 		else if(performActionsOverApplicationDTO.getUpdatedStatus().equalsIgnoreCase("On Hold"))
 		{
 			LOGGER.debug("The application has to be updated to status: "+performActionsOverApplicationDTO.getUpdatedStatus());

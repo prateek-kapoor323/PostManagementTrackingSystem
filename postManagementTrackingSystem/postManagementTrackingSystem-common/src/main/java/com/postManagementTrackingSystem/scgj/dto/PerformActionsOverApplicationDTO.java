@@ -15,7 +15,9 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	private String documentRemarks;
 	private String documentPath;
 	private String documentType;
+	private String referenceNumber;
 	private String updatedStatus;
+	
 	
 	public String getApplicationId() {
 		return applicationId;
@@ -71,6 +73,12 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	public void setDocumentType(String documentType) {
 		this.documentType = documentType;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getUpdatedStatus() {
 		return updatedStatus;
 	}
@@ -79,7 +87,7 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 	}
 	public PerformActionsOverApplicationDTO(String applicationId, String senderName, String subject, String priority,
 			String assignedTo, String eta, String documentRemarks, String documentPath, String documentType,
-			String updatedStatus) {
+			String referenceNumber, String updatedStatus) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -90,13 +98,12 @@ public class PerformActionsOverApplicationDTO extends BaseDto
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
 		this.documentType = documentType;
+		this.referenceNumber = referenceNumber;
 		this.updatedStatus = updatedStatus;
 	}
 	public PerformActionsOverApplicationDTO() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	
-	
+	}	
 	
 }

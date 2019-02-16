@@ -17,6 +17,7 @@ public class ReceiveEditParamsDataEntryOperatorDTO extends BaseDto {
 	private String priority;
 	private String subject;
 	private String typeOfDocument;
+	private String referenceNumber;
 	private String additionalComment;
 	private MultipartFile file;
 	public String getApplicationId() {
@@ -67,6 +68,12 @@ public class ReceiveEditParamsDataEntryOperatorDTO extends BaseDto {
 	public void setTypeOfDocument(String typeOfDocument) {
 		this.typeOfDocument = typeOfDocument;
 	}
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
 	public String getAdditionalComment() {
 		return additionalComment;
 	}
@@ -81,7 +88,7 @@ public class ReceiveEditParamsDataEntryOperatorDTO extends BaseDto {
 	}
 	public ReceiveEditParamsDataEntryOperatorDTO(String applicationId, String senderName, String pointOfContact,
 			Long contactNumber, Date dateReceived, String priority, String subject, String typeOfDocument,
-			String additionalComment, MultipartFile file) {
+			String referenceNumber, String additionalComment, MultipartFile file) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
@@ -91,6 +98,7 @@ public class ReceiveEditParamsDataEntryOperatorDTO extends BaseDto {
 		this.priority = priority;
 		this.subject = subject;
 		this.typeOfDocument = typeOfDocument;
+		this.referenceNumber = referenceNumber;
 		this.additionalComment = additionalComment;
 		this.file = file;
 	}
@@ -100,9 +108,5 @@ public class ReceiveEditParamsDataEntryOperatorDTO extends BaseDto {
 	}
 	
 	
-	
-	
-	
-
 	
 }

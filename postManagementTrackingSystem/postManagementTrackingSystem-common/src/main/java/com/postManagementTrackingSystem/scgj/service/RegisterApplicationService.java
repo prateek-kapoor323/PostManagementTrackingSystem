@@ -56,7 +56,7 @@ public class RegisterApplicationService {
 	 */
 	
  //   @Transactional(rollbackFor=Exception.class)
-	public String submitPost( SubmitPostDetailsDto submitPostDetailsDto,String email)  {
+	public String submitPost(SubmitPostDetailsDto submitPostDetailsDto,String email)  {
 		// TODO Auto-generated method stub
 		LOGGER.debug("Request received from controller to submit the post details and upload the scanned document");
 		LOGGER.debug("Sending request to get the unique application ID");
