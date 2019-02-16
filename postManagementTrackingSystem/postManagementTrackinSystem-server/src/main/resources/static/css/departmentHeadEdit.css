@@ -1,6 +1,6 @@
 .wrapper-container {
      background-color: white;
-     height: auto!important;
+     height: 212vh;
 }
 .editApplicationsHeading
 {
@@ -85,4 +85,95 @@
 	padding:0px;
 	margin-left:20%;
 	margin-top:3%;
+}
+ .updateApplicationDetails {
+     display:inline;
+}
+ .editApplicationDetailsText {
+     color: rgb(109,110,113);
+	margin-top:3%;
+     font-size: 18pt;
+     margin-left: 2%;
+}
+
+.row 
+ {
+      margin-bottom:2%;
+ }
+  
+ .fileUpload {
+     position: relative;
+     overflow: hidden;
+     margin: 10px;
+}
+ .file {
+     visibility: hidden;
+     position: absolute;
+}
+ .btn-wrapper {
+     position: relative;
+     overflow: hidden;
+     display: inline;
+}
+ .btn-wrapper input[type=file] {
+     position: absolute;
+     left: 0;
+     top: 0;
+     opacity: 0;
+     margin-left: 16%;
+     cursor: pointer;
+}
+ .additionalComments {
+     resize: none;
+}
+ input.ng-invalid {
+     border:1px solid #ccc !important;
+}
+ .browseButton {
+     background-color: rgb(31,177,203);
+     color:white;
+}
+ .prioritySection {
+     width:78% !important;
+}
+ .updatePostForm {
+     margin-left:4%;
+}
+ .successErrorMessageClass {
+     margin-top:2%;
+}
+ .Success {
+     color: green;
+     font-size: 16px;
+     
+     }
+ .Error {
+     color: red;
+     font-size: 16px;
+     
+}
+ .updatePostButton {
+     margin-top:2%;
+}
+ 
+ #updateSuccessMessage
+ {
+ 	color: green;
+    position: absolute;
+    right: 40%;
+    font-size: 16px;
+ }
+ 
+ #updateErrorMessage
+ {
+ 	color: red;
+    position: absolute;
+    right: 40%;
+    font-size: 16px;
+ }
+.applicationIdDropdown
+ {
+     width:Auto !important;
+     display:inline;
+     margin-left: 4%;
 }

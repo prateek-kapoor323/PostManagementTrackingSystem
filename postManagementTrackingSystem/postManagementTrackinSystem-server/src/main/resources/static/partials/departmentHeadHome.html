@@ -17,6 +17,12 @@
 <div class="gridTable">
       <div ui-grid="assignedApplications" class="grid grid-align" ui-grid-auto-resize></div>
    </div>
+    <p class="inReviewApplicationHeading">In Review Applications</p> 
+	<span class="Error">{{inReviewErrorMessage}}</span>
+	<span class="Success">{{inReviewSuccessMessage}}</span>
+<div class="gridTable">
+      <div ui-grid="inReviewApplications" class="grid grid-align" ui-grid-auto-resize></div>
+   </div>
    
 <p class="inActionApplicationsHeading">In Action Applications</p> 
 <span class="Error">{{InActionErrorMessage}}</span>

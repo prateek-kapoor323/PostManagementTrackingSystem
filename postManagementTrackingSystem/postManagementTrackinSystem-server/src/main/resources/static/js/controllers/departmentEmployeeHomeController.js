@@ -134,7 +134,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 					name: 'updatedStatus',
 					displayName: 'Update Status',
 					width:'15%',
-					cellTemplate: 'partials/showStatusDropDown.html'
+					cellTemplate: 'partials/showStatusDepartmentEmployeeDropDown.html'
 				},
 				{
 					name: 'update',
@@ -167,6 +167,12 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 					name:'documentType',
 					displayName: 'Document Type',
 					width:'10%'
+				},
+				
+				{
+					name:'referenceNumber',
+					displayName: 'Reference Number',
+					width:'15%'
 				},
 
 				{
@@ -232,7 +238,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				name: 'updatedStatus',
 				displayName: 'Update Status',
 				width:'15%',
-				cellTemplate: 'partials/showStatusDropDown.html'
+				cellTemplate: 'partials/showStatusDepartmentEmployeeDropDown.html'
 			},
 			{
 				name: 'update',
@@ -265,7 +271,13 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				displayName: 'Document Type',
 				width:'10%'
 			},
-
+			
+			{
+				name:'referenceNumber',
+				displayName: 'Reference Number',
+				width:'15%'
+			},
+			
 			{
 				name:'documentRemarks',
 				displayName: 'Document Remarks',
@@ -330,7 +342,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 					name: 'updatedStatus',
 					displayName: 'Update Status',
 					width:'15%',
-					cellTemplate: 'partials/showStatusDropDown.html'
+					cellTemplate: 'partials/showStatusDepartmentEmployeeDropDown.html'
 				},
 				{
 					name: 'update',
@@ -364,6 +376,12 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 					width:'10%'
 				},
 
+				{
+					name:'referenceNumber',
+					displayName: 'Reference Number',
+					width:'15%'
+				},
+				
 				{
 					name:'documentRemarks',
 					displayName: 'Document Remarks',
@@ -450,6 +468,12 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				},
 
 				{
+					name:'referenceNumber',
+					displayName: 'Reference Number',
+					width:'15%'
+				},
+				
+				{
 					name:'documentRemarks',
 					displayName: 'Document Remarks',
 					width:'20%'
@@ -506,16 +530,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 	});
 	$scope.url = (window.URL || window.webkitURL).createObjectURL(blob);
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/** This method is invoked when the application in IN ACTION State is updated to some other state**/
 	$scope.updateApplicationStatusInAction = function(row)
 	{
@@ -528,7 +543,12 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 		}
 		else
 			{
-		
+			
+			if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null)
+			{
+			    row.entity.referenceNumber = "";
+			}
+			
 			var fd = new FormData();
 			fd.append("applicationId",row.entity.applicationId);
 			fd.append("senderName",row.entity.senderName);
@@ -539,6 +559,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			fd.append("documentRemarks",row.entity.documentRemarks);
 			fd.append("documentPath",row.entity.documentPath);
 			fd.append("documentType",row.entity.documentType);
+			fd.append("referenceNumber",row.entity.referenceNumber);
 			fd.append("updatedStatus",row.entity.updatedStatus);
 			var url = "/updateApplicationStatusDE";
 			
@@ -601,6 +622,11 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 		}
 		else
 			{
+			
+			if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) 
+			{
+			    row.entity.referenceNumber = "";
+			}
 		
 			var fd = new FormData();
 			fd.append("applicationId",row.entity.applicationId);
@@ -612,6 +638,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			fd.append("documentRemarks",row.entity.documentRemarks);
 			fd.append("documentPath",row.entity.documentPath);
 			fd.append("documentType",row.entity.documentType);
+			fd.append("referenceNumber",row.entity.referenceNumber);
 			fd.append("updatedStatus",row.entity.updatedStatus);
 			var url = "/updateApplicationStatusDE";
 			
@@ -678,7 +705,11 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 		}
 		else
 			{
-		
+			
+			if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) 
+			{
+			    row.entity.referenceNumber = "";
+			}
 			var fd = new FormData();
 			fd.append("applicationId",row.entity.applicationId);
 			fd.append("senderName",row.entity.senderName);
@@ -689,6 +720,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			fd.append("documentRemarks",row.entity.documentRemarks);
 			fd.append("documentPath",row.entity.documentPath);
 			fd.append("documentType",row.entity.documentType);
+			fd.append("referenceNumber",row.entity.referenceNumber);
 			fd.append("updatedStatus",row.entity.updatedStatus);
 			var url = "/updateApplicationStatusDE";
 			

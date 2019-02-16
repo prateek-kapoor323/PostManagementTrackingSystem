@@ -51,5 +51,92 @@
    
    
    
+   <!-- Edit application details -->
+   
+   
+   
+    <div class="row">
+      <p class="editApplicationDetailsText">Edit Application Details</p>
+      <!--  This form is used to find the post details by selecting the POST ID and clicking on submit button -->
+      <form class="updateApplicationDetails" ng-submit="searchPostDetailsUsingApplicationId()">
+         <input type="text" ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" placeholder="Enter Application Id"required>
+
+         <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
+         <span class="Error">{{getDetailsErrorMessage}}</span>
+      </form>
+      <!-- Form ends here -->
+   </div>
+   
+   
+   <!-- This form is used to enter the details of the POST Using POST ID which will be updated on a button click -->
+   <form class="form-inline updatePostForm" id="updateForm" ng-submit="updatePostDetails()">
+      <div class="row ">
+      <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="applicationIds" placeholder="Post Id" name="applicationId" ng-model="postDetails.applicationId" required readonly>
+         </div>
+         <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="senderName" placeholder="Sender Name" name="senderName" ng-model="postDetails.senderName" required>
+         </div>
+         <div class="form-group col-md-3">
+            <input type="text" class="form-control" id="pointOfContact" placeholder="Point of Contact" name="pointOfContact" ng-model="postDetails.pointOfContact" required>
+         </div>
+         <div class="form-group col-md-3">
+            <input type="number" class="form-control" id="contactNumber" placeholder="Contact Number" name="contactNumber" ng-model="postDetails.contactNumber" min="0" required>
+         </div>
+       
+      </div>
+      <div class="row ">
+        <div class="form-group col-md-3">
+            <input type="text" onfocus="(this.type='date')" class="form-control " onblur="(this.type='text')" placeholder="Date Received" ng-model="postDetails.dateReceived" required>
+         </div>
+         <div class="form-group col-md-3 ">
+            <select ng-model="postDetails.priority" class="form-control prioritySection">
+               <option value="" selected>Priority</option>
+               <option value="High">High</option>
+               <option value="Medium">Medium</option>
+               <option value="Low">Low</option>
+            </select>
+         </div>
+         <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="subject" placeholder="Subject" name="subject" ng-model="postDetails.subject" required>
+         </div>
+         
+         <div class="form-group col-md-3">
+            <input type="text" class="form-control " id="documentType" placeholder="Document Type" name="documentType" ng-model="postDetails.documentType" required readonly>
+         </div>
+        
+      </div>
+      <div class="row">
+      
+      	<div class="form-group col-md-3">
+            <input type="text"  class="form-control" id="Number" placeholder="Enter reference number" name="referenceNumber"  ng-model="postDetails.referenceNumber">
+         </div>
+      
+       <div class="form-group col-md-4 btn-wrapper">
+            <div class="form-group">
+               <span>
+               <input type="text" name="file_name" id="file_name" class="form-control">
+               </span>
+               <span>
+               <button type="button" class="btn browseButton">Browse</button>
+               </span>
+               <input type="file" id="file" accept="application/pdf" onchange="document.getElementById('file_name').value = this.value.split('\\').pop()" fileModel="postDetails.file" />
+            </div>
+         </div>
+         <div class="form-group col-md-4">
+            <textarea ng-model="postDetails.additionalComments" class="form-control additionalComments" rows="2" cols="42" placeholder="Additional Comments"></textarea>
+         </div>
+      </div>
+      <div class="col-md-12 text-center">
+         <button type="submit" class="btn btn-primary updatePostButton">Update Post</button>
+      </div>
+      <div class="col-md-12 successErrorMessageClass">
+         <div class="col-md-12">
+            <span id="updateSuccessMessage"></span>
+            <span id="updateErrorMessage"></span>
+         </div>
+      </div>
+   </form>
+   
    
 </div>

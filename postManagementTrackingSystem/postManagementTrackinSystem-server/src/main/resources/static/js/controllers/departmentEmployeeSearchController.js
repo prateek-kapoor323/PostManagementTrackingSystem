@@ -36,7 +36,7 @@ departmentEmployeeSearch.controller("departmentEmployeeSearchController",functio
 				 }
 				$timeout(function () {
 					$scope.searchErrorMessage = "";
-				}, 4000);
+				}, 6000);
 			}
 		
 		else if($scope.searchPostSwitch=='status')
@@ -67,7 +67,7 @@ departmentEmployeeSearch.controller("departmentEmployeeSearchController",functio
 					}
 				$timeout(function () {
 					$scope.searchErrorMessage = "";
-					}, 4000);
+					}, 6000);
 
 			}
 		
@@ -104,6 +104,11 @@ departmentEmployeeSearch.controller("departmentEmployeeSearchController",functio
 				{
 					name: 'documentType',
 					displayName: 'Document Type',
+					width: '15%'
+				},
+				{
+					name: 'referenceNumber',
+					displayName: 'Reference Number',
 					width: '15%'
 				},
 				{

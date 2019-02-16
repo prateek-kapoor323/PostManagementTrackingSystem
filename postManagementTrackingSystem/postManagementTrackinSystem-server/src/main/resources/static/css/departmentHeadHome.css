@@ -2,13 +2,16 @@
      background-color: white;
      height: auto;
 }
-.newApplicationsHeading
+p
 {
 	 color: rgb(109,110,113);
      font-size: 18pt;
      margin-left: 1%;
      display:inline;
 }
+
+
+
 .assignOwnerButton
 {
 	width:55%;

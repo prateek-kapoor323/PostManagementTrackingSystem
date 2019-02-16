@@ -1,19 +1,19 @@
 searchApplication:
 
  searchApplicationByApplicationId: >
-  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath, document_details.document_type as documentType, document_details.reference_number as referenceNumber, doc_status.status as status from document_details
   JOIN doc_status ON document_details.id = doc_status.doc_id
   JOIN users ON doc_status.owner_id=users.id
   where document_details.application_id= :applicationId;
    
  searchApplicationByDepartmentName: >
-  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath, document_details.document_type as documentType, document_details.reference_number as referenceNumber,doc_status.status as status from document_details
   JOIN doc_status ON document_details.id = doc_status.doc_id
   JOIN users ON doc_status.owner_id=users.id
   where users.department= :department ORDER BY document_details.date_received desc;
 
  searchApplicationByDateRange: >
-  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath from document_details
+  select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.date_received as dateReceived,subject as subject,priority,users.name,users.department,document_details.document_path as documentPath,document_details.document_type as documentType, document_details.reference_number as referenceNumber,doc_status.status as status from document_details
   JOIN doc_status ON document_details.id = doc_status.doc_id
   JOIN users ON doc_status.owner_id=users.id
   where document_details.date_received between :startingDate and :endingDate ORDER BY document_details.date_received desc; 

@@ -157,6 +157,11 @@ departmentHeadSearch.controller("departmentHeadSearchController", function ($sco
 					width: '15%'
 				},
 				{
+					name: 'referenceNumber',
+					displayName: 'Reference Number',
+					width: '15%'
+				},
+				{
 					name: 'dateReceived',
 					displayName: 'Date Received',
 					width: '15%'

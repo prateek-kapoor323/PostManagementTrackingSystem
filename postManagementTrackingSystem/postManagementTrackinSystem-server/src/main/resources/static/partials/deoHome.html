@@ -38,16 +38,20 @@
                <option value="Assessment Agency Affiliation">Assessment Agency Affiliation</option>
                <option value="Invoices">Invoices</option>
                <option value="NSKFDC Letters">NSKFDC Letters</option>
-               <option value="General Dark and Letter">General Dark and Letter</option>
+               <option value="General Dark and Letter">General Dak and Letter</option>
             </select>
          </div>
          <div class="form-group col-md-3">
+            <input type="text"  class="form-control" id="referenceNumber" placeholder="Enter reference number" name="referenceNumber"  ng-model="postDetails.referenceNumber">
+         </div>
+        
+      </div>
+      <div class="row">
+       <div class="form-group col-md-3">
             <select ng-model="postDetails.ownerName" class="form-control departmentHeadSection" ng-options="x for x in departmentHeadsName" required>
                <option selected value="">Department Head</option>
             </select>
          </div>
-      </div>
-      <div class="row">
          <div class="form-group col-md-4 btn-wrapper">
             <div class="form-group">
                <span>
@@ -59,8 +63,8 @@
                <input type="file" id ="file" accept="application/pdf" onchange="document.getElementById('file_name').value = this.value.split('\\').pop()" fileModel="postDetails.file"/>
             </div>
          </div>
-         <div class="form-group col-md-6">
-            <textarea ng-model="postDetails.additionalComments" class="form-control additionalComments" rows="2" cols="50" placeholder="Additional Comments" ></textarea>
+         <div class="form-group col-md-4">
+            <textarea ng-model="postDetails.additionalComments" class="form-control additionalComments" rows="2" cols="42" placeholder="Additional Comments" ></textarea>
          </div>
          <div class="col-md-12 text-center">
             <button type="submit" class="btn btn-primary registerPostButton">Submit Post</button>

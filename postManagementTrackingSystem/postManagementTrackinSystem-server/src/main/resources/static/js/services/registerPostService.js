@@ -1,6 +1,6 @@
 deoHome.service('registerPostService', ['$http', function ($http, $timeout) {
 
-	this.submitPost = function (senderName, pointOfContact, contactNumber, dateReceived, priority, subject, documentType, ownerName, additionalComments, file, uploadUrl) {
+	this.submitPost = function (senderName, pointOfContact, contactNumber, dateReceived, priority, subject, documentType,referenceNumber, ownerName, additionalComments, file, uploadUrl) {
 		var fd = new FormData();
 		var file = document.getElementById('file').files[0];
 		fd.append('senderName', senderName);
@@ -10,10 +10,10 @@ deoHome.service('registerPostService', ['$http', function ($http, $timeout) {
 		fd.append('priority', priority);
 		fd.append('subject', subject);
 		fd.append('documentType', documentType);
+		fd.append('referenceNumber', referenceNumber);
 		fd.append('ownerName', ownerName);
 		fd.append('additionalComments', additionalComments);
 		fd.append('file', file);
-
 
 		$http({
 			method: 'POST',

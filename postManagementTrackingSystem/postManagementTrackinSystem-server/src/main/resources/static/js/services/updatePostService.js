@@ -1,6 +1,6 @@
 deoEdit.service('updatePostService', ['$http', function ($http, $timeout) {
 	
-	this.updatePost = function(applicationId,senderName,pointOfContact,contactNumber,dateReceived,priority,subject,documentType,additionalComments,file)
+	this.updatePost = function(applicationId,senderName,pointOfContact,contactNumber,dateReceived,priority,subject,documentType,referenceNumber,additionalComments,file)
 	{
 		var fd = new FormData();
 		var file = document.getElementById('file').files[0];
@@ -14,9 +14,8 @@ deoEdit.service('updatePostService', ['$http', function ($http, $timeout) {
 						fd.append("priority",priority);
 						fd.append("subject",subject);
 						fd.append("typeOfDocument",documentType);
+						fd.append("referenceNumber",referenceNumber);
 						fd.append("additionalComment",additionalComments);
-						//fd.append("file",file);
-						
 						
 						$http({
 							method: 'POST',
@@ -67,10 +66,10 @@ deoEdit.service('updatePostService', ['$http', function ($http, $timeout) {
 						fd.append("priority",priority);
 						fd.append("subject",subject);
 						fd.append("typeOfDocument",documentType);
+						fd.append("referenceNumber",referenceNumber);
 						fd.append("additionalComment",additionalComments);
 						fd.append("file",file);
-						
-						
+
 						$http({
 							method: 'POST',
 							url: '/editPostDetailsWithFile',

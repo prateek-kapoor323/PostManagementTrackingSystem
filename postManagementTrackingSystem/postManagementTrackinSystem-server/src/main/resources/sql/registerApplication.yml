@@ -5,8 +5,8 @@ registerApplication:
  totalNumberOfApplications: >
   Select count(id) from scgj_pmts.document_details where document_type=:document_type;
  submitPostDetails: >
-  INSERT INTO document_details(application_id,sender_name,sender_poc,sender_contact,date_received,date_of_entry,priority,subject,document_type,document_path,document_remarks) VALUES
-  (:applicationId,:senderName,:senderPoc,:senderContact,:dateReceived,curdate(),:priority,:subject,:documentType,:documentPath,:documentRemarks);
+  INSERT INTO document_details(application_id,sender_name,sender_poc,sender_contact,date_received,date_of_entry,priority,subject,document_type,reference_number,document_path,document_remarks) VALUES
+  (:applicationId,:senderName,:senderPoc,:senderContact,:dateReceived,curdate(),:priority,:subject,:documentType,:referenceNumber,:documentPath,:documentRemarks);
  documentOwnerId: >
   select id from users where name= :ownerName and role_type='DH';
  submitDocumentStatus: >
@@ -14,5 +14,5 @@ registerApplication:
  applicationIdById: >
   SELECT application_id FROM scgj_pmts.document_details where id = :docId;
  insertAuditTableWhileRegister: >
-  INSERT INTO scgj_pmts.audit_table (application_id, sender_name, subject, priority, assigned_to,  document_path, document_type, date_status_update, status, assigned_by) VALUES
-  (:applicationId, :senderName, :subject, :priority, :ownerId, :documentPath,:documentType,curdate(), "Not Started", :email);
+  INSERT INTO scgj_pmts.audit_table (application_id, sender_name, subject, priority, assigned_to,  document_path, document_type, reference_number,date_status_update, status, assigned_by) VALUES
+  (:applicationId, :senderName, :subject, :priority, :ownerId, :documentPath,:documentType,:referenceNumber,curdate(), "Not Started", :email);

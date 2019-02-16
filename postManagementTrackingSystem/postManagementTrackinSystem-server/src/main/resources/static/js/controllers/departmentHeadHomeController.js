@@ -37,8 +37,128 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
 
 
 
+ /* Getting the details of applications with status as In Review*/
+ var getInReviewApplicationDetails = function() {
+  var getInReviewApplicationDetails = "/getInReviewApplications";
+  $http.get(getInReviewApplicationDetails)
+   .then(function(response) {
+
+    if (response.data == null || response.data == "") {
+     $scope.inReviewApplications.data = [];
+    } else {
+     $scope.inReviewApplications.data = response.data;
+    }
+   });
+ };
+ getInReviewApplicationDetails();
 
 
+ 
+ 
+ /*This UI grid populates the details of post that are assigned to the departments with status IN REVIEW*/
+ $scope.inReviewApplications = {
+
+  enableGridMenus: false,
+  enableSorting: false,
+  enableFiltering: false,
+  enableCellEdit: false,
+  enableColumnMenus: false,
+  enableHorizontalScrollbar: 1,
+  enableVerticalScrollbar: 1,
+  paginationPageSizes: [5, 10, 20, 30],
+  paginationPageSize: 10,
+  useExternalPagination: true,
+
+  columnDefs: [{
+	    name: 'applicationId',
+	    displayName: 'Post Id',
+	    width: '15%'
+	   },
+	   {
+	    name: 'senderName',
+	    displayName: "Sender",
+	    width: '25%'
+	   },
+
+	   {
+	    name: 'subject',
+	    displayName: 'Subject',
+	    width: '12%'
+	   },
+	   {
+	    name: 'priority',
+	    displayName: 'Priority',
+	    width: '10%'
+	   },
+
+	   {
+	    name: 'status',
+	    displayName: 'Status',
+	    width: '10%',
+	   },
+	   {
+	    name: 'updatedStatus',
+	    displayName: 'Update Status',
+	    width: '15%',
+	    cellTemplate: 'partials/showReviewStatusDropDown.html'
+	   },
+	   {
+	    name: 'update',
+	    displayName: 'Update',
+	    width: '10%',
+	    cellTemplate: '<button type="button" class="btn btn-success updateStatusButton" ng-click="grid.appScope.updateApplicationStatusReview(row)">Update Status</button>'
+	   },
+
+	   {
+	    name: 'name',
+	    displayName: 'Owner',
+	    width: '10%'
+	   },
+
+
+	   {
+	    name: 'dateAssigned',
+	    displayName: 'Date Assigned',
+	    width: '10%'
+	   },
+
+	   {
+	    name: 'eta',
+	    displayName: 'ETA',
+	    width: '10%'
+	   },
+
+
+	   {
+	    name: 'documentType',
+	    displayName: 'Document Type',
+	    width: '10%'
+	   },
+	   {
+		    name: 'referenceNumber',
+		    displayName: 'Reference Number',
+		    width: '15%'
+		   },
+
+	   {
+	    name: 'documentRemarks',
+	    displayName: 'Document Remarks',
+	    width: '20%'
+	   },
+	   {
+	    name: 'documentPath',
+	    displayName: 'Document',
+	    width: '10%',
+	    cellTemplate: '<img src="images/pdf.png"  ng-click="grid.appScope.downloadPdf(row.entity.documentPath,row.entity.applicationId)" class="pdfIcon" alt="PDF Icon"  class="pointer">'
+	   }
+
+
+	  ]
+ };
+
+ 
+ 
+ 
 
  /*This UI grid populates the details of post that are assigned to the departments with status not started*/
  $scope.newApplications = {
@@ -90,8 +210,13 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    {
     name: 'documentType',
     displayName: 'Document Type',
-    width: '10%'
+    width: '15%'
    },
+   {
+	    name: 'referenceNumber',
+	    displayName: 'Reference Number',
+	    width: '15%'
+	   },
    {
     name: 'documentPath',
     displayName: 'Document',
@@ -126,7 +251,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    {
     name: 'assign',
     displayName: 'Update Owner',
-    width: '10%',
+    width: '15%',
     cellTemplate: '<button type="button" class="btn btn-success assignOwnerButton" ng-click="grid.appScope.assignOwner(row)">Assign</button>'
    }
 
@@ -147,11 +272,19 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
   if (row.entity.eta === undefined || row.entity.eta === null) {
    $scope.errorMessage = "";
    $scope.errorMessage = "Please assign ETA to the application";
-  } else {
+  }
+  
+  
+  else {
 
    if (row.entity.documentRemarks === undefined || row.entity.documentRemarks === null) {
     row.entity.documentRemarks = "";
    }
+   
+   if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) {
+	    row.entity.referenceNumber = "";
+	   }
+   
 
    var fd = new FormData();
    fd.append("applicationId", row.entity.applicationId);
@@ -163,6 +296,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    fd.append("documentRemarks", row.entity.documentRemarks);
    fd.append("documentPath", row.entity.documentPath);
    fd.append("documentType", row.entity.documentType);
+   fd.append("referenceNumber",row.entity.referenceNumber);
    fd.append("updatedStatus", "Assigned");
    var url = "/assignOwner";
 
@@ -302,6 +436,11 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
     displayName: 'Document Type',
     width: '10%'
    },
+   {
+	    name: 'referenceNumber',
+	    displayName: 'Reference Number',
+	    width: '15%'
+	   },
 
    {
     name: 'documentRemarks',
@@ -416,6 +555,11 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
     displayName: 'Document Type',
     width: '10%'
    },
+   {
+	    name: 'referenceNumber',
+	    displayName: 'Reference Number',
+	    width: '15%',
+  },
 
    {
     name: 'documentRemarks',
@@ -531,6 +675,11 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
     displayName: 'Document Type',
     width: '10%'
    },
+   {
+	    name: 'referenceNumber',
+	    displayName: 'Reference Number',
+	    width: '15%',
+  },
 
    {
     name: 'documentRemarks',
@@ -646,13 +795,16 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
     displayName: 'Priority',
     width: '10%'
    },
-
    {
     name: 'documentType',
     displayName: 'Document Type',
-    width: '10%',
+    width: '15%',
    },
-
+   {
+	    name: 'referenceNumber',
+	    displayName: 'Reference Number',
+	    width: '15%',
+   },
    {
     name: 'assignedTo',
     displayName: 'Assigned To',
@@ -701,6 +853,13 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
 
   } else {
 
+	  if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) {
+		    row.entity.referenceNumber = "";
+		   }
+	  if (row.entity.documentRemarks === undefined || row.entity.documentRemarks === null)
+	  {
+		    row.entity.documentRemarks = "";
+	   }
    var fd = new FormData();
    fd.append("applicationId", row.entity.applicationId);
    fd.append("senderName", row.entity.senderName);
@@ -711,6 +870,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    fd.append("documentRemarks", row.entity.documentRemarks);
    fd.append("documentPath", row.entity.documentPath);
    fd.append("documentType", row.entity.documentType);
+   fd.append("referenceNumber", row.entity.referenceNumber);
    fd.append("updatedStatus", row.entity.updatedStatus);
    var url = "/updateApplicationStatusDH";
 
@@ -738,6 +898,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
      populateAuditTable(); //Refresh Audit Table
      getOnHoldApplicationDetails(); //Refresh On Hold Applications Table
      getAssignedApplications(); //Refresh Assigned Action Application Table
+     getInReviewApplicationDetails();//Refresh In Review Application Tables
 
     } else {
      $scope.onHoldSuccessMessage = "";
@@ -770,6 +931,13 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
 
   } else {
 
+	  if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) {
+		    row.entity.referenceNumber = "";
+		   }
+	  if (row.entity.documentRemarks === undefined || row.entity.documentRemarks === null)
+	  {
+		    row.entity.documentRemarks = "";
+	   }
    var fd = new FormData();
    fd.append("applicationId", row.entity.applicationId);
    fd.append("senderName", row.entity.senderName);
@@ -780,6 +948,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    fd.append("documentRemarks", row.entity.documentRemarks);
    fd.append("documentPath", row.entity.documentPath);
    fd.append("documentType", row.entity.documentType);
+   fd.append("referenceNumber", row.entity.referenceNumber);
    fd.append("updatedStatus", row.entity.updatedStatus);
    var url = "/updateApplicationStatusDH";
 
@@ -807,6 +976,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
      getinActionApplications(); //Refresh In Action Applications Table
      getOnHoldApplicationDetails(); //Refresh On Hold Applications Table
      getAssignedApplications(); //Refresh Assigned Action Application Table
+     getInReviewApplicationDetails();//Refresh In Review Application Tables
 
     } else {
      $scope.InActionSuccessMessage = "";
@@ -841,6 +1011,13 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
 
   } else {
 
+	  if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null) {
+		    row.entity.referenceNumber = "";
+		   }
+	  if (row.entity.documentRemarks === undefined || row.entity.documentRemarks === null)
+	  {
+		    row.entity.documentRemarks = "";
+	   }
    var fd = new FormData();
    fd.append("applicationId", row.entity.applicationId);
    fd.append("senderName", row.entity.senderName);
@@ -851,6 +1028,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
    fd.append("documentRemarks", row.entity.documentRemarks);
    fd.append("documentPath", row.entity.documentPath);
    fd.append("documentType", row.entity.documentType);
+   fd.append("referenceNumber", row.entity.referenceNumber);
    fd.append("updatedStatus", row.entity.updatedStatus);
    var url = "/updateApplicationStatusDH";
 
@@ -877,6 +1055,7 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
      getinActionApplications(); //Refresh In Action Applications Table
      populateAuditTable(); //Refresh Audit Table
      getAssignedApplications(); //Refresh Assigned Action Application Table
+     getInReviewApplicationDetails();//Refresh In Review Application Tables
 
     } else {
      $scope.assignedSuccessMessage = "";
@@ -900,7 +1079,77 @@ departmentHeadHome.controller("departmentHeadHomeController", function($scope, $
 
 
 
+ /** This method is invoked when the application in Review State is updated to some other state**/
+ $scope.updateApplicationStatusReview = function(row) {
+
+  if (row.entity.updatedStatus === undefined || row.entity.updatedStatus === null) {
+   $scope.inReviewSuccessMessage = "";
+   $scope.inReviewErrorMessage = "Please select the status to be updated";
+
+  } else {
+
+	  if (row.entity.referenceNumber === undefined || row.entity.referenceNumber === null)
+	  {
+		    row.entity.referenceNumber = "";
+	   }
+	  if (row.entity.documentRemarks === undefined || row.entity.documentRemarks === null)
+	  {
+		    row.entity.documentRemarks = "";
+	   }
+   var fd = new FormData();
+   fd.append("applicationId", row.entity.applicationId);
+   fd.append("senderName", row.entity.senderName);
+   fd.append("subject", row.entity.subject);
+   fd.append("priority", row.entity.priority);
+   fd.append("assignedTo", row.entity.name);
+   fd.append("eta", row.entity.eta);
+   fd.append("documentRemarks", row.entity.documentRemarks);
+   fd.append("documentPath", row.entity.documentPath);
+   fd.append("documentType", row.entity.documentType);
+   fd.append("referenceNumber", row.entity.referenceNumber);
+   fd.append("updatedStatus", row.entity.updatedStatus);
+   var url = "/updateApplicationStatusDH";
+
+   $http({
+    method: 'POST',
+    url: url,
+    data: fd,
+    headers: {
+     'Content-Type': undefined
+    },
+    transformRequest: angular.identity,
+    transformResponse: [function(data) {
+     thisIsResponse = data;
+     return data;
+
+    }]
+   }).then(function(response) {
+
+    if (response.data > 0) {
+     $scope.inReviewErrorMessage = "";
+     $scope.inReviewSuccessMessage = "Application status successfully updated";
+
+     getOnHoldApplicationDetails(); //Refresh On Hold Applications Table
+     getinActionApplications(); //Refresh In Action Applications Table
+     populateAuditTable(); //Refresh Audit Table
+     getAssignedApplications(); //Refresh Assigned Action Application Table
+     getInReviewApplicationDetails();//Refresh In Review Application Tables
+
+    } else {
+     $scope.inReviewSuccessMessage = "";
+     $scope.inReviewErrorMessage = "Application Status could not be updated";
 
 
+    }
+   });
+
+  }
+  $timeout(function() {
+   $scope.assignedSuccessMessage = "";
+   $scope.inReviewErrorMessage = "";
+  }, 6000);
+
+
+ }
 
 });

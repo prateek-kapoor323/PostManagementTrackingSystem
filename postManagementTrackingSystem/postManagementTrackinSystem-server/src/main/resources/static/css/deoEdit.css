@@ -1,6 +1,6 @@
 .edit-page-wrapper {
      background-color: white;
-     height: 100vh;
+     height: auto !important;
 }
  .editPageHeading {
      color: rgb(109,110,113);
@@ -13,6 +13,8 @@
      font-size: medium;
      display: inline;
 }
+
+
  .applicationIdDropdown {
      width:auto!important;
      display:inline;

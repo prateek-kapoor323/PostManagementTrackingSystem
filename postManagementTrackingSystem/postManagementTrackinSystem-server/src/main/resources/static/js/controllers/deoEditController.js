@@ -28,7 +28,7 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 		});
 
 
-	/*This method gets the details of the application whose status is NOT STARTED*/
+	/*This method gets the details of the application */
 	$scope.getPostDetail = function () {
 		var searchUrl = '/searchApplicationById?applicationId=' + $scope.searchParam.applicationId;
 		$http.get(searchUrl)
@@ -39,6 +39,8 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 					$scope.editPostDetail = [];
 
 				} else {
+					
+					console.log(response.data);
 					$scope.editPostDetail.data = response.data;
 				}
 			});
@@ -49,8 +51,8 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 
 
 	/* UI Grid to populate the post details when the DEO wants to update the owner of the application */
-	$scope.editPostDetail = {
-
+	$scope.editPostDetail = 
+	{
 		enableGridMenus: false,
 		enableSorting: false,
 		enableFiltering: false,
@@ -77,11 +79,19 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 				displayName: 'Date Received',
 				width: '10%'
 			},
+		
 			{
 				name: 'subject',
 				displayName: 'Subject',
 				width: '20%'
 			},
+		
+			{
+				name: 'status',
+				displayName: 'Application Status',
+				width: '20%'
+			},
+			
 			{
 				name: 'name',
 				enableCellEdit: true,
@@ -89,6 +99,7 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 				width: '15%'
 
 			},
+			
 			{
 				name: 'newOwner',
 				enableCellEdit: true,
@@ -97,6 +108,13 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 				width: '15%'
 
 			},
+			{
+				name: 'documentType',
+				displayName: 'Document Type',
+				width: '15%'
+
+			},
+			
 			{
 				name: 'documentPath',
 				displayName: 'Document',
@@ -107,7 +125,7 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 				name: 'assign',
 				displayName: 'Update Owner',
 				width: '15%',
-				cellTemplate: '<button type="button"  class="btn btn-success updateOwnerButton" ng-click=grid.appScope.updateOwner(row.entity.newOwner,row.entity.applicationId)>Update Owner</button>'
+				cellTemplate: '<button type="button"  class="btn btn-success updateOwnerButton" ng-click=grid.appScope.updateOwner(row.entity.newOwner,row.entity.applicationId,row.entity.senderName,row.entity.subject,row.entity.status,row.entity.documentType,row.entity.documentPath)>Update Owner</button>'
 			}
 		]
 
@@ -115,13 +133,13 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 
 
 	/* Method to update the owner of the application with application id and owner Name, these values are received from $scope.editPostDetail UI Grid's assign column definition **/
-	$scope.updateOwner = function (newOwnerName, applicationId) {
+	$scope.updateOwner = function (newOwnerName, applicationId, senderName, subject, status, documentType, documentPath) {
 		if (newOwnerName == undefined || newOwnerName == null || newOwnerName == "") {
 			$scope.mandatoryFeildsError = "Please select the new owner";
 		} else if (applicationId == undefined || applicationId == null || applicationId == "") {
 			$scope.mandatoryFeildsError = "Owner cannot be updated, Please contact your administrator";
 		} else {
-			var updateUrl = '/editAssignee?applicationId=' + applicationId + '&ownerName=' + newOwnerName;
+			var updateUrl = '/editAssignee?applicationId=' + applicationId + '&ownerName=' + newOwnerName+'&senderName='+senderName+'&subject='+subject+'&status='+status+'&documentType='+documentType+'&documentPath='+documentPath;
 
 			$http.get(updateUrl)
 				.then(function (response) {
@@ -237,6 +255,7 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 							$scope.postDetails.contactNumber = response.data[0].senderContact;
 							$scope.postDetails.dateReceived = response.data[0].dateReceived;
 							$scope.postDetails.priority = response.data[0].priority;
+							$scope.postDetails.referenceNumber = response.data[0].referenceNumber;
 							$scope.postDetails.subject = response.data[0].subject;
 							$scope.postDetails.documentType = response.data[0].documentType;
 							$scope.postDetails.additionalComments = response.data[0].additionalComment;
@@ -262,19 +281,29 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 			$scope.postDetails.additionalComments = "";
 		}
 		
-		var applicationId = $scope.postDetails.applicationId;
-		var senderName = $scope.postDetails.senderName;
-		var pointOfContact = $scope.postDetails.pointOfContact;
-		var contactNumber = $scope.postDetails.contactNumber;
-		var dateReceived = $scope.postDetails.dateReceived;
-		var priority = $scope.postDetails.priority;
-		var subject = $scope.postDetails.subject;
-		var documentType = $scope.postDetails.documentType;
-		var additionalComments = $scope.postDetails.additionalComments;
-		var file = $scope.postDetails.file;
+		if($scope.postDetails.referenceNumber === undefined || $scope.postDetails.referenceNumber === null)
+		{
+			$scope.postDetails.referenceNumber = "";
+		}		
 		
-		var updatePost = updatePostService.updatePost(applicationId,senderName,pointOfContact,contactNumber,dateReceived,priority,subject,documentType,additionalComments,file);
-		
+		else
+			{
+			var applicationId = $scope.postDetails.applicationId;
+			var senderName = $scope.postDetails.senderName;
+			var pointOfContact = $scope.postDetails.pointOfContact;
+			var contactNumber = $scope.postDetails.contactNumber;
+			var dateReceived = $scope.postDetails.dateReceived;
+			var priority = $scope.postDetails.priority;
+			var subject = $scope.postDetails.subject;
+			var documentType = $scope.postDetails.documentType;
+			var referenceNumber = $scope.postDetails.referenceNumber;
+			var additionalComments = $scope.postDetails.additionalComments;
+			var file = $scope.postDetails.file;
+			
+			var updatePost = updatePostService.updatePost(applicationId,senderName,pointOfContact,contactNumber,dateReceived,priority,subject,documentType,referenceNumber,additionalComments,file);
+
+			}
+				
 		
 	}
 	

@@ -100,15 +100,16 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 		enableFiltering: false,
 		enableCellEdit: false,
 		enableColumnMenus: false,
-		enableHorizontalScrollbar: 0,
-		enableVerticalScrollbar: 0,
+		enableHorizontalScrollbar: 1,
+		enableVerticalScrollbar: 1,
 		paginationPageSizes: [5, 10, 20, 30],
 		paginationPageSize: 10,
 		useExternalPagination: true,
 
 		columnDefs: [{
 				name: 'applicationId',
-				displayName: 'Post Id'
+				displayName: 'Post Id',
+				width: '15%'
 			},
 			{
 				name: 'senderName',
@@ -117,7 +118,8 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			},
 			{
 				name: 'dateReceived',
-				displayName: 'Date Received'
+				displayName: 'Date Received',
+				width: '15%'
 			},
 			{
 				name: 'subject',
@@ -126,11 +128,23 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			},
 			{
 				name: 'priority',
-				displayName: 'Priority'
+				displayName: 'Priority',
+				width: '10%'
+			},
+			{
+				name: 'documentType',
+				displayName: 'Document Type',
+				width: '15%'
+			},
+			{
+				name: 'referenceNumber',
+				displayName: 'Reference Number',
+				width:'20%'
 			},
 			{
 				name: 'name',
-				displayName: 'SCGJ POC'
+				displayName: 'SCGJ POC',
+				width: '15%'
 			},
 			{
 				name: 'department',
