@@ -121,6 +121,9 @@ public class DepartmentHeadEditApplicationDao extends AbstractTransactionalDao
 				return -30;
 			}
 			LOGGER.debug("Owner of the application successfully updated, sending request to update the audit table");
+			LOGGER.debug("Setting the value of status to Assigned to be reflected in the audit table");
+			receiveEditApplicationParamsDHDto.setUpdatedStatus("Assigned");
+			LOGGER.debug("Application status set to Assigned before inserting information into the audit table");
 			Integer updateAuditTableStatus = updateAuditTable(receiveEditApplicationParamsDHDto,ownerId,email);
 			return updateAuditTableStatus;
 		}
