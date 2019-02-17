@@ -17,6 +17,7 @@ public class ShowEditApplicationDetailsDepartmentHeadDto extends BaseDto
 	private String subject;
 	private String priority;
 	private Date dateAssigned;
+	private Date dateReceived;
 	private String documentRemarks;
 	private String documentPath;
 	private String documentType;
@@ -52,6 +53,12 @@ public class ShowEditApplicationDetailsDepartmentHeadDto extends BaseDto
 	}
 	public void setDateAssigned(Date dateAssigned) {
 		this.dateAssigned = dateAssigned;
+	}
+	public Date getDateReceived() {
+		return dateReceived;
+	}
+	public void setDateReceived(Date dateReceived) {
+		this.dateReceived = dateReceived;
 	}
 	public String getDocumentRemarks() {
 		return documentRemarks;
@@ -90,14 +97,15 @@ public class ShowEditApplicationDetailsDepartmentHeadDto extends BaseDto
 		this.ownerName = ownerName;
 	}
 	public ShowEditApplicationDetailsDepartmentHeadDto(String applicationId, String senderName, String subject,
-			String priority, Date dateAssigned, String documentRemarks, String documentPath, String documentType,
-			String status, Date eta, String ownerName) {
+			String priority, Date dateAssigned, Date dateReceived, String documentRemarks, String documentPath,
+			String documentType, String status, Date eta, String ownerName) {
 		super();
 		this.applicationId = applicationId;
 		this.senderName = senderName;
 		this.subject = subject;
 		this.priority = priority;
 		this.dateAssigned = dateAssigned;
+		this.dateReceived = dateReceived;
 		this.documentRemarks = documentRemarks;
 		this.documentPath = documentPath;
 		this.documentType = documentType;
@@ -110,5 +118,4 @@ public class ShowEditApplicationDetailsDepartmentHeadDto extends BaseDto
 		// TODO Auto-generated constructor stub
 	}
 
-	
 }

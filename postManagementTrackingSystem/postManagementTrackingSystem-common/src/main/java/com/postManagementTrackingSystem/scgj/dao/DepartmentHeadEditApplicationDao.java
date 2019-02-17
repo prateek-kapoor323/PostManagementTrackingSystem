@@ -295,6 +295,7 @@ public class DepartmentHeadEditApplicationDao extends AbstractTransactionalDao
 			String subject = rs.getString("subject");
 			String priority = rs.getString("priority");
 			Date dateAssigned = rs.getDate("dateAssigned");
+			Date dateReceived = rs.getDate("dateReceived");
 			String documentRemarks = rs.getString("documentRemarks");
 			String documentPath = rs.getString("documentPath");
 			String documentType = rs.getString("documentType");
@@ -302,7 +303,7 @@ public class DepartmentHeadEditApplicationDao extends AbstractTransactionalDao
 			Date eta = rs.getDate("eta");
 			String ownerName = rs.getString("ownerName");
 			
-			return new ShowEditApplicationDetailsDepartmentHeadDto(applicationId, senderName, subject, priority, dateAssigned, documentRemarks,documentPath, documentType, status, eta, ownerName);
+			return new ShowEditApplicationDetailsDepartmentHeadDto(applicationId, senderName, subject, priority, dateAssigned,dateReceived, documentRemarks,documentPath, documentType, status, eta, ownerName);
 			 
 			 
 			
