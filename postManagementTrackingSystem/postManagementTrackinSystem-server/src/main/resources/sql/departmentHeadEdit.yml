@@ -4,7 +4,7 @@ editApplicationDetails:
   select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.subject as subject,document_details.priority as priority,doc_status.date_assigned as dateAssigned,document_details.date_received as dateReceived,doc_status.additional_comment as documentRemarks,document_details.document_path as documentPath,document_details.document_type as documentType
   ,doc_status.status as status,doc_status.eta as eta,users.name as ownerName FROM ((document_details INNER JOIN doc_status ON document_details.id = doc_status.doc_id) INNER JOIN users ON doc_status.owner_id=users.id) where document_details.application_id=:applicationId AND users.department=:department AND status!="closed";
  updateApplicationOwner: >
-  UPDATE scgj_pmts.doc_status SET owner_id= :ownerId,doc_status.date_assigned=curdate(),doc_status.status="Assigned" Where doc_id= :documentId;
+  UPDATE scgj_pmts.doc_status SET owner_id= :ownerId,doc_status.date_assigned=curdate(),doc_status.status="Assigned",doc_status.date_started=null Where doc_id= :documentId;
  
  updateEtaOfApplicationWithStatus: >
   UPDATE scgj_pmts.doc_status SET status='In Action', eta=:eta WHERE doc_id=:documentId;
