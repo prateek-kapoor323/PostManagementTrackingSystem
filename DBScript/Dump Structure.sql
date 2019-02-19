@@ -43,7 +43,7 @@ CREATE TABLE `audit_table` (
   PRIMARY KEY (`id`),
   KEY `assigned_to_idx` (`assigned_to`),
   CONSTRAINT `assigned_to` FOREIGN KEY (`assigned_to`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=310 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=327 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `doc_status` (
   KEY `doc_id_idx` (`doc_id`),
   CONSTRAINT `doc_id` FOREIGN KEY (`doc_id`) REFERENCES `document_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `owner_id` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8 COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8 COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `document_details` (
   `document_remarks` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `application_id_UNIQUE` (`application_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=183 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -110,7 +110,7 @@ CREATE TABLE `users` (
   `name` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
-  `department` enum('Assessment and Assurance','Finance','Marketing','Standard and Research','Data Entry Operator') DEFAULT NULL,
+  `department` enum('Assessment and Assurance','Finance','Marketing and Partnership','Standards and Research','Data Entry Operator','CEO Green Jobs') DEFAULT NULL,
   `role_type` enum('DEO','DH','DE','CEO') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
@@ -127,4 +127,5 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-16 23:59:40
+
+-- Dump completed on 2019-02-20  0:33:04
