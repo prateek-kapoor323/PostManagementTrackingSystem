@@ -32,7 +32,7 @@ public class DepartmentHeadSearchDao extends AbstractTransactionalDao
 	 * @param department
 	 * @return Collection<ApplicationSearchResultsDto> - if success, else - null
 	 */
-	public Collection<ApplicationSearchResultsDto> getApplicationDetailsByOwner(String ownerName, String department)
+	public Collection<ApplicationSearchResultsDto> getApplicationDetailsByOwner(String ownerName)
 	{
 		
 		LOGGER.debug("Request received from service to get the application details assigned to owner name: "+ownerName+" corresponding to the department of logged in user");
@@ -44,25 +44,18 @@ public class DepartmentHeadSearchDao extends AbstractTransactionalDao
 			LOGGER.error("Returning null to the service");
 			return null;
 		}
-		else if(department==null||department.isEmpty())
-		{
-			LOGGER.error("The department name received inside the dao is null or empty");
-			LOGGER.error("Request to get the application details using application id could not be processed");
-			LOGGER.error("Returning null to the service");
-			return null;
-		}
+
 		LOGGER.debug("Parameters received are not null or empty");
-		LOGGER.debug("Processing request to get the details of the application for the department of logged in user: "+department+" by ownerName: "+ownerName);
+		//LOGGER.debug("Processing request to get the details of the application for the department of logged in user: "+department+" by ownerName: "+ownerName);
 		LOGGER.debug("Creating hashmap of objects");
 		Map<String,Object> ownerParams = new HashMap<>();
 		LOGGER.debug("hashmap successfully created, Inserting department and ownerName into hashmap");
 		ownerParams.put("ownerName",ownerName);
-		ownerParams.put("department", department);
 		LOGGER.debug("Parameters successfully inserted into hashmap ");
 		try 
 		{
 			LOGGER.debug("In try block to get all the applicaitons for the department of logged in user with ownerName: "+ownerName);
-			LOGGER.debug("Executing query to get all the applications for the department of logged in user with owner: "+ownerName+" and department: "+department);
+			LOGGER.debug("Executing query to get all the applications for the department of logged in user with owner: "+ownerName);
 			return getJdbcTemplate().query(departmentHeadSearchConfig.getApplicationByOwnerName(), ownerParams, ROW_MAPPER);
 			
 		}

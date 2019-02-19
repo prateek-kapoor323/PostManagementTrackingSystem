@@ -673,7 +673,7 @@ public class PerformPostActionsUtility extends AbstractTransactionalDao
 	 * @param department
 	 * @return Collection<ApplicationSearchResultsDto> - if success, else - null
 	 */
-	public Collection<ApplicationSearchResultsDto> getApplicationDetailsByStatus(String status, String department)
+	public Collection<ApplicationSearchResultsDto> getApplicationDetailsByStatus(String status)
 	{
 		LOGGER.debug("Request received from service to get the application details for status corresponding to the department of logged in user");
 		LOGGER.debug("Checking if the received parameters are null or empty");
@@ -684,25 +684,25 @@ public class PerformPostActionsUtility extends AbstractTransactionalDao
 			LOGGER.error("Returning null to the service");
 			return null;
 		}
-		else if(department==null||department.isEmpty())
-		{
-			LOGGER.error("The department name received inside the dao is null or empty");
-			LOGGER.error("Request to get the application details using application id could not be processed");
-			LOGGER.error("Returning null to the service");
-			return null;
-		}
+//		else if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("The department name received inside the dao is null or empty");
+//			LOGGER.error("Request to get the application details using application id could not be processed");
+//			LOGGER.error("Returning null to the service");
+//			return null;
+//		}
 		LOGGER.debug("Parameters received are not null or empty");
-		LOGGER.debug("Processing request to get the details of the application for the department of logged in user: "+department+" by status: "+status);
+		LOGGER.debug("Processing request to get the details of the application by status: "+status);
 		LOGGER.debug("Creating hashmap of objects");
 		Map<String,Object>statusParams = new HashMap<>();
 		LOGGER.debug("Hashmap successfully created, Inserting parameters into hashmap");
 		statusParams.put("status", status);
-		statusParams.put("department",department);
+//		statusParams.put("department",department);
 		LOGGER.debug("Parameters inserted successfully into hashmap");
 		try 
 		{
 			LOGGER.debug("In try block to get all the applicaitons for the department of logged in user with status: "+status);
-			LOGGER.debug("Executing query to get all the applications for the department of logged in user with status: "+status+" and department: "+department);
+//			LOGGER.debug("Executing query to get all the applications for the department of logged in user with status: "+status+" and department: "+department);
 			return getJdbcTemplate().query(departmentHeadSearchConfig.getApplicationByStatus(), statusParams, ROW_MAPPER);
 			
 		}

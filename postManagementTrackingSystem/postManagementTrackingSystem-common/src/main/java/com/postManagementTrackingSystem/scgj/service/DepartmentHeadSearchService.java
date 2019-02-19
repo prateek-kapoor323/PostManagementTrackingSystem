@@ -91,21 +91,21 @@ public class DepartmentHeadSearchService {
 		}
 		
 		LOGGER.debug("Received parameters are not null or empty");
-		LOGGER.debug("Processing request to get the details of the applications for status: "+status);
-		LOGGER.debug("Sending request to service method of DepartmentHeadHomeService to get the department of the logged in user");
-		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Received the department of the logged in user");
-		LOGGER.debug("Checking if the department is null or empty");
-		if(department==null||department.isEmpty())
-		{
-			LOGGER.error("Department received is null or empty");
-			LOGGER.error("Request cannot be processed, Returning null to the controller");
-			return null;
-		}
-		LOGGER.debug("Department name is not empty");
-		LOGGER.debug("Department name for logged in user: "+email+" is: "+department);
+//		LOGGER.debug("Processing request to get the details of the applications for status: "+status);
+//		LOGGER.debug("Sending request to service method of DepartmentHeadHomeService to get the department of the logged in user");
+//		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+//		LOGGER.debug("Received the department of the logged in user");
+//		LOGGER.debug("Checking if the department is null or empty");
+//		if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("Department received is null or empty");
+//			LOGGER.error("Request cannot be processed, Returning null to the controller");
+//			return null;
+//		}
+//		LOGGER.debug("Department name is not empty");
+//		LOGGER.debug("Department name for logged in user: "+email+" is: "+department);
 		LOGGER.debug("Sending request to dao to get applications whose status is: "+status);
-		return performPostActionsUtility.getApplicationDetailsByStatus(status, department);
+		return performPostActionsUtility.getApplicationDetailsByStatus(status);
 	}
 	
 	
@@ -135,20 +135,20 @@ public class DepartmentHeadSearchService {
 		
 		LOGGER.debug("Received parameters are not null or empty");
 		LOGGER.debug("Processing request to get the details of the applications for owner: "+ownerName);
-		LOGGER.debug("Sending request to service method of DepartmentHeadHomeService to get the department of the logged in user");
-		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
-		LOGGER.debug("Received the department of the logged in user");
-		LOGGER.debug("Checking if the department is null or empty");
-		if(department==null||department.isEmpty())
-		{
-			LOGGER.error("Department received is null or empty");
-			LOGGER.error("Request cannot be processed, Returning null to the controller");
-			return null;
-		}
-		LOGGER.debug("Department name is not empty");
-		LOGGER.debug("Department name for logged in user: "+email+" is: "+department);
+//		LOGGER.debug("Sending request to service method of DepartmentHeadHomeService to get the department of the logged in user");
+//		String department = performPostActionsUtility.getDepartmentOfLoggedInUser(email);
+//		LOGGER.debug("Received the department of the logged in user");
+//		LOGGER.debug("Checking if the department is null or empty");
+//		if(department==null||department.isEmpty())
+//		{
+//			LOGGER.error("Department received is null or empty");
+//			LOGGER.error("Request cannot be processed, Returning null to the controller");
+//			return null;
+//		}
+//		LOGGER.debug("Department name is not empty");
+//		LOGGER.debug("Department name for logged in user: "+email+" is: "+department);
 		LOGGER.debug("Sending request to dao to get applications whose owner is: "+ownerName);
-		return departmentHeadSearchDao.getApplicationDetailsByOwner(ownerName, department);
+		return departmentHeadSearchDao.getApplicationDetailsByOwner(ownerName);
 		
 	}
 	
