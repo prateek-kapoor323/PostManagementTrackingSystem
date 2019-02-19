@@ -3,14 +3,14 @@ departmentHeadSearchYml:
  applicationByApplicationId: >
   select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.subject as subject,document_details.priority as priority,document_details.date_received as dateReceived,document_details.document_type as documentType,document_details.reference_number as referenceNumber,document_details.document_path as documentPath,
    doc_status.date_assigned as dateAssigned,doc_status.status as status,doc_status.eta as eta,users.name as ownerName from document_details INNER JOIN doc_status ON document_details.id=doc_status.doc_id INNER JOIN users ON users.id=doc_status.owner_id where 
-   document_details.application_id=:applicationId and users.department=:department ORDER BY document_details.date_received;
+   document_details.application_id=:applicationId ORDER BY document_details.date_received;
 
  applicationByStatus: >
   select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.subject as subject,document_details.priority as priority,document_details.date_received as dateReceived,document_details.document_type as documentType,document_details.reference_number as referenceNumber ,document_details.document_path as documentPath,
    doc_status.date_assigned as dateAssigned,doc_status.status as status,doc_status.eta as eta,users.name as ownerName from document_details INNER JOIN doc_status ON document_details.id=doc_status.doc_id INNER JOIN users ON users.id=doc_status.owner_id where 
-   doc_status.status=:status and users.department=:department ORDER BY document_details.date_received;
+   doc_status.status=:status ORDER BY document_details.date_received;
 
  applicationByOwnerName: >
   select document_details.application_id as applicationId,document_details.sender_name as senderName,document_details.subject as subject,document_details.priority as priority,document_details.date_received as dateReceived,document_details.document_type as documentType,document_details.reference_number as referenceNumber,document_details.document_path as documentPath,
    doc_status.date_assigned as dateAssigned,doc_status.status as status,doc_status.eta as eta,users.name as ownerName from document_details INNER JOIN doc_status ON document_details.id=doc_status.doc_id INNER JOIN users ON users.id=doc_status.owner_id where 
-   users.name=:ownerName and users.department=:department ORDER BY document_details.date_received;  
+   users.name=:ownerName ORDER BY document_details.date_received;  
