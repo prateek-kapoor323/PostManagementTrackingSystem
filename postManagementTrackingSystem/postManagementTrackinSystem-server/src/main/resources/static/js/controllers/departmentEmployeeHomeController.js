@@ -111,13 +111,19 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name: 'senderName',
 					displayName: "Sender",
-					width: '25%'
+					width: '25%',
+					cellTooltip: function(row, col) {
+				        return 'Sender: ' + row.entity.senderName;
+				      }
 				},
 				
 				{
 					name: 'subject',
 					displayName: 'Subject',
-					width: '12%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Subject: ' + row.entity.subject;
+				      }
 				},
 				{
 					name: 'priority',
@@ -128,7 +134,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name: 'status',
 					displayName: 'Status',
-					width:'10%',
+					width:'15%',
 				},
 				{
 					name: 'updatedStatus',
@@ -146,39 +152,51 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name:'name',
 					displayName: 'Owner',
-					width:'10%'
+					width:'12%',
+					cellTooltip: function(row, col) {
+				        return 'Owner: ' + row.entity.ownerName;
+				      }
 				},
 				
 				
 				{
 					name: 'dateAssigned',
 					displayName: 'Date Assigned',
-					width:'10%'
+					width:'13%'
 				},
 				
 				{
 					name: 'eta',
 					displayName: 'ETA',
-					width:'10%'
+					width:'15%'
 				},
 				
 				
 				{
 					name:'documentType',
 					displayName: 'Document Type',
-					width:'10%'
+					width:'15%',
+					cellTooltip: function(row, col) {
+				        return 'Document Type: ' + row.entity.documentType;
+				      }
 				},
 				
 				{
 					name:'referenceNumber',
 					displayName: 'Reference Number',
-					width:'15%'
+					width:'16%',
+					cellTooltip: function(row, col) {
+				        return 'Reference Number: ' + row.entity.referenceNumber;
+				      }
 				},
 
 				{
 					name:'documentRemarks',
 					displayName: 'Document Remarks',
-					width:'25%'
+					width:'20%',
+					cellTooltip: function(row, col) {
+				        return 'Document Remarks: ' + row.entity.documentRemarks;
+				      }
 				},
 				{
 					name: 'documentPath',
@@ -214,13 +232,19 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			{
 				name: 'senderName',
 				displayName: "Sender",
-				width: '25%'
+				width: '25%',
+				cellTooltip: function(row, col) {
+			        return 'Sender: ' + row.entity.senderName;
+			      }
 			},
 			
 			{
 				name: 'subject',
 				displayName: 'Subject',
-				width: '12%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'Subject: ' + row.entity.subject;
+			      }
 			},
 			{
 				name: 'priority',
@@ -231,7 +255,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			{
 				name: 'status',
 				displayName: 'Status',
-				width:'10%'
+				width:'15%'
 			},
 			
 			{
@@ -250,38 +274,50 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			{
 				name: 'name',
 				displayName: 'Owner',
-				width:'15%'
+				width:'12%',
+				cellTooltip: function(row, col) {
+			        return 'Owner: ' + row.entity.name;
+			      }
 			},
 			
 			{
 				name: 'dateAssigned',
 				displayName: 'Date Assigned',
-				width:'10%'
+				width:'13%'
 			},
 			
 			{
 				name: 'eta',
 				displayName: 'ETA',
-				width:'10%'
+				width:'15%'
 			},
 			
 			
 			{
 				name:'documentType',
 				displayName: 'Document Type',
-				width:'10%'
+				width:'15%',
+				cellTooltip: function(row, col) {
+			        return 'Document Type: ' + row.entity.documentType;
+			      }
 			},
 			
 			{
 				name:'referenceNumber',
 				displayName: 'Reference Number',
-				width:'15%'
+				width:'16%',
+				cellTooltip: function(row, col) {
+			        return 'Reference Number: ' + row.entity.referenceNumber;
+			      }
 			},
 			
 			{
 				name:'documentRemarks',
 				displayName: 'Document Remarks',
-				width:'25%'
+				width:'20%',
+				cellTooltip: function(row, col) {
+			        return 'Document Remarks: ' + row.entity.documentRemarks;
+			      }
 			},
 			{
 				name: 'documentPath',
@@ -313,18 +349,24 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			columnDefs: [{
 					name: 'applicationId',
 					displayName: 'Post Id',
-					width:'8%'
+					width:'15%'
 				},
 				{
 					name: 'senderName',
 					displayName: "Sender",
-					width: '25%'
+					width: '25%',
+					cellTooltip: function(row, col) {
+				        return 'Sender: ' + row.entity.senderName;
+				      }
 				},
 				
 				{
 					name: 'subject',
 					displayName: 'Subject',
-					width: '12%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Subject: ' + row.entity.subject;
+				      }
 				},
 				{
 					name: 'priority',
@@ -335,7 +377,7 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name: 'status',
 					displayName: 'Status',
-					width:'10%'
+					width:'12%'
 				},
 				
 				{
@@ -354,38 +396,51 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name: 'name',
 					displayName: 'Owner',
-					width:'15%'
+					width:'15%',
+					cellTooltip: function(row, col) {
+				        return 'Owner: ' + row.entity.name;
+				      }
 				},
 				
 				{
 					name: 'dateAssigned',
 					displayName: 'Date Assigned',
-					width:'10%'
+					width:'13%'
 				},
 				
 				{
 					name: 'eta',
 					displayName: 'ETA',
-					width:'10%'
+					width:'15%'
 				},
 				
 				
 				{
 					name:'documentType',
 					displayName: 'Document Type',
-					width:'10%'
+					width:'15%',
+					cellTooltip: function(row, col) {
+				        return 'Document Type: ' + row.entity.documentType;
+				      }
 				},
 
 				{
 					name:'referenceNumber',
 					displayName: 'Reference Number',
-					width:'15%'
+					width:'16%',
+					cellTooltip: function(row, col) {
+				        return 'Reference Number: ' + row.entity.referenceNumber;
+				      }
+					
 				},
 				
 				{
 					name:'documentRemarks',
 					displayName: 'Document Remarks',
-					width:'20%'
+					width:'20%',
+					cellTooltip: function(row, col) {
+				        return 'Document Remarks: ' + row.entity.documentRemarks;
+				      }
 				},
 				{
 					name: 'documentPath',
@@ -417,18 +472,24 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 			columnDefs: [{
 					name: 'applicationId',
 					displayName: 'Post Id',
-					width:'8%'
+					width:'15%'
 				},
 				{
 					name: 'senderName',
 					displayName: "Sender",
-					width: '25%'
+					width: '25%',
+					cellTooltip: function(row, col) {
+				        return 'Sender: ' + row.entity.senderName;
+				      }
 				},
 				
 				{
 					name: 'subject',
 					displayName: 'Subject',
-					width: '12%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Subject: ' + row.entity.subject;
+				      }
 				},
 				{
 					name: 'priority',
@@ -439,44 +500,56 @@ departmentEmployeeHome.controller("departmentEmployeeHomeController",function($s
 				{
 					name: 'status',
 					displayName: 'Status',
-					width:'10%'
+					width:'12%'
 				},
 
 				{
 					name: 'name',
 					displayName: 'Owner',
-					width:'15%'
+					width:'15%',
+					cellTooltip: function(row, col) {
+				        return 'Owner: ' + row.entity.name;
+				      }
 				},
 				
 				{
 					name: 'dateAssigned',
 					displayName: 'Date Assigned',
-					width:'10%'
+					width:'13%'
 				},
 				
 				{
 					name: 'eta',
 					displayName: 'ETA',
-					width:'10%'
+					width:'15%'
 				},
 				
 				
 				{
 					name:'documentType',
 					displayName: 'Document Type',
-					width:'10%'
+					width:'15%',
+					cellTooltip: function(row, col) {
+				        return 'Document Type: ' + row.entity.documentType;
+				      }
 				},
 
 				{
 					name:'referenceNumber',
 					displayName: 'Reference Number',
-					width:'15%'
+					width:'16%',
+					cellTooltip: function(row, col) {
+				        return 'Reference Number: ' + row.entity.referenceNumber;
+				      }
 				},
 				
 				{
 					name:'documentRemarks',
 					displayName: 'Document Remarks',
-					width:'20%'
+					width:'20%',
+					cellTooltip: function(row, col) {
+				        return 'Document Remarks: ' + row.entity.documentRemarks;
+				      }
 				},
 				{
 					name: 'documentPath',

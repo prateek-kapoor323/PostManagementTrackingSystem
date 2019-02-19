@@ -70,17 +70,23 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'senderName',
 					displayName: "Sender",
-					width: '15%'
+					width: '25%',
+					cellTooltip: function(row, col) {
+				        return 'Sender: ' + row.entity.senderName;
+				      }
 				},
 				{
 					name: 'dateReceived',
 					displayName: 'Date Received',
-					width: '10%'
+					width: '13%'
 				},
 				{
 					name: 'subject',
 					displayName: 'Subject',
-					width: '15%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Subject: ' + row.entity.subject;
+				      }
 				},
 				{
 					name: 'priority',
@@ -91,7 +97,10 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'ownerName',
 					displayName: 'Owner',
-					width: '10%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Owner: ' + row.entity.ownerName;
+				      }
 				},
 				{
 					name: 'updatedOwner',
@@ -108,7 +117,7 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'dateAssigned',
 					displayName: 'Date Assigned',
-					width: '15%'
+					width: '13%'
 				},
 				{
 					name: 'status',
@@ -123,12 +132,18 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'documentType',
 					displayName: 'Document Type',
-					width: '15%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Document Type: ' + row.entity.documentType;
+				      }
 				},
 				{
 					name: 'documentRemarks',
 					displayName: 'Document Remarks',
-					width: '15%'
+					width: '20%',
+					cellTooltip: function(row, col) {
+				        return 'Document Remarks: ' + row.entity.documentRemarks;
+				      }
 				},
 				{
 					name: 'documentPath',
@@ -298,17 +313,23 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'senderName',
 					displayName: "Sender",
-					width: '15%'
+					width: '25%',
+					cellTooltip: function(row, col) {
+				        return 'Sender: ' + row.entity.senderName;
+				      }
 				},
 				{
 					name: 'dateReceived',
 					displayName: 'Date Received',
-					width: '10%'
+					width: '13%'
 				},
 				{
 					name: 'subject',
 					displayName: 'Subject',
-					width: '15%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Subject: ' + row.entity.subject;
+				      }
 				},
 				{
 					name: 'priority',
@@ -319,13 +340,16 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'ownerName',
 					displayName: 'Owner',
-					width: '10%'
+					width: '12%',
+					cellTooltip: function(row, col) {
+				        return 'Owner: ' + row.entity.ownerName;
+				      }
 				},
 				
 				{
 					name: 'dateAssigned',
 					displayName: 'Date Assigned',
-					width: '15%'
+					width: '13%'
 				},
 				{
 					name: 'status',
@@ -352,12 +376,18 @@ departmentHeadEdit.controller("departmentHeadEditController", function ($scope, 
 				{
 					name: 'documentType',
 					displayName: 'Document Type',
-					width: '15%'
+					width: '15%',
+					cellTooltip: function(row, col) {
+				        return 'Document Type: ' + row.entity.documentType;
+				      }
 				},
 				{
 					name: 'documentRemarks',
 					displayName: 'Document Remarks',
-					width: '15%'
+					width: '20%',
+					cellTooltip: function(row, col) {
+				        return 'Document Remarks: ' + row.entity.documentRemarks;
+				      }
 				},
 				{
 					name: 'documentPath',

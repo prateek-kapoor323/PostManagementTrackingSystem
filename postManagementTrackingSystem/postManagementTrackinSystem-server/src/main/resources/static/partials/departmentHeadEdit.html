@@ -2,15 +2,15 @@
    <link href="css/departmentHeadEdit.css" type="text/css" rel="stylesheet">
 </head>
 <div class="wrapper-container" ng-controller="departmentHeadEditController">
-<p class="editApplicationsHeading">Edit Application Owner</p> 
+<p class="editApplicationsHeading">Edit Post Owner</p> 
 
  <div class="row">
    <!-- Search form starts here -->
       <form ng-submit="searchEditOwner()">
 		
 		<div class="col-md-6 editOwnerText">
-		<p class="enterApplicationIdText">Enter Application Id</p>
-		 <input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Application Id" name="applicationId"  ng-model="searchParams.applicationId" required>
+		<p class="enterApplicationIdText">Enter Post Id</p>
+		 <input type="text"  class="form-control applicationIdTextBox" id="applicationId" placeholder="Enter Post Id" name="applicationId"  ng-model="searchParams.applicationId" required>
 		</div>
 		<span class="col-md-6 editOwnerText">
 		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
@@ -27,14 +27,14 @@
    
    
    
-   <p class="editApplicationsEtaHeading">Edit Application ETA</p>
+   <p class="editApplicationsEtaHeading">Edit Post ETA</p>
     <div class="row">
    <!-- Search form starts here -->
       <form ng-submit="searchEditEta()">
 		
 		<div class="col-md-6 editOwnerText">
-		<p class="enterApplicationIdText">Enter Application Id</p>
-		 <input type="text"  class="form-control applicationIdTextBox" id="editEtaApplicationId" placeholder="Enter Application Id" name="editEtaApplicationId"  ng-model="editETA.editEtaApplicationId" required>
+		<p class="enterApplicationIdText">Enter Post Id</p>
+		 <input type="text"  class="form-control applicationIdTextBox" id="editEtaApplicationId" placeholder="Enter Post Id" name="editEtaApplicationId"  ng-model="editETA.editEtaApplicationId" required>
 		</div>
 		<span class="col-md-6 editOwnerText">
 		 <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
@@ -56,10 +56,10 @@
    
    
     <div class="row">
-      <p class="editApplicationDetailsText">Edit Application Details</p>
+      <p class="editApplicationDetailsText">Edit Post Details</p>
       <!--  This form is used to find the post details by selecting the POST ID and clicking on submit button -->
       <form class="updateApplicationDetails" ng-submit="searchPostDetailsUsingApplicationId()">
-         <input type="text" ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" placeholder="Enter Application Id"required>
+         <input type="text" ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" placeholder="Enter Post Id"required>
 
          <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
          <span class="Error">{{getDetailsErrorMessage}}</span>

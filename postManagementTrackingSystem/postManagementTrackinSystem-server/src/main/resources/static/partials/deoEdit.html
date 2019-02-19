@@ -4,13 +4,12 @@
 <div class="edit-page-wrapper" ng-controller="deoEditController">
    <p class="editPageHeading">Edit Posts</p>
    <div class="row">
-      <p class="editApplicationOwnerText">Edit Application Owner</p>
+      <p class="editApplicationOwnerText">Edit Post Owner</p>
       
       <!--  This form is used to update the owner of the POST  -->
       <form class="searchForm" ng-submit=getPostDetail()>
-         <select ng-model="searchParam.applicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
-            <option selected disabled value="">Select Application Id</option>
-         </select>
+         <input type="text" placeholder="Enter Post Id" ng-model="searchParam.applicationId" class="form-control applicationIdDropdown" required>
+         </input>
          <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
          <span class="Error">{{searchResultError}}</span>
          <span class="Error">{{mandatoryFeildsError}}</span>
@@ -23,13 +22,11 @@
       <div ui-grid="editPostDetail" class="grid grid-align" ui-grid-auto-resize></div>
    </div>
    <div class="row">
-      <p class="editApplicationDetailsText">Edit Application Details</p>
-      
+      <p class="editApplicationDetailsText">Edit Post Details</p>
       <!--  This form is used to find the post details by selecting the POST ID and clicking on submit button -->
       <form class="updateApplicationDetails" ng-submit="searchPostDetailsUsingApplicationId()">
-         <select ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown" ng-options="x for x in applicationId" required>
-            <option selected disabled value="">Select Application Id</option>
-         </select>
+         <input type="text" ng-model="searchParams.editApplicationId" class="form-control applicationIdDropdown"  placeholder="Enter Post Id" required>
+         </input>
          <button type="submit" class="btn btn-primary searchUsingApplicationId">Search</button>
          <span class="Error">{{getDetailsErrorMessage}}</span>
       </form>

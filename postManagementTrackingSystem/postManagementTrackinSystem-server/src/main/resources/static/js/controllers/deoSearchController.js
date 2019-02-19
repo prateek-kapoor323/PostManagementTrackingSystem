@@ -114,17 +114,23 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			{
 				name: 'senderName',
 				displayName: "Sender",
-				width: '15%'
+				width: '25%',
+				cellTooltip: function(row, col) {
+			        return 'Sender: ' + row.entity.senderName;
+			      }
 			},
 			{
 				name: 'dateReceived',
 				displayName: 'Date Received',
-				width: '15%'
+				width: '13%'
 			},
 			{
 				name: 'subject',
 				displayName: 'Subject',
-				width: '10%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'Subject: ' + row.entity.subject;
+			      }
 			},
 			{
 				name: 'priority',
@@ -134,22 +140,34 @@ deoSearch.controller("deoSearchController", function ($scope, $http, $timeout) {
 			{
 				name: 'documentType',
 				displayName: 'Document Type',
-				width: '15%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'Document Type: ' + row.entity.documentType;
+			      }
 			},
 			{
 				name: 'referenceNumber',
 				displayName: 'Reference Number',
-				width:'20%'
+				width:'16%',
+				cellTooltip: function(row, col) {
+			        return 'Reference Number: ' + row.entity.referenceNumber;
+			      }
 			},
 			{
 				name: 'name',
 				displayName: 'SCGJ POC',
-				width: '15%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'SCGJ POC: ' + row.entity.name;
+			      }
 			},
 			{
 				name: 'department',
 				displayName: 'Department',
-				width: '15%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'Department: ' + row.entity.department;
+			      }
 			},
 			{
 				name: 'documentPath',

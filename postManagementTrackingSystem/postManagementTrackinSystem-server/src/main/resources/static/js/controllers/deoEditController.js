@@ -67,36 +67,45 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 		columnDefs: [{
 				name: 'applicationId',
 				displayName: 'Post Id',
-				width: '12%'
+				width: '15%'
 			},
 			{
 				name: 'senderName',
 				displayName: "Sender",
-				width: '20%'
+				width: '25%',
+				cellTooltip: function(row, col) {
+			        return 'Sender: ' + row.entity.senderName;
+			      }
 			},
 			{
 				name: 'dateReceived',
 				displayName: 'Date Received',
-				width: '10%'
+				width: '13%'
 			},
 		
 			{
 				name: 'subject',
 				displayName: 'Subject',
-				width: '20%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'Subject: ' + row.entity.subject;
+			      }
 			},
 		
 			{
 				name: 'status',
 				displayName: 'Application Status',
-				width: '20%'
+				width: '15%'
 			},
 			
 			{
 				name: 'name',
 				enableCellEdit: true,
 				displayName: 'SCGJ POC',
-				width: '15%'
+				width: '15%',
+				cellTooltip: function(row, col) {
+			        return 'SCGJ POC: ' + row.entity.name;
+			      }
 
 			},
 			
@@ -111,7 +120,10 @@ deoEdit.controller("deoEditController", function ($scope, updatePostService,$htt
 			{
 				name: 'documentType',
 				displayName: 'Document Type',
-				width: '15%'
+				width: '20%',
+				cellTooltip: function(row, col) {
+			        return 'Document Type: ' + row.entity.documentType;
+			      }
 
 			},
 			
